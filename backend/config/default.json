@@ -1,0 +1,20 @@
+{
+  "host": "localhost",
+  "port": 9518,
+  "data_backend_host": "localhost",
+  "data_backend_port": 8000,
+  "public": "../public/",
+  "paginate": {
+    "default": 10,
+    "max": 50
+  },
+  "allowed_origins": "http://localhost:8080",
+  "mongodb": "mongodb://localhost:27017/nx_zhiyuan",
+  "student_groups": [
+    "T1",
+    "T2",
+    "T3",
+    "T3"
+  ],
+  "cookie_domain": "localhost"
+}

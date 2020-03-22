@@ -1,0 +1,9 @@
+version: '2'
+services:
+  data_backend:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "8000:8000"
