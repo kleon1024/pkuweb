@@ -1,0 +1,12 @@
+version: '2'
+services:
+  frontend:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    environment:
+      - VIRTURL_HOST=pkuzhiyuan.org
+      - LETSENCRYPT_HOST=pkuzhiyuan.org
+    volumes:
+      - $HOME/project/:/app/
