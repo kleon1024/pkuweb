@@ -1,17 +1,15 @@
-FROM node:8
+# build stage
+FROM node:lts-alpine as build-stage
+WORKDIR /app
+COPY package*.json ./
 
-LABEL maintainer "Li Ding<1995dingli@gmail.com>"
+RUN npm install && npm audit fix
+COPY . .
+RUN npm run build
 
-ADD ./* /app/frontend/
-
-WORKDIR /app/frontend/
-
-RUN npm run build ;\
-    npm rm src public
-
-EXPOSE 3001
-
-CMD ["npm", "serve"]
-
-
-
+# production stage
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY --from=build-stage /app/nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

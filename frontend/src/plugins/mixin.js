@@ -6,6 +6,9 @@ Vue.mixin({
       return 2019;
     },
     API_URL() {
+      if (process.env.NODE_ENV !== "production") {
+        return "/api"
+      }
       return process.env.VUE_APP_API_SERVER_URL;
     },
     SHORT_LIST_URL() {

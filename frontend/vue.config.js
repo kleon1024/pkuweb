@@ -15,6 +15,7 @@ module.exports = {
     if (process.env.NODE_ENV === "production") {
       // 为生产环境修改配置...
       config.mode = "production";
+      config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
     } else {
       // 为开发环境修改配置...
       config.mode = "development";
@@ -62,7 +63,7 @@ module.exports = {
   devServer: {
     open: process.platform === "darwin",
     host: "localhost",
-    port: 3001, //8080,
+    port: 3001,
     https: false,
     hotOnly: false,
     proxy: {

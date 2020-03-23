@@ -4,6 +4,7 @@ const logger = require('./logger');
 module.exports = function(app) {
   mongoose.connect(app.get('mongodb'), { useNewUrlParser: true }, err => {
     if (err) {
+      logger.error(`${app.get('mongodb')}`);
       logger.error(`Error connecting to Mongo: ${err.message}`);
       process.exit(1);
     }

@@ -1,12 +1,39 @@
-version: '2'
+version: '2' 
 services:
+  mongo:
+      restart: always
+      build:
+        dockerfile: Dockerfile
+        context: ./mongo
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=tCaJXhP77xdKR4Y7
+        - MONGO_INITDB_DATABASE=nx_zhiyuan
+      volumes:
+        - "./mongodb/:/data/db/"
+      ports:
+        - "27017:27017"
+
   frontend:
     restart: always
     build:
       dockerfile: Dockerfile
       context: ./frontend
     environment:
-      - VIRTURL_HOST=pkuzhiyuan.org
-      - LETSENCRYPT_HOST=pkuzhiyuan.org
-    volumes:
-      - $HOME/project/:/app/
+      - VIRTUAL_HOST=pku.kleon.space
+      - LETSENCRYPT_HOST=pku.kleon.space
+      - LETSENCRYPT_EMAIL=dingli.cm@gmail.com
+      - NODE_ENV=production
+      - VUE_APP_API_SERVER_URL=api.kleon.space
+
+  backend:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+    environment:
+      - VIRTUAL_HOST=api.kleon.space
+      - LETSENCRYPT_HOST=api.kleon.space
+      - LETSENCRYPT_EMAIL=dingli.cm@gmail.com
+      - NODE_ENV=production
+

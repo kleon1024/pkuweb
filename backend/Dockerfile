@@ -1,13 +1,13 @@
-FROM node:8
+FROM node:10
 
 WORKDIR /app/api
 
-COPY package.json ./
+COPY package*.json ./
 
 RUN npm install && npm audit fix
 
-ADD public public
+COPY . .
 
-EXPOSE 10371
+EXPOSE 9518
 
-CMD ["npm", "start"]
+CMD npm start
