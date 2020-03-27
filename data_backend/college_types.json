@@ -1,0 +1,42 @@
+[
+    {
+        "key": "A",
+        "description": "综合类"
+    },
+    {
+        "key": "B",
+        "description": "理工类"
+    },
+    {
+        "key": "C",
+        "description": "财经类"
+    },
+    {
+        "key": "D",
+        "description": "师范类"
+    },
+    {
+        "key": "E",
+        "description": "语言类"
+    },
+    {
+        "key": "F",
+        "description": "政法类"
+    },
+    {
+        "key": "G",
+        "description": "林业，农业类"
+    },
+    {
+        "key": "H",
+        "description": "民族类"
+    },
+    {
+        "key": "I",
+        "description": "体育类"
+    },
+    {
+        "key": "J",
+        "description": "医药类"
+    }
+]

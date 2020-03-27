@@ -1,18 +1,18 @@
 version: '2' 
 services:
   mongo:
-      restart: always
-      build:
-        dockerfile: Dockerfile
-        context: ./mongo
-      environment:
-        - MONGO_INITDB_ROOT_USERNAME=root
-        - MONGO_INITDB_ROOT_PASSWORD=tCaJXhP77xdKR4Y7
-        - MONGO_INITDB_DATABASE=nx_zhiyuan
-      volumes:
-        - "./mongodb/:/data/db/"
-      ports:
-        - "27017:27017"
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=tCaJXhP77xdKR4Y7
+      - MONGO_INITDB_DATABASE=nx_zhiyuan
+    volumes:
+      - "./mongodb/:/data/db/"
+    ports:
+      - "27017:27017"
 
   frontend:
     restart: always
@@ -25,6 +25,8 @@ services:
       - LETSENCRYPT_EMAIL=dingli.cm@gmail.com
       - NODE_ENV=production
       - VUE_APP_API_SERVER_URL=api.kleon.space
+    ports:
+      - "80:80"
 
   backend:
     restart: always
@@ -36,4 +38,18 @@ services:
       - LETSENCRYPT_HOST=api.kleon.space
       - LETSENCRYPT_EMAIL=dingli.cm@gmail.com
       - NODE_ENV=production
+    ports:
+      - "9518:9518"
 
+  data_backend:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./data_backend
+    environment:
+      - VIRTUAL_HOST=data.kleon.space
+      - LETSENCRYPT_HOST=data.kleon.space
+      - LETSENCRYPT_EMAIL=dingli.cm@gmail.com
+      - API_ENV=production
+    ports:
+      - "8000:8000"

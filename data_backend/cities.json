@@ -1,0 +1,207 @@
+[
+    {
+        "key": "A",
+        "description": "特大城市（北京，上海，广州，深圳）",
+        "options": [
+            {
+                "city_code": "1101",
+                "city": "北京"
+            },
+            {
+                "city_code": "3101",
+                "city": "上海"
+            },
+            {
+                "city_code": "4401",
+                "city": "广州"
+            },
+            {
+                "city_code": "4403",
+                "city": "深圳"
+            }
+        ]
+    },
+    {
+        "key": "B",
+        "description": "北方近海主要城市（天津，大连，秦皇岛，烟台，青岛）",
+        "options": [
+            {
+                "city_code": "2102",
+                "city": "大连"
+            },
+            {
+                "city_code": "1303",
+                "city": "秦皇岛"
+            },
+            {
+                "city_code": "1201",
+                "city": "天津"
+            },
+            {
+                "city_code": "3706",
+                "city": "烟台"
+            },
+            {
+                "city_code": "3702",
+                "city": "青岛"
+            }
+        ]
+    },
+    {
+        "key": "C",
+        "description": "南方近海主要城市（厦门，珠海，杭州，苏州，宁波）",
+        "options": [
+            {
+                "city_code": "3502",
+                "city": "厦门"
+            },
+            {
+                "city_code": "4404",
+                "city": "珠海"
+            },
+            {
+                "city_code": "3205",
+                "city": "苏州"
+            },
+            {
+                "city_code": "3301",
+                "city": "杭州"
+            },
+            {
+                "city_code": "3302",
+                "city": "宁波"
+            }
+        ]
+    },
+    {
+        "key": "D",
+        "description": "南方其它主要城市（南京，南昌，长沙，常州，镇江）",
+        "options": [
+            {
+                "city_code": "3201",
+                "city": "南京"
+            },
+            {
+                "city_code": "3601",
+                "city": "南昌"
+            },
+            {
+                "city_code": "4301",
+                "city": "长沙"
+            },
+            {
+                "city_code": "3204",
+                "city": "常州"
+            },
+            {
+                "city_code": "3211",
+                "city": "镇江"
+            }
+        ]
+    },
+    {
+        "key": "E",
+        "description": "北方其它主要城市（哈尔滨，沈阳，济南，石家庄，长春）",
+        "options": [
+            {
+                "city_code": "2301",
+                "city": "哈尔滨"
+            },
+            {
+                "city_code": "2101",
+                "city": "沈阳"
+            },
+            {
+                "city_code": "1301",
+                "city": "石家庄"
+            },
+            {
+                "city_code": "3701",
+                "city": "济南"
+            },
+            {
+                "city_code": "2201",
+                "city": "长春"
+            }
+        ]
+    },
+    {
+        "key": "F",
+        "description": "西北主要城市（西安，兰州，银川，乌鲁木齐，西宁",
+        "options": [
+            {
+                "city_code": "6101",
+                "city": "西安"
+            },
+            {
+                "city_code": "6201",
+                "city": "兰州"
+            },
+            {
+                "city_code": "6401",
+                "city": "银川"
+            },
+            {
+                "city_code": "6501",
+                "city": "乌鲁木齐"
+            },
+            {
+                "city_code": "6301",
+                "city": "西宁"
+            }
+        ]
+    },
+    {
+        "key": "G",
+        "description": "西南主要城市（重庆，成都，昆明，贵阳，南宁）",
+        "options": [
+            {
+                "city_code": "5001",
+                "city": "重庆"
+            },
+            {
+                "city_code": "5101",
+                "city": "成都"
+            },
+            {
+                "city_code": "5301",
+                "city": "昆明"
+            },
+            {
+                "city_code": "5201",
+                "city": "贵阳"
+            },
+            {
+                "city_code": "4501",
+                "city": "南宁"
+            }
+        ]
+    },
+    {
+        "key": "H",
+        "description": "中部主要城市（合肥，郑州，太原，武汉）",
+        "options": [
+            {
+                "city_code": "3401",
+                "city": "合肥"
+            },
+            {
+                "city_code": "4101",
+                "city": "郑州"
+            },
+            {
+                "city_code": "1401",
+                "city": "太原"
+            },
+            {
+                "city_code": "4201",
+                "city": "武汉"
+            }
+        ]
+    },
+    {
+        "key": "I",
+        "description": "其他",
+        "options": []
+    }
+]
