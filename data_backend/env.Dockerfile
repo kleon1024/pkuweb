@@ -1,5 +1,7 @@
 FROM trestletech/plumber
 
+ADD sources.list /etc/apt/sources.list
+
 RUN rm -rf /etc/apt/sources.list.d/
 
 RUN apt-get update && apt-get install -y libxml2-dev libssl-dev

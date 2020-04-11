@@ -7,34 +7,36 @@ on:
     branches: [ master ]
 
 jobs:
+  database:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: mongo
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: dockerkleon/pkuweb
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        context: mongo
+        tags: "mongo"     
+
   frontend:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    # - name: mongo
-    #   uses: elgohr/Publish-Docker-Github-Action@master
-    #   with:
-    #     name: dockerkleon/pkuweb
-    #     username: ${{ secrets.DOCKER_USERNAME }}
-    #     password: ${{ secrets.DOCKER_PASSWORD }}
-    #     context: mongo
-    #     tags: "mongo" 
-    # - name: frontend
-    #   uses: elgohr/Publish-Docker-Github-Action@master
-    #   with:
-    #     name: dockerkleon/pkuweb
-    #     username: ${{ secrets.DOCKER_USERNAME }}
-    #     password: ${{ secrets.DOCKER_PASSWORD }}
-    #     context: frontend
-    #     tags: "frontend"
-    # - name: backend
-    #   uses: elgohr/Publish-Docker-Github-Action@master
-    #   with:
-    #     name: dockerkleon/pkuweb
-    #     username: ${{ secrets.DOCKER_USERNAME }}
-    #     password: ${{ secrets.DOCKER_PASSWORD }}
-    #     context: backend
-    #     tags: "backend"
+    - name: frontend
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: dockerkleon/pkuweb
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        context: frontend
+        tags: "frontend"
+
+  data_backend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     - name: r_env
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
@@ -43,7 +45,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         context: data_backend
         dockerfile: data_backend/env.Dockerfile
-        tags: "r_env"
+        tags: "r_env"  
     - name: data_backend
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
@@ -52,3 +54,18 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         context: data_backend
         tags: "data_backend" 
+ 
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2        
+    - name: backend
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: dockerkleon/pkuweb
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        context: backend
+        tags: "backend"
+
+
