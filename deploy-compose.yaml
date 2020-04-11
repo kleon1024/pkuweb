@@ -1,0 +1,95 @@
+version: '3'
+
+services:
+  nginx-proxy:
+    restart: always
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/etc/nginx/vhost.d"
+      - "/usr/share/nginx/html"
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - "/etc/nginx/certs"
+
+  letsencrypt:
+    restart: always
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    volumes_from:
+      - "nginx-proxy"
+
+  mongo:
+    restart: always
+    image: dockerkleon/pkuweb:mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=tCaJXhP77xdKR4Y7
+      - MONGO_INITDB_DATABASE=nx_zhiyuan
+    volumes:
+      - "./mongodb/:/data/db/"
+    ports:
+      - "27017:27017"
+    depends_on:
+      - nginx-proxy
+      - letsencrypt
+
+  frontend:
+    restart: always
+    image: dockerkleon/pkuweb:frontend
+    environment:
+      - VIRTUAL_HOST=pku.kleon.space
+      - LETSENCRYPT_HOST=pku.kleon.space
+      - LETSENCRYPT_EMAIL=dingli.cm@gmail.com
+      - NODE_ENV=production
+      - VUE_APP_API_SERVER_URL=api.kleon.space
+      - BASE_URL=pku.kleon.space
+    depends_on:
+      - nginx-proxy
+      - letsencrypt
+
+  backend:
+    restart: always
+    image: dockerkleon/pkuweb:backend
+    environment:
+      - VIRTUAL_HOST=api.kleon.space
+      - LETSENCRYPT_HOST=api.kleon.space
+      - LETSENCRYPT_EMAIL=dingli.cm@gmail.com
+      - NODE_ENV=production
+    depends_on:
+      - nginx-proxy
+      - letsencrypt
+      - mongo
+
+  data_backend:
+    restart: always
+    image: dockerkleon/pkuweb:data_backend
+    environment:
+      - API_ENV=roduction
+    depends_on:
+      - nginx-proxy
+      - letsencrypt
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+      - ME_CONFIG_BASICAUTH_USERNAME=mongo
+      - ME_CONFIG_BASICAUTH_PASSWORD=pku2020
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=tCaJXhP77xdKR4Y7
+      - VIRTUAL_HOST=mongo.kleon.space
+      - LETSENCRYPT_HOST=mongo.kleon.space
+      - LETSENCRYPT_EMAIL=dingli.cm@gmail.com
+    depends_on:
+      - nginx-proxy
+      - letsencrypt
+      - mongo
