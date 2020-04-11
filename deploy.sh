@@ -4,7 +4,7 @@ if [ ! -d "mongodb" ]; then
     docker-compose -f deploy-compose.yml up -d
     sleep 5s
     echo "initializing mongodb"
-    docker exec project_mongo_1 mongoimport --username root --password tCaJXhP77xdKR4Y7 \
+    docker exec pkuweb_mongo_1 mongoimport --username root --password tCaJXhP77xdKR4Y7 \
         -d nx_zhiyuan -c users --file /init/nx_students.json --jsonArray
 else
     echo "found existed mongodb"
