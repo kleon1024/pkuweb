@@ -1,1 +1,1 @@
-docker rm -fv project_mongo_1 project_mongo-express_1 project_data_backend_1 project_backend_1 project_frontend_1
+docker-compose -f deploy-compose.yml down

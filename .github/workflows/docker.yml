@@ -68,4 +68,18 @@ jobs:
         context: backend
         tags: "backend"
 
-
+  deploy:
+    needs: [ frontend, backend, data_backend, database ]
+    runs-on: ubuntu-latest
+    steps:
+    - name: deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        script_stop: true
+        script: |
+          cd pkuweb
+          git pull
+          sudo sh deploy.sh
