@@ -1,4 +1,4 @@
-FROM dockerkleon/pku_web:r_env
+FROM dockerkleon/pkuweb:r_env
 
 ADD ./ /app/data_backend/
 

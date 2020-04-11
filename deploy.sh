@@ -1,5 +1,5 @@
 docker-compose -f nginx-compose.yml up -d
-docker-compose -f deploy-compose.yml pull -d
+docker-compose -f deploy-compose.yml pull
 if [ ! -d "mongodb" ]; then
     docker-compose -f deploy-compose.yml up -d
     sleep 5s
