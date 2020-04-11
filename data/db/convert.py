@@ -8,7 +8,7 @@ users = []
 
 for r in nx_students.iterrows():
     d = {}
-    d['gaokao_id'] = r[1][0]
+    d['gaokao_id'] = str(r[1][0])
     t = r[1][1].split('/')
     d['birthdate'] = "".join([t[2], t[0], t[1]])
     users.append(d)
