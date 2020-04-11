@@ -17,6 +17,11 @@ convert_equiv_score <- function(student_info, to_year = APP_YEAR - 1) {
   student_class_selection <- student_info$class_selection
   student_score <- student_info$score
 
+  print(class(student_class_selection))
+  print(student_class_selection)
+  print(class(to_year))
+  print(to_year)
+
   converted_score <- EQUIV_SCORES[
     .(student_class_selection, to_year)
   ][
@@ -234,15 +239,20 @@ get_college_short_list <- function(student_info, answers) {
   colleges_with_rating <- college_qualities_per_answers %>%
     select(college_code, college_overall_rating)
 
+  print("1")
+
   # 转换出考生去年
   equiv_score_l0 <- convert_equiv_score(student_info)
+  print("2")
   # 和前年的等位分
   equiv_score_l1 <- convert_equiv_score(student_info, APP_YEAR - 2)
+  print("3")
 
   candidate_colleges <- search_colleges(equiv_score_l0, equiv_score_l1, student_info$class_selection) %>%
     inner_join(colleges_with_rating, by = "college_code") %>%
     arrange(desc(college_overall_rating)) %>%
     mutate(row_number = row_number())
+  print("4")
 
   risk_candidates <- candidate_colleges %>%
     filter(strategy == "冲")
@@ -250,6 +260,8 @@ get_college_short_list <- function(student_info, answers) {
     filter(strategy == "稳")
   safe_candidates <- candidate_colleges %>%
     filter(strategy == "保")
+
+  print("5")
 
   risk_colleges <- risk_candidates %>%
     slice(1:RISK_NUMBER[2]) %>% # 备选10所
@@ -281,6 +293,7 @@ get_college_short_list <- function(student_info, answers) {
 }
 
 get_college_admins <- function(student_info = NULL) {
+  print(COLLEGE_ADMINS)
   COLLEGE_ADMINS %>%
     select(-one_of(c("class_selection", "tier", "tier_code", "ranking", "quota", "quota_l1"))) %>%
     distinct(college_code, campus_code, .keep_all = TRUE)

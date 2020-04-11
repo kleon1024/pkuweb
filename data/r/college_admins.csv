@@ -1,4 +1,4 @@
-,college,college_code,campus_code,full_name,class_selection,tier,tier_code,ranking,admission_mean_score,admission_max_score,admission_min_score,quota,admission_mean_score_l1,admission_max_score_l1,admission_min_score_l1,quota_l1
+﻿,college,college_code,campus_code,full_name,class_selection,tier,tier_code,ranking,admission_mean_score,admission_max_score,admission_min_score,quota,admission_mean_score_l1,admission_max_score_l1,admission_min_score_l1,quota_l1
 0,三峡大学,4142011075,0,三峡大学,1,本科一批,tier_4_1,249,493,534,476,42,466.0,511.0,452.0,43.0
 1,上海交通大学,4131010248,1,上海交通大学(医学院),1,本科一批,tier_4_1,7,652,657,646,4,625.0,630.0,620.0,4.0
 2,上海交通大学,4131010248,0,上海交通大学,1,本科一批,tier_4_1,6,667,673,661,5,645.0,652.0,640.0,10.0

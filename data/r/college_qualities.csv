@@ -1,4 +1,4 @@
-,college,college_code,type,tier,tier_code,province,province_code,city,city_code,qual_student_standardized,qual_graduate_standardized,qual_reputation_standardized,qual_research_standardized,grad_sch,col_985,col_211,first_tier
+﻿,college,college_code,type,tier,tier_code,province,province_code,city,city_code,qual_student_standardized,qual_graduate_standardized,qual_reputation_standardized,qual_research_standardized,grad_sch,col_985,col_211,first_tier
 0,北京大学,4111010001,综合类,本科,tier_4,北京市,11,北京市,1101,2.4571043,0.36025816,1.599493,1.8969034,1,1,1,1
 1,中国人民大学,4111010002,综合类,本科,tier_4,北京市,11,北京市,1101,2.0847323,0.34874395,1.0102742,0.96257632,1,1,1,1
 2,清华大学,4111010003,理工类,本科,tier_4,北京市,11,北京市,1101,2.6964863,0.36601526,1.7429115,2.1764357,1,1,1,1

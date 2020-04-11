@@ -46,7 +46,7 @@ export default new Vuex.Store({
       state.zhiyuanColleges = null;
       if (process.env.NODE_ENV === "production") {
         cookies.remove("SIMIN-NX-SESSION", { // when removing session, needes exact options
-          domain: ".pkuzhiyuan.org",
+          domain: ".kleon.space",
           path: "/"
         });
       } else {
@@ -110,7 +110,7 @@ export default new Vuex.Store({
       if (existingSession) {
         cookies.set("SIMIN-NX-SESSION", existingSession, {
           expires: 1, // valid for 24 hours
-          domain: ".pkuzhiyuan.org",
+          domain: ".kleon.space",
           path: "/"
         });
       }
