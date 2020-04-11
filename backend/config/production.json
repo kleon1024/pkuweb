@@ -1,8 +1,8 @@
 {
-  "host": "api.kleon.space",
+  "host": "api.chainmore.fun",
   "data_backend_host": "data_backend",
   "data_backend_port": 8000,
-  "allowed_origins": "https://pku.kleon.space",
+  "allowed_origins": "https://pku.chainmore.fun",
   "mongodb": "mongodb://root:tCaJXhP77xdKR4Y7@mongo:27017/nx_zhiyuan",
-  "cookie_domain": "\\.kleon.space"
+  "cookie_domain": "\\.chainmore.fun"
 }
