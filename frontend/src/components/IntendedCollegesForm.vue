@@ -1,18 +1,14 @@
 <template>
   <div>
+    <el-progress :percentage="30" :format="format"></el-progress>
     <center>
       <h2>填写模拟志愿</h2>
     </center>
     <section>
       <p>下面，请你根据自己的信息和推荐的名单选择第一批次（非定向）的志愿院校（注意：在此阶段，为简化填报志愿的难度，现在你只需要填写院校名称，专业名称暂时不需要在系统里填写）。</p>
-      <p class="em-text">
-        模拟志愿的填写有助于我们对你的志愿报考进行更有针对性的辅导，请认真填写。
-      </p>
+      <p class="em-text">模拟志愿的填写有助于我们对你的志愿报考进行更有针对性的辅导，请认真填写。</p>
       <p>只准备填报三个院校的同学不须填写 D 院校；为了能使我们对志愿报考进行更有针对性的辅导，请至少填写三个学校。</p>
-      <FillableZhiyuanForm
-        v-model="selectedColleges"
-        show-all-colleges
-      />
+      <FillableZhiyuanForm v-model="selectedColleges" show-all-colleges />
       <el-alert
         v-show="numberOfSelectedColleges <= 3"
         type="error"
@@ -42,16 +38,8 @@
           <strong>你的回答还能有助于我们发现人们对录取规则理解的偏差，从而可以使得我们能够进行更有针对性的辅导。因此，我们希望你在这些题中认真阅读题目，尽力得到准确的答案。</strong>
         </p>
       </div>
-      <div
-        align="right"
-        style="margin-top: 20px;"
-      >
-        <el-button
-          type="primary"
-          @click.stop="submitIntendedCollegesForm"
-        >
-          下一步
-        </el-button>
+      <div align="right" style="margin-top: 20px;">
+        <el-button type="primary" @click.stop="submitIntendedCollegesForm">下一步</el-button>
       </div>
     </section>
   </div>
@@ -81,15 +69,19 @@ export default {
       return this.selectedColleges.length;
     },
     zhiyuanFormHint() {
-      const dp1 = this.numberOfSelectedColleges < 3 ? "请至少填写三个院校！" : "你只准备填报三个院校么？";
-      return `${dp1}请注意，一本录取规则是“分数优先，遵循志愿”。因为院校在录取的时候只会考虑你的分数，不会因为 B, C, D 院校在你的志愿表上位置较低而不去录取你。也就是说，B, C, D 院校享受和 A 院校同样的优先录取权！`
+      const dp1 =
+        this.numberOfSelectedColleges < 3
+          ? "请至少填写三个院校！"
+          : "你只准备填报三个院校么？";
+      return `${dp1}请注意，一本录取规则是“分数优先，遵循志愿”。因为院校在录取的时候只会考虑你的分数，不会因为 B, C, D 院校在你的志愿表上位置较低而不去录取你。也就是说，B, C, D 院校享受和 A 院校同样的优先录取权！`;
     }
   },
   methods: {
+    format(percentage) {
+      return "3-1";
+    },
     submitIntendedCollegesForm() {
-      if (
-        this.numberOfSelectedColleges >= 3
-      ) {
+      if (this.numberOfSelectedColleges >= 3) {
         this.$emit("intendedCollegesFormDone", this.selectedColleges);
       } else {
         this.$alert("请至少填写三个院校！", "请注意", {

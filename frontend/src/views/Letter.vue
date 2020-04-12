@@ -1,5 +1,5 @@
 <template>
-  <!-- <el-card>
+  <el-card>
     <div slot="header">
       <el-row>
         <span class="card-title">致宁夏2019届考生的一封信</span>
@@ -17,8 +17,7 @@
       :src="require('@/assets/nx_letter.png')"
       width="100%"
     >
-  </el-card> -->
-  <BasicInfo />
+  </el-card>
 </template>
 
 <script>

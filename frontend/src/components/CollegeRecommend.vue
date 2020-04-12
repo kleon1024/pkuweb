@@ -18,10 +18,7 @@
       status-icon
     >
       <h4>1. 请问你想查看的是什么类型的院校</h4>
-      <el-form-item
-        prop="collegeType"
-        label-width="0"
-      >
+      <el-form-item prop="collegeType" label-width="0">
         <el-select
           v-model="collegeRecommendForm.collegeType"
           style="width: 100%;"
@@ -42,10 +39,7 @@
         :closable="false"
         show-icon
       />
-      <div
-        v-if="['C', 'D', 'E'].includes(collegeRecommendForm.collegeType)"
-        class="danger"
-      >
+      <div v-if="['C', 'D', 'E'].includes(collegeRecommendForm.collegeType)" class="danger">
         <div>本网站主要针对一批次志愿填报。其它批次志愿填报的辅导请访问斯民教育。进入斯民教育网站并选择生源地为宁夏后，将会验证你的考生号和生日，验证成功即可免费使用。</div>
         <div align="right">
           <el-button
@@ -53,9 +47,7 @@
             class="redirect-button action-button"
             plain
             @click.stop="redirectUserToSimin"
-          >
-            点击进入斯民教育
-          </el-button>
+          >点击进入斯民教育</el-button>
         </div>
       </div>
       <div v-else>
@@ -89,9 +81,7 @@
               class="action-button"
               type="primary"
               @click.stop="submitCollegeRecommend"
-            >
-              下一步
-            </el-button>
+            >下一步</el-button>
           </div>
         </section>
       </div>
@@ -187,16 +177,20 @@ export default {
   },
   methods: {
     format(percentage) {
-      return "1-2";
+      return "2-1";
     },
     submitCollegeRecommend() {
       this.$emit("collegeRecommendDone");
     },
     redirectUserToSimin() {
       if (this.chosenCollegeType) {
-        request.post(`${this.API_URL}/student-redirected`, {
-          reason: this.chosenCollegeType
-        }, () => {});
+        request.post(
+          `${this.API_URL}/student-redirected`,
+          {
+            reason: this.chosenCollegeType
+          },
+          () => {}
+        );
       }
       window.open(
         "https://siminedu.com/simin/client/user/userReg.html",
