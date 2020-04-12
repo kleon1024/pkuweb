@@ -3,10 +3,15 @@ import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import cookies from "js-cookie";
 
+import SecureLS from "secure-ls";
+var ls = new SecureLS({ isCompression: false });
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    majorStep: 1,
+    minorStep: 1,
     loginUser: {
       gaokao_id: null,
       birthdate: null,
@@ -17,10 +22,13 @@ export default new Vuex.Store({
     intendedColleges: null,
     intendedAndRecommendedColleges: null,
     zhiyuanQuizAnswers: null,
+    zhiyuanSatisfactionAssessAnswers: null,
+    otherZhiyuanSatisfactionAssessAnswers: null,
+    whatthefuckAnswers: 1,
     zhiyuanSurveyAnswers: null,
     otherCollegesInfo: null,
     zhiyuanGuideAnswers: null,
-    zhiyuanColleges: null
+    zhiyuanColleges: null,
   },
   mutations: {
     setUser(state, data) {
@@ -32,6 +40,8 @@ export default new Vuex.Store({
     },
 
     clearUser(state) {
+      state.majorStep = 1;
+      state.minorStep = 1;
       state.loginUser.gaokao_id = null;
       state.loginUser.birthdate = null;
       state.loginUser.assigned_group = null;
@@ -40,6 +50,8 @@ export default new Vuex.Store({
       state.intendedColleges = null;
       state.intendedAndRecommendedColleges = null;
       state.zhiyuanQuizAnswers = null;
+      state.zhiyuanSatisfactionAssessAnswers = null;
+      state.otherZhiyuanSatisfactionAssessAnswers = null;
       state.zhiyuanSurveyAnswers = null;
       state.otherCollegesInfo = null;
       state.zhiyuanGuideAnswers = null;
@@ -52,6 +64,10 @@ export default new Vuex.Store({
       } else {
         cookies.remove("SIMIN-NX-SESSION");
       }
+    },
+    saveStep(state, step) {
+      state.majorStep = step[0];
+      state.minorStep = step[1];
     },
     updateBasicInfo(state, basicInfo) {
       state.loginUser.basic_info = basicInfo;
@@ -80,6 +96,12 @@ export default new Vuex.Store({
     },
     storeZhiyuanQuizAnswers(state, answers) {
       state.zhiyuanQuizAnswers = answers;
+    },
+    storeZhiyuanSatisfactionAssessAnswers(state, answers) {
+      state.zhiyuanSatisfactionAssessAnswers = answers;
+    },
+    storeOtherZhiyuanSatisfactionAssessAnswers(state, answers) {
+      state.otherZhiyuanSatisfactionAssessAnswers = answers;
     },
     storeZhiyuanSurveyAnswers(state, answers) {
       state.zhiyuanSurveyAnswers = answers;
@@ -119,15 +141,25 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       paths: [
+        "majorStep",
+        "minorStep",
         "loginUser",
+        "whatthefuckAnswers",
         "intendedColleges",
         "intendedAndRecommendedColleges",
         "zhiyuanQuizAnswers",
+        "zhiyuanSatisfactionAssessAnswers",
+        "otherZhiyuanSatisfactionAssessAnswers",
         "zhiyuanSurveyAnswers",
         "otherCollegesInfo",
         "zhiyuanGuideAnswers",
         "zhiyuanColleges"
-      ]
+      ],
+      // storage: {
+      //   getItem: (key) => ls.get(key),
+      //   setItem: (key, value) => ls.set(key, value),
+      //   removeItem: (key) => ls.remove(key),
+      // },
     })
   ]
 });

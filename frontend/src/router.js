@@ -41,11 +41,12 @@ const router = new Router({
 });
 
 router.beforeEach((to, _from, next) => {
-  const sessionId = cookies.get("SIMIN-NX-SESSION");
-  if (!sessionId) {
-    // session cookie lost or expired
-    store.commit("clearUser"); // remove the store user information
-  }
+  // const sessionId = cookies.get("SIMIN-NX-SESSION");
+  // if (!sessionId) {
+  //   // session cookie lost or expired
+  //   store.commit("clearUser"); // remove the store user information
+  // }
+  var sessionId = true;
   if (to.path === "/") {
     next("/letter");
     return;
@@ -54,7 +55,6 @@ router.beforeEach((to, _from, next) => {
     next(); // always allow accessing help page
   } else {
     const user = store.state.loginUser;
-
     if (sessionId && user) {
       if (to.path === "/login") {
         // no longer need authentication

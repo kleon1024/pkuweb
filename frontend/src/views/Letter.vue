@@ -22,28 +22,28 @@
 
 <script>
 import { mapState } from "vuex";
-import BasicInfo from "@/components/BasicInfo";
-import CollegeRecommend from "@/components/CollegeRecommend";
-import IntendedCollegesForm from "@/components/IntendedCollegesForm";
-import ZhiyuanQuizNavigation from "@/components/zhiyuan_quiz/Navigation";
-import ZhiyuanSurveyNavigation from "@/components/zhiyuan_survey/Navigation";
-import OtherCollegesNavigation from "@/components/other_colleges/Navigation";
-import AdmissionScoresInfoNavigation from "@/components/admission_scores_info/Navigation";
-import ZhiyuanGuideNavigation from "@/components/zhiyuan_guide/Navigation";
-import ZhiyuanSubmissionNavigation from "@/components/zhiyuan_submission/Navigation";
+// import BasicInfo from "@/components/BasicInfo";
+// import CollegeRecommend from "@/components/CollegeRecommend";
+// import IntendedCollegesForm from "@/components/IntendedCollegesForm";
+// import ZhiyuanQuizNavigation from "@/components/zhiyuan_quiz/Navigation";
+// import ZhiyuanSurveyNavigation from "@/components/zhiyuan_survey/Navigation";
+// import OtherCollegesNavigation from "@/components/other_colleges/Navigation";
+// import AdmissionScoresInfoNavigation from "@/components/admission_scores_info/Navigation";
+// import ZhiyuanGuideNavigation from "@/components/zhiyuan_guide/Navigation";
+// import ZhiyuanSubmissionNavigation from "@/components/zhiyuan_submission/Navigation";
 
 export default {
-  components: {
-    BasicInfo,
-    CollegeRecommend,
-    IntendedCollegesForm,
-    ZhiyuanQuizNavigation,
-    ZhiyuanSurveyNavigation,
-    OtherCollegesNavigation,
-    AdmissionScoresInfoNavigation,
-    ZhiyuanGuideNavigation,
-    ZhiyuanSubmissionNavigation
-  },
+  // components: {
+  //   BasicInfo,
+  //   CollegeRecommend,
+  //   IntendedCollegesForm,
+  //   ZhiyuanQuizNavigation,
+  //   ZhiyuanSurveyNavigation,
+  //   OtherCollegesNavigation,
+  //   AdmissionScoresInfoNavigation,
+  //   ZhiyuanGuideNavigation,
+  //   ZhiyuanSubmissionNavigation
+  // },
   
   methods: {
     gotoZhiyuan() {
