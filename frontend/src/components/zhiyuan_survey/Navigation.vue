@@ -4,13 +4,10 @@
       <h2>录取满意程度</h2>
     </center>
     <div v-if="curStep === 1">
-      <ZhiyuanSurveyPreTest @preTestDone="curStep = 2" />
-    </div>
-    <div v-if="curStep === 2">
       <ZhiyuanSurveyCollegeSatisfaction @collegeSatisfactionDone="collegeSatisfactionDone" />
     </div>
-    <div v-if="curStep === 3">
-      <ZhiyuanSurveyCollegeOrderEvaluation @collegeOrderEvaluationDone="collegeOrderEvaluationDone" />
+    <div v-if="curStep === 2">
+      <ZhiyuanSurveyOtherCollegeSatisfaction @satisfactionsDone="satisfactionsDone" />
     </div>
   </div>
 </template>
@@ -18,18 +15,20 @@
 <script>
 import ZhiyuanSurveyPreTest from "./PreTest";
 import ZhiyuanSurveyCollegeSatisfaction from "./CollegeSatisfaction";
-import ZhiyuanSurveyCollegeOrderEvaluation from "./CollegeOrderEvaluation";
+import ZhiyuanSurveyOtherCollegeSatisfaction from "./OtherCollegeSatisfaction";
 
 export default {
   name: "ZhiyuanSurveyNavigation",
   components: {
     ZhiyuanSurveyPreTest,
     ZhiyuanSurveyCollegeSatisfaction,
-    ZhiyuanSurveyCollegeOrderEvaluation
+    ZhiyuanSurveyOtherCollegeSatisfaction
+  },
+  computed: {
+    ...mapState(["intendedColleges"])
   },
   data() {
     return {
-      satisfactions: null,
       curStep: 1
     };
   },
@@ -40,7 +39,7 @@ export default {
   },
   mounted() {
     if (this.satisfactions) {
-      this.curStep = 3;
+      this.curStep = 2;
     }
     this.scrollToTop();
   },
@@ -51,13 +50,15 @@ export default {
       });
     },
     collegeSatisfactionDone(satisfactions) {
-      this.satisfactions = satisfactions;
+      this.$emit('saveSatisfactions', {
+        satisfactions: satisfactions,
+      });
       this.curStep += 1;
     },
-    collegeOrderEvaluationDone(collegeCompareAnswers) {
+    satisfactionsDone(satisfactions) {
       this.$emit('zhiyuanSurveyDone', {
         satisfactions: this.satisfactions,
-        college_order_answers: collegeCompareAnswers
+        college_order_answers: satisfactions
       });
     }
   }

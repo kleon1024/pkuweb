@@ -82,7 +82,8 @@ export default {
     },
     submitIntendedCollegesForm() {
       if (this.numberOfSelectedColleges >= 3) {
-        this.$emit("intendedCollegesFormDone", this.selectedColleges);
+        this.$store.commit("storeIntendedColleges", this.selectedColleges);
+        this.$emit("confirmed");
       } else {
         this.$alert("请至少填写三个院校！", "请注意", {
           confirmButtonText: "知道了",

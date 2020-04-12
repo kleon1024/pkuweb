@@ -180,7 +180,7 @@ export default {
       return "2-1";
     },
     submitCollegeRecommend() {
-      this.$emit("collegeRecommendDone");
+      this.$emit("confirmed");
     },
     redirectUserToSimin() {
       if (this.chosenCollegeType) {

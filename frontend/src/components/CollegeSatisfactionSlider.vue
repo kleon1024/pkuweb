@@ -2,19 +2,11 @@
   <div>
     <h4>
       进入
-      <span style="color: teal;">{{ college }}</span>
-      就读的满意程度：{{ satisfaction }}
+      <span style="color: red;">{{ college }}</span>
+      就读的满意程度：{{ satisfaction }} %
     </h4>
-    <el-slider
-      v-model="satisfaction"
-      :marks="marks"
-    />
-    <div
-      class="hint-text"
-      style="margin-top: 20px;"
-    >
-      (请移动滑块来调整你的满意程度)
-    </div>
+    <el-slider v-model="satisfaction" :marks="marks" @change="onChange" />
+    <div class="hint-text" style="margin-top: 20px; color: red;">(请至少移动一次滑块来调整你的满意程度)</div>
   </div>
 </template>
 
@@ -45,6 +37,11 @@ export default {
   watch: {
     satisfaction(satis) {
       this.$emit("input", satis);
+    }
+  },
+  methods: {
+    onChange(value) {
+      this.$emit("change", value);
     }
   }
 };
