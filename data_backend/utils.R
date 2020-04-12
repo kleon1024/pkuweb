@@ -1,3 +1,4 @@
+library(RMariaDB)
 library(tidyverse)
 library(data.table)
 
