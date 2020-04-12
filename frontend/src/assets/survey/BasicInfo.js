@@ -317,7 +317,7 @@ export default {
 
   college_majors: {
     type: "priority_select",
-    description: "选择三个你最想学的大学专业",
+    description: "请从下列选项中选出你比较想在本科学习的专业",
     hint: "请先选择你最想学的专业",
     numberOfSelections: 3,
     options: [

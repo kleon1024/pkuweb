@@ -1,12 +1,10 @@
 <template>
   <div>
+    <el-progress :percentage="10" :format="format"></el-progress>
     <center>
       <h2>基本信息完善</h2>
     </center>
-    <section
-      ref="basic-info-form"
-      style="margin-top: 20px;"
-    >
+    <section ref="basic-info-form" style="margin-top: 20px;">
       <el-form
         ref="basicInfoForm"
         :model="basicInfoForm"
@@ -15,36 +13,16 @@
         label-width="90px"
         status-icon
       >
-        <el-form-item
-          label="姓名"
-          prop="name"
-          required
-        >
-          <el-input
-            v-model="basicInfoForm.name"
-            type="text"
-            placeholder="请输入你的姓名"
-          />
+        <el-form-item label="姓名" prop="name" required>
+          <el-input v-model="basicInfoForm.name" type="text" placeholder="请输入你的姓名" />
         </el-form-item>
-        <el-form-item
-          label="选科"
-          prop="class_selection"
-          required
-        >
+        <el-form-item label="选科" prop="class_selection" required>
           <el-radio-group v-model="basicInfoForm.class_selection">
-            <el-radio-button label="1">
-              理科
-            </el-radio-button>
-            <el-radio-button label="2">
-              文科
-            </el-radio-button>
+            <el-radio-button label="1">理科</el-radio-button>
+            <el-radio-button label="2">文科</el-radio-button>
           </el-radio-group>
         </el-form-item>
-        <el-form-item
-          label="所在高中"
-          prop="highschool"
-          required
-        >
+        <el-form-item label="所在高中" prop="highschool" required>
           <el-select
             v-model="basicInfoForm.highschool"
             style="width: 100%;"
@@ -61,106 +39,38 @@
         </el-form-item>
         <h4>1. 请输入你的高考总分，排名及各科分数</h4>
         <el-row :gutter="20">
-          <el-col
-            :xs="24"
-            :sm="12"
-          >
-            <el-form-item
-              label="高考总分"
-              prop="total_score"
-              required
-            >
-              <el-input
-                v-model.number="basicInfoForm.total_score"
-                placeholder="例如：565"
-              />
+          <el-col :xs="24" :sm="12">
+            <el-form-item label="高考总分" prop="total_score" required>
+              <el-input v-model.number="basicInfoForm.total_score" placeholder="例如：565" />
             </el-form-item>
           </el-col>
-          <el-col
-            :xs="24"
-            :sm="12"
-          >
-            <el-form-item
-              label="排名"
-              prop="ranking"
-              required
-            >
-              <el-input
-                v-model.number="basicInfoForm.ranking"
-                placeholder="例如：1500"
-              />
+          <el-col :xs="24" :sm="12">
+            <el-form-item label="排名" prop="ranking" required>
+              <el-input v-model.number="basicInfoForm.ranking" placeholder="例如：1500" />
             </el-form-item>
           </el-col>
-          <el-col
-            :xs="24"
-            :sm="12"
-          >
-            <el-form-item
-              label="语文"
-              prop="literature_score"
-              required
-            >
-              <el-input
-                v-model.number="basicInfoForm.literature_score"
-                placeholder="例如：100"
-              />
+          <el-col :xs="24" :sm="12">
+            <el-form-item label="语文" prop="literature_score" required>
+              <el-input v-model.number="basicInfoForm.literature_score" placeholder="例如：100" />
             </el-form-item>
           </el-col>
-          <el-col
-            :xs="24"
-            :sm="12"
-          >
-            <el-form-item
-              label="数学"
-              required
-              prop="math_score"
-            >
-              <el-input
-                v-model.number="basicInfoForm.math_score"
-                placeholder="例如：105"
-              />
+          <el-col :xs="24" :sm="12">
+            <el-form-item label="数学" required prop="math_score">
+              <el-input v-model.number="basicInfoForm.math_score" placeholder="例如：105" />
             </el-form-item>
           </el-col>
-          <el-col
-            :xs="24"
-            :sm="12"
-          >
-            <el-form-item
-              label="英语"
-              prop="foreign_language_score"
-              required
-            >
-              <el-input
-                v-model.number="basicInfoForm.foreign_language_score"
-                placeholder="例如：105"
-              />
+          <el-col :xs="24" :sm="12">
+            <el-form-item label="英语" prop="foreign_language_score" required>
+              <el-input v-model.number="basicInfoForm.foreign_language_score" placeholder="例如：105" />
             </el-form-item>
           </el-col>
-          <el-col
-            :xs="24"
-            :sm="12"
-          >
-            <el-form-item
-              label="理综/文综"
-              prop="zonghe_score"
-              required
-            >
-              <el-input
-                v-model.number="basicInfoForm.zonghe_score"
-                placeholder="例如：225"
-              />
+          <el-col :xs="24" :sm="12">
+            <el-form-item label="理综/文综" prop="zonghe_score" required>
+              <el-input v-model.number="basicInfoForm.zonghe_score" placeholder="例如：225" />
             </el-form-item>
           </el-col>
-          <el-col
-            v-show="basicInfoForm.total_score && !totalScoreValid"
-            :xs="24"
-          >
-            <el-alert
-              type="error"
-              title="总分不等于各科分数加和，请检查是否输入错误"
-              center
-              :closable="false"
-            />
+          <el-col v-show="basicInfoForm.total_score && !totalScoreValid" :xs="24">
+            <el-alert type="error" title="总分不等于各科分数加和，请检查是否输入错误" center :closable="false" />
           </el-col>
         </el-row>
         <div
@@ -180,27 +90,17 @@
           />
         </div>
 
-        <h4>6. 假设在录取过程结束后，你得知自己已被志愿中的某一本大学录取。请问你是否一定会入读该一本大学(第一空); 如果填写的是“否”，请问你打算在接下来一年里(第二空)</h4>
+        <h4>6. 假设在录取过程结束后，您得知自己已被志愿中的某大学录取。请问你是否一定会入读该一本大学(第一空); 如果填写的是“否”，请问你打算在接下来一年里(第二空)</h4>
         <el-row :gutter="20">
-          <el-col
-            :xs="24"
-            :sm="8"
-          >
+          <el-col :xs="24" :sm="8">
             <el-form-item label="第一空">
               <el-radio-group v-model="basicInfoForm.will_attend">
-                <el-radio-button :label="true">
-                  是
-                </el-radio-button>
-                <el-radio-button :label="false">
-                  否
-                </el-radio-button>
+                <el-radio-button :label="true">是</el-radio-button>
+                <el-radio-button :label="false">否</el-radio-button>
               </el-radio-group>
             </el-form-item>
           </el-col>
-          <el-col
-            :xs="24"
-            :sm="16"
-          >
+          <el-col :xs="24" :sm="16">
             <el-form-item label="第二空">
               <el-select
                 v-model="basicInfoForm.reason_not_attending"
@@ -238,13 +138,7 @@
                 placeholder="点击选择或直接输入院校名称进行搜索"
                 style="width: 100%;"
               >
-                <el-alert
-                  slot="empty"
-                  type="error"
-                  title="输入有误，没有匹配的院校"
-                  :closable="false"
-                  center
-                />
+                <el-alert slot="empty" type="error" title="输入有误，没有匹配的院校" :closable="false" center />
                 <el-option
                   v-for="(college, index) in allColleges"
                   :key="`basic-info-form-college-list-${rowNumber}-${index}`"
@@ -271,14 +165,25 @@
             </el-select>
           </el-col>
         </el-row>
-        <div align="right">
-          <el-button
-            type="primary"
-            :loading="loading"
-            @click.stop="submitBasicInfo"
+        <h4>
+          8.
+          在本题中，我们将测试你对风险的承受能力。请在下面的每一道小题中，你将面临两个选项。请选出对你自己来说更好的那个选项：
+        </h4>
+        <el-row v-for="(item, index) in basicInfoForm.risk_list" :key="`risk-take-${index}`" :gutter="1">
+          <el-form-item
+            :label="'第' + (index + 1) + '题：'"
+            :prop="'risk_list.' + index + '.value'"
+            :rules="{ required: true, message: '请选择一项', trigger: 'blur' }"
+            required
           >
-            提交并进入下一步
-          </el-button>
+            <el-radio-group v-model="item.value">
+              <el-radio label="A" style="margin-right: 15px">50%的概率获得2元，50%的概率获得30元</el-radio>
+              <el-radio label="B" style="margin-right: 15px">100%的概率获得{{ index * 2 + 4 }}元</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-row>
+        <div align="center" style="margin-top: 20px">
+          <el-button type="primary" :loading="loading" @click.stop="submitBasicInfo">提交并进入下一步</el-button>
         </div>
       </el-form>
     </section>
@@ -305,11 +210,17 @@ export default {
         callback();
       }
     };
+
+    var risk_list = Array();
+    for (var i = 0; i < 8; i++) {
+      risk_list.push({ value: "" });
+    }
     return {
       allColleges: [],
       loading: false,
       formConfig: BasicInfoFormConfig,
       basicInfoForm: {
+        risk_list: risk_list,
         name: "",
         class_selection: "",
         highschool: "",
@@ -441,9 +352,7 @@ export default {
     },
     highSchoolOptions() {
       const copied = Array.from(highschools);
-      copied.sort((h1, h2) =>
-        h1.name.localeCompare(h2.name, "zh-CN")
-      );
+      copied.sort((h1, h2) => h1.name.localeCompare(h2.name, "zh-CN"));
       return copied;
     },
     selectedHighschool() {
@@ -498,6 +407,9 @@ export default {
     this.retrieveCollegeList();
   },
   methods: {
+    format(percentage) {
+      return "1-1";
+    },
     retrieveCollegeList() {
       const busy = this.$loading({
         lock: true,
@@ -585,7 +497,7 @@ export default {
           );
         } else {
           this.$message({
-            message: "有信息未填写或有误，请检查",
+            message: "有信息未填写或，有误。完整的信息填写能让我们更好地提供志愿报考辅导！",
             type: "error"
           });
           this.loading = false;

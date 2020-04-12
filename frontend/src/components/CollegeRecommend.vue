@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-progress :percentage="20" :format="format"></el-progress>
     <center>
       <h2>推荐学校</h2>
     </center>
@@ -7,7 +8,6 @@
       type="warning"
       style="margin: 10px 0;"
       title="请注意，该教程只针对一本院校的填报。欲填报二本和其它类型院校的同学请勿使用该教程!"
-      close-text="知道了"
     />
     <el-form
       ref="collegeRecommendForm"
@@ -186,6 +186,9 @@ export default {
     }
   },
   methods: {
+    format(percentage) {
+      return "1-2";
+    },
     submitCollegeRecommend() {
       this.$emit("collegeRecommendDone");
     },
