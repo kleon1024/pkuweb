@@ -4,7 +4,7 @@ ADD sources.list /etc/apt/sources.list
 
 RUN rm -rf /etc/apt/sources.list.d/
 
-RUN echo "MAKEFLAGS = -j" >> ~/.R/Makevars
+RUN echo "MAKEFLAGS = -j" > ~/.R/Makevars
 
 RUN apt-get update && apt-get install -y libxml2-dev libssl-dev
 
