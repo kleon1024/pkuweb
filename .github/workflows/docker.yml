@@ -37,15 +37,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    # - name: r_env
-    #   uses: elgohr/Publish-Docker-Github-Action@master
-    #   with:
-    #     name: dockerkleon/pkuweb
-    #     username: ${{ secrets.DOCKER_USERNAME }}
-    #     password: ${{ secrets.DOCKER_PASSWORD }}
-    #     context: data_backend
-    #     dockerfile: data_backend/env.Dockerfile
-    #     tags: "r_env"  
+    - name: r_env
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: dockerkleon/pkuweb
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        context: data_backend
+        dockerfile: data_backend/env.Dockerfile
+        tags: "r_env"  
     - name: data_backend
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
