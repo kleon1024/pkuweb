@@ -1,6 +1,5 @@
 <template>
   <div>
-    <el-progress :percentage="10" :format="format"></el-progress>
     <center>
       <h2>基本信息完善</h2>
     </center>
@@ -407,9 +406,6 @@ export default {
     this.retrieveCollegeList();
   },
   methods: {
-    format(percentage) {
-      return "1-1";
-    },
     retrieveCollegeList() {
       const busy = this.$loading({
         lock: true,
@@ -467,16 +463,16 @@ export default {
             `${this.API_URL}/basic-info`,
             this.dataToSubmit,
             (err, res) => {
-              // if (res) {
-              //   if (res.data.failed) {
-              //     this.$alert(res.data.message, "提交失败", {
-              //       type: "error",
-              //       confirmButtonText: "去检查",
-              //       callback: () => {
-              //         this.loading = false;
-              //       }
-              //     });
-              //   } else {
+              if (res) {
+                if (res.data.failed) {
+                  this.$alert(res.data.message, "提交失败", {
+                    type: "error",
+                    confirmButtonText: "去检查",
+                    callback: () => {
+                      this.loading = false;
+                    }
+                  });
+                } else {
                   this.$message({
                     message:
                       "信息填写完毕！现在你可以使用魁伟系统进行志愿填报了。该软件主要针对报考一批次的同学。欲报考其它批次高校的同学请和客服人员联系。",
@@ -485,14 +481,14 @@ export default {
                   this.$store.commit("updateBasicInfo", this.basicInfoForm);
                   this.$emit("confirmed");
                   this.loading = false;
-              // }
-              // } else {
-              //   this.$message({
-              //     message: "无法连接服务器，请稍后再试",
-              //     type: "error"
-              //   });
-              //   this.loading = false;
-              // }
+              }
+              } else {
+                this.$message({
+                  message: "无法连接服务器，请稍后再试",
+                  type: "error"
+                });
+                this.loading = false;
+              }
             }
           );
         } else {

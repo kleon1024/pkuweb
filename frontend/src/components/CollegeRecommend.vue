@@ -1,6 +1,5 @@
 <template>
   <div>
-    <el-progress :percentage="20" :format="format"></el-progress>
     <center>
       <h2>推荐学校</h2>
     </center>
@@ -176,9 +175,6 @@ export default {
     }
   },
   methods: {
-    format(percentage) {
-      return "2-1";
-    },
     submitCollegeRecommend() {
       this.$emit("confirmed");
     },

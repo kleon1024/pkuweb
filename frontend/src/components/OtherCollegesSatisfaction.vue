@@ -13,7 +13,8 @@
         <CollegeSatisfactionSlider
           v-model="satisfactions[i]"
           :college="college.full_name"
-          @change="onChange"
+          :index="i + 1"
+          @change="onChange(i)"
         />
       </div>
     </section>
@@ -86,7 +87,7 @@ export default {
       for (var i = 0; i < this.satisfactions.length; i++) {
         if (!this.answerChanged[i]) {
           finished = false;
-          info = this.satisfactions[i].full_name;
+          info = this.recommendedButNotIntendedColleges[i].full_name;
           break;
         }
       }

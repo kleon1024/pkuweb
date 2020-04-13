@@ -1,6 +1,5 @@
 <template>
   <div>
-    <el-progress :percentage="30" :format="format"></el-progress>
     <center>
       <h2>填写模拟志愿</h2>
     </center>
@@ -77,9 +76,6 @@ export default {
     }
   },
   methods: {
-    format(percentage) {
-      return "3-1";
-    },
     submitIntendedCollegesForm() {
       if (this.numberOfSelectedColleges >= 3) {
         this.$store.commit("storeIntendedColleges", this.selectedColleges);

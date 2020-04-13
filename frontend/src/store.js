@@ -24,6 +24,8 @@ export default new Vuex.Store({
     zhiyuanQuizAnswers: null,
     zhiyuanSatisfactionAssessAnswers: null,
     otherZhiyuanSatisfactionAssessAnswers: null,
+    recommendedZhiyuanSatisfactions: null,
+    simulationOneZhiyuans: null,
     whatthefuckAnswers: 1,
     zhiyuanSurveyAnswers: null,
     otherCollegesInfo: null,
@@ -52,6 +54,8 @@ export default new Vuex.Store({
       state.zhiyuanQuizAnswers = null;
       state.zhiyuanSatisfactionAssessAnswers = null;
       state.otherZhiyuanSatisfactionAssessAnswers = null;
+      state.recommendedZhiyuanSatisfactions = null;
+      state.simulationOneZhiyuans = null;
       state.zhiyuanSurveyAnswers = null;
       state.otherCollegesInfo = null;
       state.zhiyuanGuideAnswers = null;
@@ -114,6 +118,12 @@ export default new Vuex.Store({
     },
     storeZhiyuanColleges(state, colleges) {
       state.zhiyuanColleges = colleges;
+    },
+    storeRecommendedZhiyuanSatisfactions(state, statisfactions) {
+      state.recommendedZhiyuanSatisfactions = statisfactions;
+    },
+    storeSimulationOneZhiyuans(state, zhiyuans) {
+      state.simulationOneZhiyuans = zhiyuans;
     }
   },
   actions: {
@@ -150,6 +160,8 @@ export default new Vuex.Store({
         "zhiyuanQuizAnswers",
         "zhiyuanSatisfactionAssessAnswers",
         "otherZhiyuanSatisfactionAssessAnswers",
+        "recommendedZhiyuanSatisfactions",
+        "simulationOneZhiyuans",
         "zhiyuanSurveyAnswers",
         "otherCollegesInfo",
         "zhiyuanGuideAnswers",

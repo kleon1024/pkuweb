@@ -41,10 +41,15 @@ const router = new Router({
 });
 
 router.beforeEach((to, _from, next) => {
-  const sessionId = cookies.get("SIMIN-NX-SESSION");
-  if (!sessionId) {
-    // session cookie lost or expired
-    store.commit("clearUser"); // remove the store user information
+  var sessionId;
+  if (process.env.NODE_ENV === "production") {
+    sessionId = cookies.get("SIMIN-NX-SESSION");
+    if (!sessionId) {
+      // session cookie lost or expired
+      store.commit("clearUser"); // remove the store user information
+    }
+  } else {
+    sessionId = true;
   }
   if (to.path === "/") {
     next("/letter");

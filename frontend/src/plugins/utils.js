@@ -17,6 +17,9 @@ const marksBase = {
 };
 
 export default {
+  getRandomInt(min, max) {
+    return Math.floor(Math.random() * Math.floor(max - min) + Math.floor(min));
+  },
   getMarks(withPercentageSign) {
     const copiedMarks = JSON.parse(JSON.stringify(marksBase));
     if (withPercentageSign) {

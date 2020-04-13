@@ -30,6 +30,7 @@
         />
       </div>
     </div>
+    <el-progress :percentage="majorStep*10" :format="format"></el-progress>
     <section class="guide-content">
       <BasicInfo v-if="majorStep === 1" @confirmed="saveStep(majorStep + 1, 1)" />
       <CollegeRecommend v-if="majorStep === 2" @confirmed="saveStep(majorStep + 1, 1)" />
@@ -41,6 +42,14 @@
       <OtherCollegesSatisfaction
         v-if="majorStep === 4 && minorStep === 2"
         @confirmed="saveStep(majorStep + 1, 1)"
+      />
+      <SimulationSceneOne
+        v-if="majorStep === 5 && minorStep === 1"
+        @confirmed="saveStep(majorStep, minorStep + 1)"
+      />
+      <SimulationSceneTwo
+        v-if="majorStep === 5 && minorStep === 2"
+        @confirmed="saveStep(majorStep, minorStep + 1)"
       />
 
       <!-- <ZhiyuanQuizNavigation
@@ -70,6 +79,8 @@ import CollegeRecommend from "@/components/CollegeRecommend";
 import IntendedCollegesForm from "@/components/IntendedCollegesForm";
 import CollegeSatisfaction from "@/components/CollegeSatisfaction";
 import OtherCollegesSatisfaction from "@/components/OtherCollegesSatisfaction";
+import SimulationSceneOne from "@/components/SimulationSceneOne";
+import SimulationSceneTwo from "@/components/SimulationSceneTwo";
 
 // import SatisfactionAssessNavigation from "@/components/satisfaction_assess/Navigation";
 // import ZhiyuanQuizNavigation from "@/components/zhiyuan_quiz/Navigation";
@@ -87,7 +98,9 @@ export default {
     CollegeRecommend,
     IntendedCollegesForm,
     CollegeSatisfaction,
-    OtherCollegesSatisfaction
+    OtherCollegesSatisfaction,
+    SimulationSceneOne,
+    SimulationSceneTwo
     // SatisfactionAssessNavigation,
     // ZhiyuanQuizNavigation,
     // ZhiyuanSurveyNavigation,
@@ -175,6 +188,9 @@ export default {
     //     this.majorStep = 1;
     //   }
     // },
+    format(percentage) {
+      return this.majorStep + '-' + this.minorStep;
+    },
     scrollToTop() {
       this.$nextTick(() => {
         this.$refs.pageTop.scrollIntoView();

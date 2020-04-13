@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4>
-      进入
+      {{ index }}. 进入
       <span style="color: red;">{{ college }}</span>
       就读的满意程度：{{ satisfaction }} %
     </h4>
@@ -26,12 +26,17 @@ export default {
       type: String,
       required: false,
       default: "北京大学"
-    }
+    },
+    index: {
+      type: Number,
+      required: true,
+      default: 0
+    },
   },
   data() {
     return {
       satisfaction: this.value,
-      marks: utils.getMarks(false)
+      marks: utils.getMarks(false),
     };
   },
   watch: {

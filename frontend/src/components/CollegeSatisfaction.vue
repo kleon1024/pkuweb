@@ -22,6 +22,7 @@
           v-model="satisfactionAnswers[i]"
           @change="onChange(i)"
           :college="college.full_name"
+          :index="i + 1"
         />
       </div>
     </div>
