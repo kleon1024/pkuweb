@@ -1,6 +1,7 @@
+library(data.table)
 library(RMariaDB)
 library(tidyverse)
-library(data.table)
+
 
 PRODUCTION <- Sys.getenv("API_ENV") == "production"
 
