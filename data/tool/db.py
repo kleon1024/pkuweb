@@ -11,7 +11,7 @@ def cli():
 
 @click.command()
 def init():
-    client = pymongo.MongoClient("mongodb://root:tCaJXhP77xdKR4Y7@mongo.chainmore.fun:27017/nx_zhiyuan")
+    client = pymongo.MongoClient("mongodb://root:tCaJXhP77xdKR4Y7@mongo.pkuzhiyuan.com:27017/nx_zhiyuan")
     dbs = client.list_database_names()
     print(dbs)
     if "nx_zhiyuan" in dbs:

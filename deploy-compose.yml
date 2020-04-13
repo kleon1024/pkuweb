@@ -31,12 +31,12 @@ services:
     restart: always
     image: dockerkleon/pkuweb:frontend
     environment:
-      - VIRTUAL_HOST=pku.chainmore.fun
-      - LETSENCRYPT_HOST=pku.chainmore.fun
+      - VIRTUAL_HOST=www.pkuzhiyuan.com
+      - LETSENCRYPT_HOST=www.pkuzhiyuan.com
       - LETSENCRYPT_EMAIL=dingli.cm@gmail.com
       - NODE_ENV=production
-      - VUE_APP_API_SERVER_URL=api.chainmore.fun
-      - BASE_URL=pku.chainmore.fun
+      - VUE_APP_API_SERVER_URL=api.pkuzhiyuan.com
+      - BASE_URL=www.pkuzhiyuan.com
 
   backend:
     networks:
@@ -45,8 +45,8 @@ services:
     restart: always
     image: dockerkleon/pkuweb:backend
     environment:
-      - VIRTUAL_HOST=api.chainmore.fun
-      - LETSENCRYPT_HOST=api.chainmore.fun
+      - VIRTUAL_HOST=api.pkuzhiyuan.com
+      - LETSENCRYPT_HOST=api.pkuzhiyuan.com
       - LETSENCRYPT_EMAIL=dingli.cm@gmail.com
       - NODE_ENV=production
 
@@ -75,6 +75,6 @@ services:
       - ME_CONFIG_BASICAUTH_PASSWORD=pku2020
       - ME_CONFIG_MONGODB_ADMINUSERNAME=root
       - ME_CONFIG_MONGODB_ADMINPASSWORD=tCaJXhP77xdKR4Y7
-      - VIRTUAL_HOST=mongo.chainmore.fun
-      - LETSENCRYPT_HOST=mongo.chainmore.fun
+      - VIRTUAL_HOST=mongo.pkuzhiyuan.com
+      - LETSENCRYPT_HOST=mongo.pkuzhiyuan.com
       - LETSENCRYPT_EMAIL=dingli.cm@gmail.com
