@@ -46,7 +46,6 @@ router.beforeEach((to, _from, next) => {
     // session cookie lost or expired
     store.commit("clearUser"); // remove the store user information
   }
-  var sessionId = true;
   if (to.path === "/") {
     next("/letter");
     return;
