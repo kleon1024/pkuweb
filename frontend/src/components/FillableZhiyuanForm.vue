@@ -79,28 +79,27 @@ export default {
       type: Array,
       required: false,
       default: () => Array()
+    },
+    choices: {
+      type: Number,
+      required: false,
+      default: 4
     }
   },
   mounted() {},
   data() {
     return {
-      selectedCollegeIndices: new Array(4).fill(null), // 总共需要填的slots将一直是4，无论任何情况
-      collegeOrders: [1, 2, 3, 4]
+      selectedCollegeIndices: new Array(this.choices).fill(null),
+      collegeOrders: Array.from(new Array(this.choices).keys(), x => x + 1)
     };
   },
   computed: {
     ...mapState(["intendedAndRecommendedColleges"]),
     placeholder() {
-      if (this.colleges.length == 4) {
+      if (this.colleges.length == this.choices) {
         return this.colleges.map(item => item.full_name);
       } else {
-        console.log("AAA")
-        return [
-          "选择或搜索院校",
-          "选择或搜索院校",
-          "选择或搜索院校",
-          "选择或搜索院校"
-        ];
+        return Array(this.choices).fill("选择或搜索院校");
       }
     },
     collegeRecommendations() {

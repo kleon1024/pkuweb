@@ -1,5 +1,8 @@
 <template>
   <div>
+        <center>
+      <h2>一本院校志愿填报</h2>
+    </center>
     <p
       v-if="hasCompletedZhiyuan"
       class="success"
@@ -118,7 +121,7 @@ import CollegeStrategySuggestions from "@/components/CollegeStrategySuggestions"
 import ReadOnlyZhiyuanForm from "@/components/ReadOnlyZhiyuanForm";
 
 export default {
-  name: "ZhiyuanGuideStrategy",
+  name: "ZhiyuanSubmissionForm",
   components: {
     CollegeButtonTags,
     FillableZhiyuanForm,
@@ -164,7 +167,7 @@ export default {
   },
   methods: {
     formDone() {
-      this.$emit("formDone", {
+      this.$emit("confirmed", {
         zhiyuanColleges: this.zhiyuanColleges,
         paymentMethod: this.paymentMethod
       });

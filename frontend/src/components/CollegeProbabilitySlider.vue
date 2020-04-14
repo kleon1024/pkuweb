@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4>
-      你的分数高于或等于
+      {{index}}. 你的分数高于或等于
       <span style="color: teal;">{{ college }}</span>
       录取分数线的可能性：{{ probability }}% (
       <span
@@ -12,13 +12,9 @@
       v-model="probability"
       :format-tooltip="formatTooltip"
       :marks="marks"
+      @change="onChange"
     />
-    <div
-      class="hint-text"
-      style="margin-top: 20px;"
-    >
-      (请移动滑块来调整可能性的大小)
-    </div>
+    <div class="hint-text" style="margin-top: 20px;">(请移动滑块来调整可能性的大小)</div>
   </div>
 </template>
 
@@ -38,7 +34,12 @@ export default {
       type: String,
       required: false,
       default: "北京大学"
-    }
+    },
+        index: {
+      type: Number,
+      required: true,
+      default: 0
+    },
   },
   data() {
     return {
@@ -59,6 +60,9 @@ export default {
   methods: {
     formatTooltip(val) {
       return `${val}%`;
+    },
+    onChange(value) {
+      this.$emit("change", value);
     }
   }
 };

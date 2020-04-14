@@ -57,22 +57,46 @@
         @confirmed="saveStep(majorStep, minorStep + 1)"
       />
 
-      <!-- <ZhiyuanQuizNavigation
-        v-if="majorStep === 5"
-        @zhiyuanQuizDone="onZhiyuanQuizDone"
-        @saveSatisfactions="onSaveSatisfactions"
+      <SimulationSceneFour
+        v-if="majorStep === 5 && minorStep === 4"
+        @confirmed="saveStep(majorStep, minorStep + 1)"
       />
-      <ZhiyuanSurveyNavigation v-if="majorStep === 6" @zhiyuanSurveyDone="onZhiyuanSurveyDone" />
-      <OtherCollegesNavigation v-if="majorStep === 7" @otherCollegesDone="onOtherCollegesDone" />
-      <AdmissionScoresInfoNavigation
-        v-if="majorStep === 8"
-        @admissionScoresInfoDone="onAdmissionScoresInfoDone"
+
+      <SimulationSceneFive
+        v-if="majorStep === 5 && minorStep === 5"
+        @confirmed="saveStep(majorStep + 1, 1)"
       />
-      <ZhiyuanGuideNavigation v-if="majorStep === 9" @zhiyuanGuideDone="onZhiyuanGuideDone" />
-      <ZhiyuanSubmissionNavigation
-        v-if="majorStep === 10"
-        @zhiyuanSubmissionFormDone="onZhiyuanSubmissionFormDone"
-      />-->
+
+      <ProbabilityPreTest
+        v-if="majorStep === 6 && minorStep === 1"
+        @confirmed="saveStep(majorStep, minorStep + 1)"
+      />
+
+      <Probabilities
+        v-if="majorStep === 6 && minorStep === 2"
+        @confirmed="saveStep(majorStep + 1, 1)"
+      />
+
+      <AdmissionScoresInfoTest
+        v-if="majorStep === 7 && minorStep === 1"
+        @confirmed="saveStep(majorStep + 1, 1)"
+      />
+
+      <ZhiyuanGuideCollegeOrder
+        v-if="majorStep === 8 && minorStep === 1"
+        @confirmed="saveStep(majorStep, minorStep + 1)"
+      />
+   
+      <ZhiyuanGuideStrategy
+        v-if="majorStep === 8 && minorStep === 2"
+        @confirmed="saveStep(majorStep + 1, 1)"
+      />   
+
+      <ZhiyuanSubmissionForm
+        v-if="majorStep === 9 && minorStep === 1"
+        @confirmed="onZhiyuanSubmissionFormDone"
+      />
+
     </section>
   </el-card>
 </template>
@@ -87,14 +111,14 @@ import OtherCollegesSatisfaction from "@/components/OtherCollegesSatisfaction";
 import SimulationSceneOne from "@/components/SimulationSceneOne";
 import SimulationSceneTwo from "@/components/SimulationSceneTwo";
 import SimulationSceneThree from "@/components/SimulationSceneThree";
-
-// import SatisfactionAssessNavigation from "@/components/satisfaction_assess/Navigation";
-// import ZhiyuanQuizNavigation from "@/components/zhiyuan_quiz/Navigation";
-// import ZhiyuanSurveyNavigation from "@/components/zhiyuan_survey/Navigation";
-// import OtherCollegesNavigation from "@/components/other_colleges/Navigation";
-// import AdmissionScoresInfoNavigation from "@/components/admission_scores_info/Navigation";
-// import ZhiyuanGuideNavigation from "@/components/zhiyuan_guide/Navigation";
-// import ZhiyuanSubmissionNavigation from "@/components/zhiyuan_submission/Navigation";
+import SimulationSceneFour from "@/components/SimulationSceneFour";
+import SimulationSceneFive from "@/components/SimulationSceneFive";
+import ProbabilityPreTest from "@/components/ProbabilityPreTest";
+import Probabilities from "@/components/Probabilities";
+import AdmissionScoresInfoTest from "@/components/AdmissionScoresInfoTest";
+import ZhiyuanGuideCollegeOrder from "@/components/ZhiyuanGuideCollegeOrder";
+import ZhiyuanGuideStrategy from "@/components/ZhiyuanGuideStrategy";
+import ZhiyuanSubmissionForm from "@/components/ZhiyuanSubmissionForm";
 
 import request from "@/plugins/request";
 
@@ -107,14 +131,15 @@ export default {
     OtherCollegesSatisfaction,
     SimulationSceneOne,
     SimulationSceneTwo,
-    SimulationSceneThree
-    // SatisfactionAssessNavigation,
-    // ZhiyuanQuizNavigation,
-    // ZhiyuanSurveyNavigation,
-    // OtherCollegesNavigation,
-    // AdmissionScoresInfoNavigation,
-    // ZhiyuanGuideNavigation,
-    // ZhiyuanSubmissionNavigation,
+    SimulationSceneThree,
+    SimulationSceneFour,
+    SimulationSceneFive,
+    ProbabilityPreTest,
+    Probabilities,
+    AdmissionScoresInfoTest,
+    ZhiyuanGuideCollegeOrder,
+    ZhiyuanGuideStrategy,
+    ZhiyuanSubmissionForm,
   },
 
   beforeRouteLeave(to, from, next) {
@@ -160,42 +185,10 @@ export default {
   mounted() {},
 
   methods: {
-    // init() {
-    //   if (this.zhiyuanColleges) {
-    //     // All Finished
-    //     this.zhiyuanFinished();
-    //     this.majorStep = 10;
-    //   } else if (this.zhiyuanGuideAnswers) {
-    //     // 已填过其他学校满意程度和概率调查
-    //     this.majorStep = 9;
-    //   } else if (this.otherCollegesInfo) {
-    //     // 已填过其他学校满意程度和概率调查
-    //     this.majorStep = 8;
-    //   } else if (this.zhiyuanSurveyAnswers) {
-    //     // 已填过满意程度
-    //     this.majorStep = 7;
-    //   } else if (this.zhiyuanQuizAnswers) {
-    //     // 已填过模拟志愿
-    //     this.majorStep = 6;
-    //   } else if (this.otherZhiyuanSatisfactionAssessAnswers) {
-    //     this.majorStep = 5;
-    //   } else if (this.intendedColleges) {
-    //     // 已填过模拟志愿
-    //     this.majorStep = 4;
-    //   } else if (
-    //     this.loginUser.college_recommendations &&
-    //     this.loginUser.college_recommendations.recommended_colleges.length > 0
-    //   ) {
-    //     // 已有推荐学校
-    //     this.majorStep = 3;
-    //   } else if (this.loginUser.basic_info) {
-    //     // 用户已填写基本信息
-    //     this.majorStep = 2;
-    //   } else {
-    //     this.majorStep = 1;
-    //   }
-    // },
     format(percentage) {
+      if (this.majorStep == 10) {
+        return "100%";
+      }
       return this.majorStep + "-" + this.minorStep;
     },
     scrollToTop() {
@@ -205,37 +198,6 @@ export default {
     },
     saveStep(major, minor) {
       this.$store.commit("saveStep", [major, minor]);
-    },
-    // onBasicInfoDone(basicInfoForm) {
-    //   this.saveStep(this.majorStep + 1, 1);
-    // },
-    // onCollegeRecommendDone() {
-    //   this.saveStep(this.majorStep + 1, 1);
-    // },
-    // onIntendedCollegesFormDone(colleges) {
-    //   this.saveStep(this.majorStep + 1, 1);
-    // },
-    onZhiyuanQuizDone(zhiyuanQuizAnswers) {
-      this.$store.commit("storeZhiyuanQuizAnswers", zhiyuanQuizAnswers);
-      this.majorStep += 1;
-    },
-    onSaveCollegeSatisfactions(collegesSatisfactions) {
-      this.$store.commit("storeCollegeSatisfactions", collegesSatisfactions);
-    },
-    onSaveOtherCollegeSatisfactions(zhiyuanSurveyAnswers) {
-      this.$store.commit("storeZhiyuanSurveyAnswers", zhiyuanSurveyAnswers);
-      this.majorStep += 1;
-    },
-    onOtherCollegesDone(otherCollegesInfo) {
-      this.$store.commit("storeOtherCollegesInfo", otherCollegesInfo);
-      this.majorStep += 1;
-    },
-    onAdmissionScoresInfoDone() {
-      this.majorStep += 1;
-    },
-    onZhiyuanGuideDone(zhiyuanGuideAnswers) {
-      this.$store.commit("storeZhiyuanGuideAnswers", zhiyuanGuideAnswers);
-      this.majorStep += 1;
     },
     zhiyuanFinished() {
       this.$message({
@@ -280,7 +242,9 @@ export default {
                     zhiyuanForm.zhiyuanColleges
                   );
                   busy.close();
+                  this.saveStep(this.majorStep + 1, 1);
                   this.zhiyuanFinished();
+                  
                 } else {
                   this.$alert(res.data.message, "提交出错", {
                     type: "error",

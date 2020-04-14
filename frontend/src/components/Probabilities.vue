@@ -20,20 +20,14 @@
         <CollegeProbabilitySlider
           v-model="probabilities[i]"
           :college="college.full_name"
+          @change="onChange(i)"
+          :index="i + 1"
         />
       </div>
     </section>
 
-    <div
-      align="right"
-      style="margin-top: 20px;"
-    >
-      <el-button
-        type="primary"
-        @click.stop="probabilitiesDone"
-      >
-        下一步 
-      </el-button>
+    <div align="right" style="margin-top: 20px;">
+      <el-button type="primary" @click.stop="probabilitiesDone">下一步</el-button>
     </div>
   </div>
 </template>
@@ -50,8 +44,9 @@ export default {
   data() {
     return {
       demoProbability: 10,
-      probabilities: []
-    }
+      probabilities: [],
+      answerChanged: []
+    };
   },
   computed: {
     ...mapState(["intendedAndRecommendedColleges"]),
@@ -69,10 +64,35 @@ export default {
   },
   methods: {
     init() {
-      this.probabilities = new Array(this.intendedAndRecommendedColleges.length).fill(0);
+      this.probabilities = Array(
+        this.intendedAndRecommendedColleges.length
+      ).fill(0);
+      this.answerChanged = Array(
+        this.intendedAndRecommendedColleges.length
+      ).fill(false);
+    },
+    onChange(index) {
+      this.answerChanged[index] = true;
     },
     probabilitiesDone() {
-      this.$emit("probabilitiesDone", this.probsToSubmit);
+      var finished = true;
+      var info = "";
+      for (var i = 0; i < this.intendedAndRecommendedColleges.length; i++) {
+        if (!this.answerChanged[i]) {
+          finished = false;
+          info = this.intendedAndRecommendedColleges[i].full_name;
+          break;
+        }
+      }
+
+      if (finished) {
+        this.$emit("confirmed");
+      } else {
+        this.$message({
+          message: `${info}的滑块还没滑动过`,
+          type: "error"
+        });
+      }
     }
   }
 };

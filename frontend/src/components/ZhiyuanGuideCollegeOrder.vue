@@ -1,5 +1,15 @@
 <template>
   <div>
+    <center>
+      <h2>报考辅导</h2>
+    </center>
+        <div ref="college-admissions-table">
+      <el-collapse v-model="activeNames">
+        <el-collapse-item title="往年录取分数线" :name="1">
+          <CollegeAdmissionScoresTable />
+        </el-collapse-item>
+      </el-collapse>
+    </div>
     <p>
       报考学校时，志愿表上排列学校的顺序也是有讲究的。
       <span class="danger">按照错误的顺序排列，可能会导致你不能被理想的院校录取!</span>
@@ -17,9 +27,7 @@
       <p
         v-for="(scenaria, i) in point1Scenarios"
         :key="`zhiyuan-guide-zhiyuan-order-scenaria-${i}`"
-      >
-        【情景 {{ i + 1 }}】{{ scenaria.description }}
-      </p>
+      >【情景 {{ i + 1 }}】{{ scenaria.description }}</p>
       <p>因此，在考虑院校排列的时候，你需要考虑以下问题：如果在两所学校甲和乙都想录取你的时候，你会选择去甲上学，那么请一定将甲排在更靠前的位置上(比如，如果你在考虑 A 院校和 B 院校位置的填报，那么甲应该放在 A 院校的位置上，乙应该放在 B 院校的位置上)</p>
       <el-divider />
       <strong>现在，请回答下列问题，来确认你对上述内容的理解</strong>
@@ -34,13 +42,7 @@
               v-for="(option, j) in question.answerOptions"
               :key="`zhiyuan-guide-zhiyuan-order-question-${i}-answer-${j}`"
             >
-              <el-radio
-                :label="option.key"
-                border
-                style="width: 100%;"
-              >
-                {{ option.description }}
-              </el-radio>
+              <el-radio :label="option.key" border style="width: 100%;">{{ option.description }}</el-radio>
             </div>
           </el-radio-group>
           <el-alert
@@ -53,10 +55,7 @@
       </div>
     </section>
     <el-divider />
-    <section
-      v-if="point1Answered"
-      ref="point2"
-    >
+    <section v-if="point1Answered" ref="point2">
       <p>2. 志愿表里排位较前的位置要敢于“冲”，排位较后的位置一定要“保”。</p>
       <p>在本科一批次可以填报 4 个高校平行志愿的情况下，如果你想争取上一所好院校的话:</p>
       <p>第 1 个高校志愿，即 A 院校，应当选择自己非常想去，有一定录取可能性但风险相对较大 的学校。</p>
@@ -74,13 +73,7 @@
               v-for="(option, j) in question.answerOptions"
               :key="`zhiyuan-guide-zhiyuan-order-question-${i}-answer-${j}`"
             >
-              <el-radio
-                :label="option.key"
-                border
-                style="width: 100%;"
-              >
-                {{ option.description }}
-              </el-radio>
+              <el-radio :label="option.key" border style="width: 100%;">{{ option.description }}</el-radio>
             </div>
           </el-radio-group>
           <el-alert
@@ -92,14 +85,8 @@
         </p>
       </div>
     </section>
-    <div align="right">
-      <el-button
-        :disabled="!allQuestionsAnswered"
-        type="primary"
-        @click.stop="collegeOrderDone"
-      >
-        下一步
-      </el-button>
+    <div align="right" style="margin-top: 20px;">
+      <el-button :disabled="!allQuestionsAnswered" type="primary" @click.stop="collegeOrderDone">下一步</el-button>
     </div>
   </div>
 </template>
@@ -108,15 +95,20 @@
 import { mapState } from "vuex";
 
 import ReadOnlyZhiyuanForm from "@/components/ReadOnlyZhiyuanForm";
+import CollegeAdmissionScoresTable from "@/components/CollegeAdmissionScoresTable";
+
+
 export default {
   name: "ZhiyuanGuideCollegeOrder",
   components: {
-    ReadOnlyZhiyuanForm
+    ReadOnlyZhiyuanForm,
+    CollegeAdmissionScoresTable
   },
   data() {
     return {
       point1Answers: new Array(2).fill(null),
-      point2Answers: new Array(1).fill(null)
+      point2Answers: new Array(1).fill(null),
+      activeNames: 0,
     };
   },
   computed: {
@@ -221,11 +213,13 @@ export default {
             },
             {
               key: "C",
-              description: "A 志愿选择风险较大的学校，D 志愿一定要选择录取可能性几乎为 100%的学校"
+              description:
+                "A 志愿选择风险较大的学校，D 志愿一定要选择录取可能性几乎为 100%的学校"
             },
             {
               key: "D",
-              description: "A 志愿应当保守一些，B,C 两个志愿可以适当考虑报考分数线高一点的学校"
+              description:
+                "A 志愿应当保守一些，B,C 两个志愿可以适当考虑报考分数线高一点的学校"
             }
           ]
         }
@@ -236,7 +230,7 @@ export default {
         return this.point1Answers[0] !== null && this.point1Answers[1] !== null;
       } else {
         return this.point1Questions[0] !== null;
-      }  
+      }
     },
     allQuestionsAnswered() {
       return this.point1Answered && this.point2Answers[0] !== null;
@@ -249,7 +243,7 @@ export default {
       return this.intendedColleges[index].full_name;
     },
     collegeOrderDone() {
-      this.$emit("collegeOrderDone", {
+      this.$emit("confirmed", {
         point_1_answers: this.point1Answers,
         point_2_answers: this.point2Answers
       });
