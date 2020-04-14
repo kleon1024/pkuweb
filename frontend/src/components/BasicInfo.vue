@@ -134,7 +134,7 @@
                 :disabled="rowNumber > 1 && (selectedCollegeIndices[rowNumber - 2] == null || reasonForSelectedColleges[rowNumber - 2] == null)"
                 clearable
                 filterable
-                placeholder="点击选择或直接输入院校名称进行搜索"
+                placeholder="选择或搜索院校"
                 style="width: 100%;"
               >
                 <el-alert slot="empty" type="error" title="输入有误，没有匹配的院校" :closable="false" center />

@@ -31,6 +31,7 @@ export default new Vuex.Store({
     otherCollegesInfo: null,
     zhiyuanGuideAnswers: null,
     zhiyuanColleges: null,
+    xiaoMingSatisfactions: null,
   },
   mutations: {
     setUser(state, data) {
@@ -60,6 +61,7 @@ export default new Vuex.Store({
       state.otherCollegesInfo = null;
       state.zhiyuanGuideAnswers = null;
       state.zhiyuanColleges = null;
+      state.xiaoMingSatisfactions = null;
       if (process.env.NODE_ENV === "production") {
         cookies.remove("SIMIN-NX-SESSION", { // when removing session, needes exact options
           domain: ".pkuzhiyuan.com",
@@ -124,6 +126,9 @@ export default new Vuex.Store({
     },
     storeSimulationOneZhiyuans(state, zhiyuans) {
       state.simulationOneZhiyuans = zhiyuans;
+    },
+    storeXiaoMingSatisfactions(state, satisfactions) {
+      state.xiaoMingSatisfactions = satisfactions;
     }
   },
   actions: {
@@ -165,7 +170,8 @@ export default new Vuex.Store({
         "zhiyuanSurveyAnswers",
         "otherCollegesInfo",
         "zhiyuanGuideAnswers",
-        "zhiyuanColleges"
+        "zhiyuanColleges",
+        "xiaoMingSatisfactions",
       ],
       // storage: {
       //   getItem: (key) => ls.get(key),

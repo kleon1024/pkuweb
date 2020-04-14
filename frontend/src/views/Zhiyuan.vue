@@ -52,6 +52,11 @@
         @confirmed="saveStep(majorStep, minorStep + 1)"
       />
 
+      <SimulationSceneThree
+        v-if="majorStep === 5 && minorStep === 3"
+        @confirmed="saveStep(majorStep, minorStep + 1)"
+      />
+
       <!-- <ZhiyuanQuizNavigation
         v-if="majorStep === 5"
         @zhiyuanQuizDone="onZhiyuanQuizDone"
@@ -81,6 +86,7 @@ import CollegeSatisfaction from "@/components/CollegeSatisfaction";
 import OtherCollegesSatisfaction from "@/components/OtherCollegesSatisfaction";
 import SimulationSceneOne from "@/components/SimulationSceneOne";
 import SimulationSceneTwo from "@/components/SimulationSceneTwo";
+import SimulationSceneThree from "@/components/SimulationSceneThree";
 
 // import SatisfactionAssessNavigation from "@/components/satisfaction_assess/Navigation";
 // import ZhiyuanQuizNavigation from "@/components/zhiyuan_quiz/Navigation";
@@ -100,7 +106,8 @@ export default {
     CollegeSatisfaction,
     OtherCollegesSatisfaction,
     SimulationSceneOne,
-    SimulationSceneTwo
+    SimulationSceneTwo,
+    SimulationSceneThree
     // SatisfactionAssessNavigation,
     // ZhiyuanQuizNavigation,
     // ZhiyuanSurveyNavigation,
@@ -189,7 +196,7 @@ export default {
     //   }
     // },
     format(percentage) {
-      return this.majorStep + '-' + this.minorStep;
+      return this.majorStep + "-" + this.minorStep;
     },
     scrollToTop() {
       this.$nextTick(() => {

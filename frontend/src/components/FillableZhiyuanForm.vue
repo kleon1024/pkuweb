@@ -3,40 +3,23 @@
     <center>
       <h4>{{ title }}</h4>
     </center>
-    <el-table
-      :data="collegeOrders"
-      border
-      style="margin-top: 25px;"
-    >
-      <el-table-column
-        align="center"
-        label="志愿号"
-        width="120"
-      >
+    <el-table :data="collegeOrders" border style="margin-top: 25px;">
+      <el-table-column align="center" label="志愿号" width="120">
         <template slot-scope="scope">
           <span style="margin-left: 10px">一批次 {{ ["A", "B", "C", "D"][scope.row - 1] }} 院校</span>
         </template>
       </el-table-column>
-      <el-table-column
-        align="center"
-        label="院校"
-      >
+      <el-table-column align="center" label="院校">
         <template slot-scope="scope">
           <el-select
             v-model="selectedCollegeIndices[scope.row - 1]"
             filterable
             :clearable="scope.row > 3"
-            :disabled="scope.row >= 2 && selectedCollegeIndices[scope.row - 2] == null"
+            :disabled="disabled || scope.row >= 2 && selectedCollegeIndices[scope.row - 2] == null"
             style="width: 100%;"
-            placeholder="点击选择或直接输入院校名称进行搜索"
+            :placeholder="placeholder[scope.row-1]"
           >
-            <el-alert
-              slot="empty"
-              type="error"
-              title="输入有误，没有匹配的院校"
-              :closable="false"
-              center
-            />
+            <el-alert slot="empty" type="error" title="输入有误，没有匹配的院校" :closable="false" center />
             <el-option-group label="推荐院校名单">
               <el-option
                 v-for="(college, index) in selectableRecommendedColleges"
@@ -46,10 +29,7 @@
                 :disabled="selectedCollegeIndices.includes(index)"
               />
             </el-option-group>
-            <el-option-group
-              v-if="showAllColleges"
-              label="其他院校"
-            >
+            <el-option-group v-if="showAllColleges" label="其他院校">
               <el-option
                 v-for="(college, index) in otherColleges"
                 :key="`fillable-zhiyuan-form-college-order-${index + selectableRecommendedColleges.length}`"
@@ -89,8 +69,19 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    colleges: {
+      type: Array,
+      required: false,
+      default: () => Array()
     }
   },
+  mounted() {},
   data() {
     return {
       selectedCollegeIndices: new Array(4).fill(null), // 总共需要填的slots将一直是4，无论任何情况
@@ -99,6 +90,19 @@ export default {
   },
   computed: {
     ...mapState(["intendedAndRecommendedColleges"]),
+    placeholder() {
+      if (this.colleges.length == 4) {
+        return this.colleges.map(item => item.full_name);
+      } else {
+        console.log("AAA")
+        return [
+          "选择或搜索院校",
+          "选择或搜索院校",
+          "选择或搜索院校",
+          "选择或搜索院校"
+        ];
+      }
+    },
     collegeRecommendations() {
       return this.loginUser.college_recommendations;
     },
@@ -109,13 +113,15 @@ export default {
       return this.collegeRecommendations.other_colleges;
     },
     selectableRecommendedColleges() {
-      if (this.intendedAndRecommendedColleges) { // 如果是最后填报的志愿表，则直接显示所有用户已选择和推荐的
+      if (this.intendedAndRecommendedColleges) {
+        // 如果是最后填报的志愿表，则直接显示所有用户已选择和推荐的
         return this.intendedAndRecommendedColleges;
       }
       return this.recommendedColleges;
     },
     selectedColleges() {
-      const selectableCollegesLength = this.selectableRecommendedColleges.length; // 共有多少可供选择的推荐名单中的学校
+      const selectableCollegesLength = this.selectableRecommendedColleges
+        .length; // 共有多少可供选择的推荐名单中的学校
       return this.selectedCollegeIndices
         .filter(index => index != null)
         .map(index =>

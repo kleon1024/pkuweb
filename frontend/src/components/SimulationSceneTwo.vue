@@ -32,12 +32,12 @@
         【问题1】如果小明被
         <span
           style="color:red; font-weight: bold;"
-        >{{ satisfactions[2].college.full_name }}</span>录取，那么你将获得______元奖励
+        >{{ satisfactions[6].college.full_name }}</span>录取，那么你将获得______元奖励
       </h4>
       <el-radio-group v-model="q1_answer">
         <el-radio-button label="A">A. {{ satisfactions[0].value }}</el-radio-button>
         <el-radio-button label="B">B. {{ satisfactions[1].value }}</el-radio-button>
-        <el-radio-button label="C">C. {{ satisfactions[2].value }}</el-radio-button>
+        <el-radio-button label="C">C. {{ satisfactions[6].value }}</el-radio-button>
       </el-radio-group>
       <h4>【问题2】如果小明没有被任何一本志愿录取，那么你将获得______元奖励</h4>
       <el-radio-group v-model="q2_answer">
@@ -73,7 +73,8 @@ export default {
     ...mapState([
       "intendedColleges",
       "zhiyuanSatisfactionAssessAnswers",
-      "otherZhiyuanSatisfactionAssessAnswers"
+      "otherZhiyuanSatisfactionAssessAnswers",
+      "xiaoMingSatisfactions",
     ]),
     answersCorrect() {
       return this.q1_answer === "C" && this.q2_answer === "A";
@@ -90,20 +91,25 @@ export default {
   },
   methods: {
     init() {
-      for (var i = 0; i < this.recommendedColleges.length; i++) {
-        var college = this.recommendedColleges[i];
-        var value;
-        if (college.strategy === "冲") {
-          value = utils.getRandomInt(50, 60);
-        } else if (college.strategy === "稳") {
-          value = utils.getRandomInt(30, 35);
-        } else if (college.strategy === "保") {
-          value = 10;
+      if (this.xiaoMingSatisfactions == null) {
+        for (var i = 0; i < this.recommendedColleges.length; i++) {
+          var college = this.recommendedColleges[i];
+          var value;
+          if (college.strategy === "冲") {
+            value = utils.getRandomInt(50, 60);
+          } else if (college.strategy === "稳") {
+            value = utils.getRandomInt(30, 35);
+          } else if (college.strategy === "保") {
+            value = 10;
+          }
+          this.satisfactions.push({
+            college: college,
+            value: value
+          });
         }
-        this.satisfactions.push({
-          college: college,
-          value: value
-        });
+        this.$store.commit("storeXiaoMingSatisfactions", this.satisfactions);
+      } else {
+        this.satisfactions = this.xiaoMingSatisfactions;
       }
     },
 
