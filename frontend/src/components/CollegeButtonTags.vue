@@ -13,7 +13,7 @@
         >
           <el-link
             :type="!showStrategy ? 'primary' : (college.strategy === '冲' ? 'danger' : college.strategy === '稳' ? 'primary' : 'success')"
-            :href="`http://baidu.com/s?wd=${college.full_name}`"
+            :href="`http://baidu.com/s?wd=${college.full_name}%20site%3Agaokao.chsi.com.cn`"
             target="_blank"
             :underline="false"
           >

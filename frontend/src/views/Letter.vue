@@ -2,7 +2,7 @@
   <el-card>
     <div slot="header">
       <el-row>
-        <span class="card-title">致宁夏2019届考生的一封信</span>
+        <span class="card-title">致宁夏2020届考生的一封信</span>
         <span style="float: right;">
           <el-button
             type="primary"

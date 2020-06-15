@@ -111,7 +111,7 @@ export default {
       activeIndex: "/letter",
       menuItems: [
         {
-          name: "致宁夏2019届考生的一封信",
+          name: "致宁夏2020届考生的一封信",
           index: "/letter"
         },
         {

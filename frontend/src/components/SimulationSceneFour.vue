@@ -6,14 +6,20 @@
     <section>
       <h3>情景3</h3>
       <p>你的朋友，小红，也参与了本调查。系统给她推荐的学校和给你推荐学校相同，她的分数也你的分数相同。她对学校满意度和小明相同：</p>
-      <div v-for="(answer, i) in satisfactions" :key="`simulation-1-colleges-recommendation-${i}`">
-        <el-row style="margin-top: 20px;">
+      <el-row style="margin-top: 20px;" :gutter="24">
+        <el-col
+          :xs="24"
+          :sm="12"
+          style="margin-top: 20px"
+          v-for="(answer, i) in satisfactions"
+          :key="`simulation-1-colleges-recommendation-${i}`"
+        >
           <el-col :span="10">{{ answer.college.full_name }}</el-col>
           <el-col :span="5">
             <el-input-number v-model="answer.value" :min="1" :max="100" disabled></el-input-number>
           </el-col>
-        </el-row>
-      </div>
+        </el-col>
+      </el-row>
     </section>
 
     <section style="margin-top: 50px;" v-if="satisfactions[0]">

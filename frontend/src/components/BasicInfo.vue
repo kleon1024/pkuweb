@@ -38,14 +38,20 @@
         </el-form-item>
         <h4>1. 请输入你的高考总分，排名及各科分数</h4>
         <el-row :gutter="20">
-          <el-col :xs="24" :sm="12">
-            <el-form-item label="高考总分" prop="total_score" required>
-              <el-input v-model.number="basicInfoForm.total_score" placeholder="例如：565" />
+          <el-alert
+            type="error"
+            center
+            :closable="false"
+            title="按高考总分排名，含加分"
+          />
+          <el-col :xs="48" :sm="24">
+            <el-form-item label="排名" prop="ranking" required>
+              <el-input v-model.number="basicInfoForm.ranking" placeholder="例如：1500" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12">
-            <el-form-item label="排名" prop="ranking" required>
-              <el-input v-model.number="basicInfoForm.ranking" placeholder="例如：1500" />
+            <el-form-item label="总分" prop="total_score" required>
+              <el-input v-model.number="basicInfoForm.total_score" placeholder="例如：565" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12">
@@ -68,8 +74,13 @@
               <el-input v-model.number="basicInfoForm.zonghe_score" placeholder="例如：225" />
             </el-form-item>
           </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item label="政策加分" prop="extra_score" required>
+              <el-input v-model.number="basicInfoForm.extra_score" placeholder="例如：10" />
+            </el-form-item>
+          </el-col>
           <el-col v-show="basicInfoForm.total_score && !totalScoreValid" :xs="24">
-            <el-alert type="error" title="总分不等于各科分数加和，请检查是否输入错误" center :closable="false" />
+            <el-alert type="error" title="总分不等于各科分数及政策加分之和，请检查是否输入错误" center :closable="false" />
           </el-col>
         </el-row>
         <div
@@ -166,7 +177,7 @@
         </el-row>
         <h4>
           8.
-          在本题中，我们将测试你对风险的承受能力。请在下面的每一道小题中，你将面临两个选项。请选出对你自己来说更好的那个选项：
+          为了帮助我们更好地对你填报志愿进行风险的评估，我们将测试你对风险的承受能力。请在下面的每一道小题中，你将面临两个选项。请选出对你自己来说更好的那个选项：
         </h4>
         <el-row v-for="(item, index) in basicInfoForm.risk_list" :key="`risk-take-${index}`" :gutter="1">
           <el-form-item
@@ -229,6 +240,7 @@ export default {
         math_score: "",
         foreign_language_score: "",
         zonghe_score: "",
+        extra_score: "",
         college_factors: [],
         college_types: [],
         college_locations: [],
@@ -302,6 +314,14 @@ export default {
             trigger: "blur"
           }
         ],
+        extra_score: [
+          {
+            pattern: /^\d{1,3}$/,
+            required: true,
+            message: "请务必正确填写",
+            trigger: "blur"
+          }
+        ],
         college_factors: [
           {
             validator: this.getValidatorByQuestion(
@@ -343,7 +363,8 @@ export default {
         this.basicInfoForm.zonghe_score +
         this.basicInfoForm.math_score +
         this.basicInfoForm.literature_score +
-        this.basicInfoForm.foreign_language_score
+        this.basicInfoForm.foreign_language_score +
+        this.basicInfoForm.extra_score
       );
     },
     totalScoreValid() {

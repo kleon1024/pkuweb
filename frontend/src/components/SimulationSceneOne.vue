@@ -7,14 +7,20 @@
     <section>
       <h3>情景1</h3>
       <p>在调查的开始，我们推荐了{{ numberOfColleges }} 所学校。学校的名字以及你对这些学校的满意度如下（如果你发现自己填写的满意度有误，可以通过“+”和“-”进行调整）</p>
-      <div v-for="(answer, i) in satisfactions" :key="`simulation-1-colleges-recommendation-${i}`">
-        <el-row style="margin-top: 20px;">
+      <el-row style="margin-top: 20px;" :gutter="24">
+        <el-col
+          :xs="24"
+          :sm="12"
+          style="margin-top: 20px"
+          v-for="(answer, i) in satisfactions"
+          :key="`simulation-1-colleges-recommendation-${i}`"
+        >
           <el-col :span="10">{{ answer.college.full_name }}</el-col>
           <el-col :span="5">
-            <el-input-number v-model="answer.value" :min="1" :max="100"></el-input-number>
+          <el-input-number v-model="answer.value" :min="1" :max="100"></el-input-number>
           </el-col>
-        </el-row>
-      </div>
+        </el-col>
+      </el-row>
     </section>
 
     <section style="margin-top: 50px;">
@@ -141,15 +147,12 @@ export default {
       this.answerChanged[index] = true;
     },
     satisfactionsDone() {
-        this.$store.commit(
-          "storeRecommendedZhiyuanSatisfactions",
-          this.satisfactions
-        );
-        this.$store.commit(
-          "storeSimulationOneZhiyuans",
-          this.selectedColleges,
-        );
-        this.$emit("confirmed");
+      this.$store.commit(
+        "storeRecommendedZhiyuanSatisfactions",
+        this.satisfactions
+      );
+      this.$store.commit("storeSimulationOneZhiyuans", this.selectedColleges);
+      this.$emit("confirmed");
     }
   }
 };
