@@ -20,6 +20,9 @@ Vue.mixin({
     loginUser() {
       return this.$store.state.loginUser;
     },
+    currentState() {
+      return this.$store.state;
+    },
     PRODUCTION_MODE() {
       return process.env.NODE_ENV === "production";
     }

@@ -7,7 +7,8 @@ module.exports = function (options = {}) {
 
     const cleanData = {
       gaokao_id: data.gaokao_id,
-      birthdate: data.birthdate
+      birthdate: data.birthdate,
+      ip: data.ip,
     };
 
     // TODO add check logic

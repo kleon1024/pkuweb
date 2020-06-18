@@ -57,6 +57,7 @@ export default {
   data() {
     return {
       loading: false,
+      ip: null,
       loginForm: {
         gaokao_id: null,
         birthdate: new Date("2000/01/01")
@@ -99,10 +100,19 @@ export default {
       this.loading = true;
       this.$refs[formName].validate(valid => {
         if (valid) {
+          request.get('http://pv.sohu.com/cityjson?ie=utf-8', {}, (err, res) => {
+            if (res) {
+              console.log(res);
+              this.ip = res.data;
+            }
+          })
+          
           const reqBody = {
             gaokao_id: this.parsedGaokaoId,
-            birthdate: this.parsedBirthDate
+            birthdate: this.parsedBirthDate,
+            ip: this.ip,
           };
+
           request.post(`${this.API_URL}/login`, reqBody, (err, res) => {
             if (res) {
               if (res.data.failed) {

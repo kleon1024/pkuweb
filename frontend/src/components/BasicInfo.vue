@@ -480,38 +480,44 @@ export default {
           valid = false;
         }
         if (valid) {
-          request.post(
-            `${this.API_URL}/basic-info`,
-            this.dataToSubmit,
-            (err, res) => {
-              if (res) {
-                if (res.data.failed) {
-                  this.$alert(res.data.message, "提交失败", {
-                    type: "error",
-                    confirmButtonText: "去检查",
-                    callback: () => {
-                      this.loading = false;
-                    }
-                  });
-                } else {
-                  this.$message({
-                    message:
-                      "信息填写完毕！现在你可以使用魁伟系统进行志愿填报了。该软件主要针对报考一批次的同学。欲报考其它批次高校的同学请和客服人员联系。",
-                    type: "success"
-                  });
-                  this.$store.commit("updateBasicInfo", this.basicInfoForm);
-                  this.$emit("confirmed");
-                  this.loading = false;
-              }
-              } else {
-                this.$message({
-                  message: "无法连接服务器，请稍后再试",
-                  type: "error"
-                });
-                this.loading = false;
-              }
-            }
-          );
+          this.$store.commit("updateBasicInfo", this.dataToSubmit);
+          this.$emit("confirmed");
+          this.$message({
+            message:
+              "信息填写完毕！现在你可以使用魁伟系统进行志愿填报了。该软件主要针对报考一批次的同学。欲报考其它批次高校的同学请和客服人员联系。",
+            type: "success"
+          });
+
+          // request.post(
+          //   `${this.API_URL}/basic-info`,
+          //   this.dataToSubmit,
+          //   (err, res) => {
+          //     if (res) {
+          //       if (res.data.failed) {
+          //         this.$alert(res.data.message, "提交失败", {
+          //           type: "error",
+          //           confirmButtonText: "去检查",
+          //           callback: () => {
+          //             this.loading = false;
+          //           }
+          //         });
+          //       } else {
+          //         this.$message({
+          //           message:
+          //             "信息填写完毕！现在你可以使用魁伟系统进行志愿填报了。该软件主要针对报考一批次的同学。欲报考其它批次高校的同学请和客服人员联系。",
+          //           type: "success"
+          //         });
+          //         this.loading = false;
+          //     }
+          //     } else {
+          //       this.$message({
+          //         message: "无法连接服务器，请稍后再试",
+          //         type: "error"
+          //       });
+          //       this.loading = false;
+          //     }
+          //   }
+          // );
         } else {
           this.$message({
             message: "有信息未填写或，有误。完整的信息填写能让我们更好地提供志愿报考辅导！",

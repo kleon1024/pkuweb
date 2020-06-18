@@ -28,7 +28,7 @@
           show-icon
         />
         <el-alert
-          v-if="majorStep > 1 && !zhiyuanColleges"
+          v-if="majorStep >= 1 && !zhiyuanColleges"
           style="margin-top: 20px;"
           type="error"
           title="请不要在志愿填写过程中离开，刷新或者关闭该页面。请完成每页的内容并点击下一步一直到确认提交志愿表，否则需要重新填表。"
@@ -189,7 +189,7 @@ export default {
     }
   },
 
-  mounted() {},
+  mounted() { },
 
   methods: {
     format(percentage) {
@@ -205,6 +205,33 @@ export default {
     },
     saveStep(major, minor) {
       this.$store.commit("saveStep", [major, minor]);
+      this.saveCheckpoint();
+    },
+    saveCheckpoint() {
+      request.post(
+        `${this.API_URL}/checkpoint`,
+        this.currentState,
+        (err, res) => {
+          if (res) {
+            if (!res.data.failded) {
+              this.$message({
+                type: "success",
+                message: "检查点保存成功"
+              });
+            } else {
+              this.$message({
+                type: "error",
+                message: "检查点保存失败"
+              });
+            }
+          } else {
+            this.$message({
+              type: "error",
+              message: "检查点保存失败"
+            });
+          }
+        }
+      );
     },
     zhiyuanFinished() {
       this.$message({
@@ -222,7 +249,7 @@ export default {
           cancelButtonText: "再考虑一会",
           showClose: false
         }
-      )
+        )
         .then(() => {
           const busy = this.$loading({
             lock: true,
@@ -230,44 +257,39 @@ export default {
             spinner: "el-icon-loading",
             background: "rgba(0, 0, 0, 0.7)"
           });
-          const zhiyuan = {
-            intended_colleges: this.intendedColleges,
-            zhiyuan_quiz_answers: this.zhiyuanQuizAnswers,
-            zhiyuan_survey_answers: this.zhiyuanSurveyAnswers,
-            other_colleges_info: this.otherCollegesInfo,
-            zhiyuan_guide_answers: this.zhiyuanGuideAnswers,
-            zhiyuan_colleges: zhiyuanForm.zhiyuanColleges
-          };
-          request.post(
-            `${this.API_URL}/submit-zhiyuan`,
-            { zhiyuan: zhiyuan, payment_method: zhiyuanForm.paymentMethod },
-            (err, res) => {
-              if (res) {
-                if (!res.data.failded) {
-                  this.$store.commit(
-                    "storeZhiyuanColleges",
-                    zhiyuanForm.zhiyuanColleges
-                  );
-                  busy.close();
-                  this.saveStep(this.majorStep + 1, 1);
-                  this.zhiyuanFinished();
-                  
-                } else {
-                  this.$alert(res.data.message, "提交出错", {
-                    type: "error",
-                    confirmButtonText: "稍后再试",
-                    callback: () => busy.close()
-                  });
-                }
-              } else {
-                this.$message({
-                  type: "error",
-                  message: "服务器出错，请稍后再试"
-                });
-                busy.close();
-              }
-            }
-          );
+          this.$store.commit("savePaymentMethod", zhiyuanForm.paymentMethod);
+          this.saveStep(this.majorStep + 1, 1);
+          this.saveCheckpoint();
+
+          // request.post(
+          //   `${this.API_URL}/submit-zhiyuan`,
+          //   { zhiyuan: zhiyuan, payment_method: zhiyuanForm.paymentMethod },
+          //   (err, res) => {
+          //     if (res) {
+          //       if (!res.data.failded) {
+          //         this.$store.commit(
+          //           "storeZhiyuanColleges",
+          //           zhiyuanForm.zhiyuanColleges
+          //         );
+          //         busy.close();
+          //         this.saveStep(this.majorStep + 1, 1);
+          //         this.zhiyuanFinished();
+          //       } else {
+          //         this.$alert(res.data.message, "提交出错", {
+          //           type: "error",
+          //           confirmButtonText: "稍后再试",
+          //           callback: () => busy.close()
+          //         });
+          //       }
+          //     } else {
+          //       this.$message({
+          //         type: "error",
+          //         message: "服务器出错，请稍后再试"
+          //       });
+          //       busy.close();
+          //     }
+          //   }
+          // );
         })
         .catch(() => {});
     }

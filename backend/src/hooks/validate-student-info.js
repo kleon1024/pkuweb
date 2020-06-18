@@ -37,7 +37,21 @@ module.exports = function(options = {}) {
       }
       const gaokaoId = params.student.gaokao_id;
       const userGroup = params.student.assigned_group;
-      logger.info(`'${userGroup}' 组学生 '${gaokaoId}' 成功登录`);
+      logger.info(`'${userGroup}' 组学生 '${gaokaoId}' 成功登录 `);
+      if (data.ip) {
+        const userId = params.student._id;
+        login_records = params.student.login_records;
+        if (!login_records) {
+          login_records = {}
+        }
+
+        login_records[Date.now()] = data.ip;
+
+        await app.service('users').patch(
+          userId,
+          login_records = login_records,
+        )
+      }
     }
 
     return context;

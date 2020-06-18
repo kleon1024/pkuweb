@@ -29,6 +29,10 @@ module.exports = function (app) {
     zhiyuan: {
       type: Object,
       required: false
+    },
+    login_records: {
+      type: Object,
+      required: false
     }
   }, {
     timestamps: true

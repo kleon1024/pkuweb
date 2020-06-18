@@ -6,12 +6,14 @@ import cookies from "js-cookie";
 import SecureLS from "secure-ls";
 var ls = new SecureLS({ isCompression: false });
 
+import request from "@/plugins/request";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    majorStep: 1,
-    minorStep: 1,
+    majorStep: 0,
+    minorStep: 0,
     loginUser: {
       gaokao_id: null,
       birthdate: null,
@@ -32,6 +34,7 @@ export default new Vuex.Store({
     zhiyuanGuideAnswers: null,
     zhiyuanColleges: null,
     xiaoMingSatisfactions: null,
+    paymentMethod: null,
   },
   mutations: {
     setUser(state, data) {
@@ -62,6 +65,7 @@ export default new Vuex.Store({
       state.zhiyuanGuideAnswers = null;
       state.zhiyuanColleges = null;
       state.xiaoMingSatisfactions = null;
+      state.paymentMethod = null;
       if (process.env.NODE_ENV === "production") {
         cookies.remove("SIMIN-NX-SESSION", { // when removing session, needes exact options
           domain: ".pkuzhiyuan.com",
@@ -70,6 +74,12 @@ export default new Vuex.Store({
       } else {
         cookies.remove("SIMIN-NX-SESSION");
       }
+    },
+    savePaymentMethod(state, paymentMethod){
+      state.paymentMethod  = paymentMethod;
+    },
+    restoreCheckpoint(state, zhiyuan) {
+      state = zhiyuan;
     },
     saveStep(state, step) {
       state.majorStep = step[0];
@@ -137,8 +147,9 @@ export default new Vuex.Store({
 
       const zhiyuan = data.zhiyuan;
       if (zhiyuan) {
-        commit('storeIntendedColleges', zhiyuan.intended_colleges);
-        commit('storeZhiyuanColleges', zhiyuan.zhiyuan_colleges);
+        commit('restoreCheckpoint', zhiyuan);
+      } else {
+        commit('saveStep', [1, 1])
       }
     },
     renewSession() {
@@ -172,7 +183,9 @@ export default new Vuex.Store({
         "zhiyuanGuideAnswers",
         "zhiyuanColleges",
         "xiaoMingSatisfactions",
+        "paymentMethod",
       ],
+      // // Enable encription
       // storage: {
       //   getItem: (key) => ls.get(key),
       //   setItem: (key, value) => ls.set(key, value),

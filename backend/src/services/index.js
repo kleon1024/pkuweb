@@ -4,6 +4,7 @@ const users = require('./users/users.service.js');
 const sessions = require('./sessions/sessions.service.js');
 const login = require('./login/login.service.js');
 const basic_info = require('./basic-info/basic-info.service.js');
+const checkpoint = require('./checkpoint/checkpoint.service.js');
 const collegeAdmins = require('./college-admins/college-admins.service.js');
 const submitZhiyuan = require('./submit-zhiyuan/submit-zhiyuan.service.js');
 
