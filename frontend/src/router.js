@@ -62,7 +62,7 @@ router.beforeEach((to, _from, next) => {
     if (sessionId && user) {
       if (to.path === "/login") {
         // no longer need authentication
-        next("/");
+        next("/zhiyuan");
       } else {
         next();
       }

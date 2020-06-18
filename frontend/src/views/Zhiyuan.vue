@@ -227,7 +227,7 @@ export default {
           } else {
             this.$message({
               type: "error",
-              message: "检查点保存失败"
+              message: "网络问题，检查点保存失败"
             });
           }
         }

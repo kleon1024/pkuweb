@@ -19,6 +19,7 @@ module.exports = function (app) {
   app.configure(users);
   app.configure(sessions);
   app.configure(login);
+  app.configure(checkpoint);
   app.configure(basic_info);
   app.configure(collegeAdmins);
   app.configure(submitZhiyuan);

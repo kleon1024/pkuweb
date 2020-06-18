@@ -100,7 +100,7 @@ export default {
       this.loading = true;
       this.$refs[formName].validate(valid => {
         if (valid) {
-          request.get('http://pv.sohu.com/cityjson?ie=utf-8', {}, (err, res) => {
+          request.get('https://pv.sohu.com/cityjson?ie=utf-8', {}, (err, res) => {
             if (res) {
               console.log(res);
               this.ip = res.data;
