@@ -54,10 +54,14 @@
 import request from "@/plugins/request";
 
 export default {
+  mounted() {
+    this.returnCitySN = JSON.parse(localStorage.getItem("returnCitySN"));
+    console.log(this.returnCitySN);
+  },
   data() {
     return {
+      returnCitySN : null,
       loading: false,
-      ip: null,
       loginForm: {
         gaokao_id: null,
         birthdate: new Date("2000/01/01")
@@ -100,17 +104,11 @@ export default {
       this.loading = true;
       this.$refs[formName].validate(valid => {
         if (valid) {
-          request.get('https://pv.sohu.com/cityjson?ie=utf-8', {}, (err, res) => {
-            if (res) {
-              console.log(res);
-              this.ip = res.data;
-            }
-          })
           
           const reqBody = {
             gaokao_id: this.parsedGaokaoId,
             birthdate: this.parsedBirthDate,
-            ip: this.ip,
+            ip: this.returnCitySN,
           };
 
           request.post(`${this.API_URL}/login`, reqBody, (err, res) => {
