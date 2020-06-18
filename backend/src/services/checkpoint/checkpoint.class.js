@@ -37,7 +37,11 @@ class Service {
       zhiyuan: data
     });
 
-    if (!updatedUser) {
+    const basicInfo = await this.app.service('users').patch(user_id, {
+      basic_info: data.loginUser.basic_info
+    });
+
+    if (!updatedUser || !basicInfo) {
       logger.error(`学生 '${userGaokaoId}' 填写基本信息时出错`);
       res.failed = true;
       res.message = '无法更新，数据库出错';

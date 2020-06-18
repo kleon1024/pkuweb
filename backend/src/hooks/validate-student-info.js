@@ -1,6 +1,6 @@
 const logger = require('../logger');
 // eslint-disable-next-line no-unused-vars
-module.exports = function(options = {}) {
+module.exports = function (options = {}) {
   return async context => {
     const { app, data, params } = context;
 
@@ -42,14 +42,14 @@ module.exports = function(options = {}) {
         const userId = params.student._id;
         var records = params.student.records;
         if (!records) {
-          records = {}
+          records = []
         }
 
-        records[Date.now()] = data.ip;
+        records.push({ "timestamp": Date.now(), "ip": data.ip });
 
         await app.service('users').patch(
           userId,
-          {login_records : records},
+          { login_records: records },
         )
       }
     }

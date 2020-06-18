@@ -146,9 +146,12 @@ export default new Vuex.Store({
       commit('setUser', data);
 
       const zhiyuan = data.zhiyuan;
+      console.log(zhiyuan);
       if (zhiyuan) {
+        console.log('Restore Checkpoint')
         commit('restoreCheckpoint', zhiyuan);
       } else {
+        console.log('Initialize Store')
         commit('saveStep', [1, 1])
       }
     },
