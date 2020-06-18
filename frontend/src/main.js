@@ -1,6 +1,6 @@
-import Vue from "vue";
+// import Vue from "vue";
 import App from "@/App.vue";
-import VueLazyload from 'vue-lazyload'
+// import VueLazyload from 'vue-lazyload'
 import router from "@/router";
 import store from "@/store";
 import "@/plugins/element.js";
