@@ -79,7 +79,22 @@ export default new Vuex.Store({
       state.paymentMethod  = paymentMethod;
     },
     restoreCheckpoint(state, zhiyuan) {
-      state = zhiyuan;
+      state.majorStep = zhiyuan.majorStep;
+      state.minorStep = zhiyuan.minorStep;
+      state.intendedColleges = zhiyuan.intendedColleges;
+      state.intendedAndRecommendedColleges = zhiyuan.intendedAndRecommendedColleges;
+      state.zhiyuanQuizAnswers = zhiyuan.zhiyuanQuizAnswers;
+      state.zhiyuanSatisfactionAssessAnswers = zhiyuan.zhiyuanSatisfactionAssessAnswers;
+      state.otherZhiyuanSatisfactionAssessAnswers = zhiyuan.otherZhiyuanSatisfactionAssessAnswers;
+      state.recommendedZhiyuanSatisfactions = zhiyuan.recommendedZhiyuanSatisfactions;
+      state.simulationOneZhiyuans = zhiyuan.simulationOneZhiyuans;
+      state.whatthefuckAnsw = zhiyuan.whatthefuckAnsw;
+      state.zhiyuanSurveyAnswers = zhiyuan.zhiyuanSurveyAnswers;
+      state.otherCollegesInfo = zhiyuan.otherCollegesInfo;
+      state.zhiyuanGuideAnswers = zhiyuan.zhiyuanGuideAnswers;
+      state.zhiyuanColleges = zhiyuan.zhiyuanColleges;
+      state.xiaoMingSatisfactions = zhiyuan.xiaoMingSatisfactions;
+      state.paymentMethod = zhiyuan.paymentMethod;
     },
     saveStep(state, step) {
       state.majorStep = step[0];
@@ -146,12 +161,9 @@ export default new Vuex.Store({
       commit('setUser', data);
 
       const zhiyuan = data.zhiyuan;
-      console.log(zhiyuan);
       if (zhiyuan) {
-        console.log('Restore Checkpoint')
         commit('restoreCheckpoint', zhiyuan);
       } else {
-        console.log('Initialize Store')
         commit('saveStep', [1, 1])
       }
     },
