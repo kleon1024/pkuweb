@@ -1,16 +1,18 @@
 <template>
   <router-link to="/">
-    <img
-      class="logo-img"
-      :src="require('@/assets/logo_text.png')"
-      alt="斯民图标"
-    >
+    <img class="logo-img" v-lazy="logo_source" alt="斯民图标" />
   </router-link>
 </template>
 
 <script>
 export default {
-  name: "Logo"
+  name: "Logo",
+  data() {
+    return {
+      logo_source:
+        "https://cm-1301052396.cos.ap-shanghai.myqcloud.com/logo_text.png"
+    };
+  }
 };
 </script>
 

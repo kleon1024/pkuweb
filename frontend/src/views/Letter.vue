@@ -14,7 +14,7 @@
     </div>
     <img
       class="letter-fall-back"
-      :src="require('@/assets/nx_letter.png')"
+      v-lazy="nx_letter"
       width="100%"
     >
   </el-card>
@@ -44,7 +44,11 @@ export default {
   //   ZhiyuanGuideNavigation,
   //   ZhiyuanSubmissionNavigation
   // },
-  
+  data() {
+    return {
+      nx_letter : "https://cm-1301052396.cos.ap-shanghai.myqcloud.com/nx_letter.png"
+    };
+  },
   methods: {
     gotoZhiyuan() {
       this.$router.push("/zhiyuan");
