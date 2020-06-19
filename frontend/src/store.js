@@ -34,6 +34,9 @@ export default new Vuex.Store({
     zhiyuanGuideAnswers: null,
     zhiyuanColleges: null,
     xiaoMingSatisfactions: null,
+    sim4selectedColleges: null,
+    sim5SelectedColleges: null,
+    probabilities: null,
     paymentMethod: null,
   },
   mutations: {
@@ -65,6 +68,9 @@ export default new Vuex.Store({
       state.zhiyuanGuideAnswers = null;
       state.zhiyuanColleges = null;
       state.xiaoMingSatisfactions = null;
+      state.sim4selectedColleges = null;
+      state.sim5SelectedColleges = null;
+      state.probabilities = null;
       state.paymentMethod = null;
       if (process.env.NODE_ENV === "production") {
         cookies.remove("SIMIN-NX-SESSION", { // when removing session, needes exact options
@@ -95,6 +101,9 @@ export default new Vuex.Store({
       state.zhiyuanColleges = zhiyuan.zhiyuanColleges;
       state.xiaoMingSatisfactions = zhiyuan.xiaoMingSatisfactions;
       state.paymentMethod = zhiyuan.paymentMethod;
+      state.sim4selectedColleges = zhiyuan.sim4selectedColleges;
+      state.sim5SelectedColleges = zhiyuan.sim5SelectedColleges;
+      state.probabilities = zhiyuan.probabilities;
     },
     saveStep(state, step) {
       state.majorStep = step[0];
@@ -102,6 +111,15 @@ export default new Vuex.Store({
     },
     updateBasicInfo(state, basicInfo) {
       state.loginUser.basic_info = basicInfo;
+    },
+    saveProbabilities(state, probabilities) {
+      state.probabilities = probabilities;
+    },
+    saveSim5SelectedColleges(state, sim5SelectedColleges) {
+      state.sim5SelectedColleges = sim5SelectedColleges;
+    },
+    saveSim4selectedColleges(state, sim4selectedColleges) {
+      state.sim4selectedColleges = sim4selectedColleges;
     },
     storeCollegeRecommendations(state, collegeRecommendations) {
       collegeRecommendations.other_colleges.sort((c1, c2) => c1.college.localeCompare(c2.college, "zh-CN")); // 按照大学名称字母排序
@@ -198,6 +216,9 @@ export default new Vuex.Store({
         "zhiyuanGuideAnswers",
         "zhiyuanColleges",
         "xiaoMingSatisfactions",
+        "sim4selectedColleges",
+        "sim5SelectedColleges",
+        "probabilities",
         "paymentMethod",
       ],
       // // Enable encription

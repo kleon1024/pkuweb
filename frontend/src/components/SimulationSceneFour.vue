@@ -87,7 +87,8 @@ export default {
           type: "error"
         });
       } else {
-        this.$emit("confirmed");
+        this.$store.commit('saveSim4selectedColleges', this.sim4selectedColleges)
+        this.$emit("confirmed")
       }
     }
   }

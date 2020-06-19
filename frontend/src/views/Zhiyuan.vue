@@ -258,8 +258,10 @@ export default {
             background: "rgba(0, 0, 0, 0.7)"
           });
           this.$store.commit("savePaymentMethod", zhiyuanForm.paymentMethod);
+          this.$store.commit("storeZhiyuanColleges", zhiyuanForm.zhiyuanColleges);
           this.saveStep(this.majorStep + 1, 1);
           this.saveCheckpoint();
+          busy.close();
 
           // request.post(
           //   `${this.API_URL}/submit-zhiyuan`,

@@ -86,6 +86,7 @@ export default {
       }
 
       if (finished) {
+        this.$store.commit("saveProbabilities", this.probsToSubmit);
         this.$emit("confirmed");
       } else {
         this.$message({
