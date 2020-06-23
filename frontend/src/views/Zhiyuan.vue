@@ -241,7 +241,7 @@ export default {
     },
     onZhiyuanSubmissionFormDone(zhiyuanForm) {
       this.$confirm(
-        "恭喜你完成了我们的模拟志愿填报，我们后续将根据你的答案来计算你可以获得的奖励。如果有其他问题，请与我们联系。",
+        "恭喜你完成了我们的模拟志愿填报，我们后续将根据你的答案来计算你可以获得的奖励。你仍可以查看推荐院校并修改志愿。如果有其他问题，请与我们联系。",
         "志愿填报完成",
         {
           type: "success",
@@ -259,7 +259,6 @@ export default {
           });
           this.$store.commit("savePaymentMethod", zhiyuanForm.paymentMethod);
           this.$store.commit("storeZhiyuanColleges", zhiyuanForm.zhiyuanColleges);
-          this.saveStep(this.majorStep + 1, 1);
           this.saveCheckpoint();
           busy.close();
 

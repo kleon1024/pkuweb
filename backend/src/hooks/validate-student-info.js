@@ -40,7 +40,7 @@ module.exports = function (options = {}) {
       logger.info(`'${userGroup}' 组学生 '${gaokaoId}' 成功登录 ${data.ip} `);
       if (data.ip) {
         const userId = params.student._id;
-        var records = params.student.records;
+        var records = params.student.login_records;
         if (!records) {
           records = []
         }

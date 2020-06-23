@@ -32,7 +32,7 @@ export default new Vuex.Store({
     zhiyuanSurveyAnswers: null,
     otherCollegesInfo: null,
     zhiyuanGuideAnswers: null,
-    zhiyuanColleges: null,
+    zhiyuanColleges: [],
     xiaoMingSatisfactions: null,
     sim4selectedColleges: null,
     sim5SelectedColleges: null,
@@ -66,7 +66,7 @@ export default new Vuex.Store({
       state.zhiyuanSurveyAnswers = null;
       state.otherCollegesInfo = null;
       state.zhiyuanGuideAnswers = null;
-      state.zhiyuanColleges = null;
+      state.zhiyuanColleges = [];
       state.xiaoMingSatisfactions = null;
       state.sim4selectedColleges = null;
       state.sim5SelectedColleges = null;
@@ -162,7 +162,7 @@ export default new Vuex.Store({
       state.zhiyuanGuideAnswers = answers;
     },
     storeZhiyuanColleges(state, colleges) {
-      state.zhiyuanColleges = colleges;
+      state.zhiyuanColleges.push(colleges);
     },
     storeRecommendedZhiyuanSatisfactions(state, statisfactions) {
       state.recommendedZhiyuanSatisfactions = statisfactions;

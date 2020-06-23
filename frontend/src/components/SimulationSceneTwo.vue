@@ -38,12 +38,12 @@
         【问题1】如果小明被
         <span
           style="color:red; font-weight: bold;"
-        >{{ satisfactions[6].college.full_name }}</span>录取，那么你将获得______元奖励
+        >{{ q1_choices[0].college.full_name }}</span>录取，那么你将获得______元奖励
       </h4>
       <el-radio-group v-model="q1_answer">
-        <el-radio-button label="A">A. {{ satisfactions[0].value }}</el-radio-button>
-        <el-radio-button label="B">B. {{ satisfactions[1].value }}</el-radio-button>
-        <el-radio-button label="C">C. {{ satisfactions[6].value }}</el-radio-button>
+        <el-radio-button label="A">A. {{ q1_choices[2].value }}</el-radio-button>
+        <el-radio-button label="B">B. {{ q1_choices[1].value }}</el-radio-button>
+        <el-radio-button label="C">C. {{ q1_choices[0].value }}</el-radio-button>
       </el-radio-group>
       <h4>【问题2】如果小明没有被任何一本志愿录取，那么你将获得______元奖励</h4>
       <el-radio-group v-model="q2_answer">
@@ -72,7 +72,8 @@ export default {
     return {
       satisfactions: [],
       q1_answer: "",
-      q2_answer: ""
+      q2_answer: "",
+      q1_choices: [],
     };
   },
   computed: {
@@ -97,8 +98,6 @@ export default {
   },
   methods: {
     init() {
-      // @TODO: z[7] + another two
-      // @TODO: Wrap
       if (this.xiaoMingSatisfactions == null) {
         for (var i = 0; i < this.recommendedColleges.length; i++) {
           var college = this.recommendedColleges[i];
@@ -118,6 +117,24 @@ export default {
         this.$store.commit("storeXiaoMingSatisfactions", this.satisfactions);
       } else {
         this.satisfactions = this.xiaoMingSatisfactions;
+      }
+      var record_choice = false;
+      this.q1_choices.push(this.satisfactions[1]);
+      for (var i = 0; i < this.satisfactions.length; i++) {
+        record_choice = false;
+        for (var j = 0; j < this.q1_choices.length; j++) {
+          if (this.satisfactions[i].college.strategy === this.q1_choices[j].college.strategy) {
+            record_choice = false;
+            break;
+          }
+          record_choice = true;
+        }
+        if (record_choice) {
+          this.q1_choices.push(this.satisfactions[i]);
+        }
+        if (this.q1_choices.length == 3) {
+          break;
+        }
       }
     },
 
