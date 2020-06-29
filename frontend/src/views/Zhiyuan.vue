@@ -84,7 +84,7 @@
         @confirmed="saveStep(majorStep + 1, 1)"
       />
 
-      <AdmissionScoresInfoTest
+      <!-- <AdmissionScoresInfoTest
         v-if="majorStep === 7 && minorStep === 1"
         @confirmed="saveStep(majorStep + 1, 1)"
       />
@@ -97,10 +97,10 @@
       <ZhiyuanGuideStrategy
         v-if="majorStep === 8 && minorStep === 2"
         @confirmed="saveStep(majorStep + 1, 1)"
-      />   
+      />    -->
 
       <ZhiyuanSubmissionForm
-        v-if="majorStep === 9 && minorStep === 1"
+        v-if="majorStep === 7 && minorStep === 1"
         @confirmed="onZhiyuanSubmissionFormDone"
       />
 
