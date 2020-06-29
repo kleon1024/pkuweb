@@ -89,16 +89,16 @@ export default {
     return {
       admissionScoresDialog: false,
       selectedColleges: [],
+      paymentMethod: "",
     };
   },
   computed: {
     ...mapState([
       "intendedColleges",
       "intendedAndRecommendedColleges",
-      "paymentMethod"
     ]),
     hasCompletedZhiyuan() {
-      return !!this.$store.state.zhiyuanColleges;
+      return false; //!!this.$store.state.zhiyuanColleges;
     },
     userGroup() {
       return this.loginUser.assigned_group;

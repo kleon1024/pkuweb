@@ -133,7 +133,7 @@ export default {
       return activeMenuItem.name;
     },
     showLogoutButton() {
-      return this.loginUser.gaokao_id || this.$store.state.zhiyuanColleges;
+      return this.$store.state.zhiyuanColleges.length > 0;
     }
   },
   watch: {

@@ -205,6 +205,7 @@ export default {
     },
     saveStep(major, minor) {
       this.$store.commit("saveStep", [major, minor]);
+      this.scrollToTop();
       this.saveCheckpoint();
     },
     saveCheckpoint() {
