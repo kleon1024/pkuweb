@@ -81,8 +81,8 @@ export default new Vuex.Store({
         cookies.remove("SIMIN-NX-SESSION");
       }
     },
-    savePaymentMethod(state, paymentMethod){
-      state.paymentMethod  = paymentMethod;
+    savePaymentMethod(state, paymentMethod) {
+      state.paymentMethod = paymentMethod;
     },
     restoreCheckpoint(state, zhiyuan) {
       state.majorStep = zhiyuan.majorStep;
@@ -98,7 +98,11 @@ export default new Vuex.Store({
       state.zhiyuanSurveyAnswers = zhiyuan.zhiyuanSurveyAnswers;
       state.otherCollegesInfo = zhiyuan.otherCollegesInfo;
       state.zhiyuanGuideAnswers = zhiyuan.zhiyuanGuideAnswers;
-      state.zhiyuanColleges = zhiyuan.zhiyuanColleges;
+      if (zhiyuan.zhiyuanColleges == null) {
+        state.zhiyuanColleges = [];
+      } else {
+        state.zhiyuanColleges = zhiyuan.zhiyuanColleges;
+      }
       state.xiaoMingSatisfactions = zhiyuan.xiaoMingSatisfactions;
       state.paymentMethod = zhiyuan.paymentMethod;
       state.sim4selectedColleges = zhiyuan.sim4selectedColleges;
@@ -175,7 +179,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    login( {commit}, data ) {
+    login({ commit }, data) {
       commit('setUser', data);
 
       const zhiyuan = data.zhiyuan;

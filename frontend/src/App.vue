@@ -133,7 +133,7 @@ export default {
       return activeMenuItem.name;
     },
     showLogoutButton() {
-      return this.$store.state.zhiyuanColleges.length > 0;
+      return this.loginUser.gaokao_id != null;
     }
   },
   watch: {
