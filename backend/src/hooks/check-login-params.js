@@ -6,8 +6,7 @@ module.exports = function (options = {}) {
     } = context;
 
     const cleanData = {
-      gaokao_id: data.gaokao_id,
-      birthdate: data.birthdate,
+      login: data.login,
       ip: data.ip,
     };
 

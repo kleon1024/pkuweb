@@ -22,13 +22,13 @@ module.exports = function (app) {
         httpOnly: false
       };
 
-      logger.info(`学生 '${res.data.gaokao_id}' 正在登录的 Session 为: '${session_id}'`);
+      logger.info(`学生 '${res.data.name}' 正在登录的 Session 为: '${session_id}'`);
       res.cookie('SIMIN-NX-SESSION', session_id, cookieOptions);
       app.service('sessions').create({
         user_id: res.data._id,
         session_id: session_id
       }).then(() => {
-        logger.info(`学生 '${res.data.gaokao_id}' 的 Session: '${session_id}' 被正确记录`);
+        logger.info(`学生 '${res.data.name}' 的 Session: '${session_id}' 被正确记录`);
       });
       delete res.data._id;
       delete res.updatedAt;

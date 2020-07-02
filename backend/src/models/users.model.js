@@ -6,11 +6,15 @@ module.exports = function (app) {
       type: String,
       required: true
     },
-    gaokao_id: {
+    name: {
       type: String,
       required: true
     },
-    birthdate: {
+    class_selection: {
+      type: String,
+      required: true
+    },
+    highschool: {
       type: String,
       required: true
     },
