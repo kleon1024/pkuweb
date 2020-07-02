@@ -12,30 +12,6 @@
         label-width="90px"
         status-icon
       >
-        <el-form-item label="姓名" prop="name" required>
-          <el-input v-model="basicInfoForm.name" type="text" placeholder="请输入你的姓名" />
-        </el-form-item>
-        <el-form-item label="选科" prop="class_selection" required>
-          <el-radio-group v-model="basicInfoForm.class_selection">
-            <el-radio-button label="1">理科</el-radio-button>
-            <el-radio-button label="2">文科</el-radio-button>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="所在高中" prop="highschool" required>
-          <el-select
-            v-model="basicInfoForm.highschool"
-            style="width: 100%;"
-            placeholder="请选择你所在的高中或输入高中名搜索"
-            filterable
-          >
-            <el-option
-              v-for="highschool in highSchoolOptions"
-              :key="highschool.code"
-              :label="highschool.name"
-              :value="highschool.code"
-            />
-          </el-select>
-        </el-form-item>
         <h4>1. 请输入你的高考总分，排名及各科分数</h4>
         <el-row :gutter="20">
           <el-alert
@@ -231,9 +207,6 @@ export default {
       formConfig: BasicInfoFormConfig,
       basicInfoForm: {
         risk_list: risk_list,
-        name: "",
-        class_selection: "",
-        highschool: "",
         total_score: "",
         ranking: "",
         literature_score: "",
@@ -255,13 +228,6 @@ export default {
         BasicInfoFormConfig.collegesToConsider.numOfColleges
       ),
       rules: {
-        name: [{ required: true, message: "姓名不能为空", trigger: "blur" }],
-        class_selection: [
-          { required: true, message: "请填写文理科", trigger: "blur" }
-        ],
-        highschool: [
-          { required: true, message: "高中不能为空", trigger: "blur" }
-        ],
         total_score: [
           {
             pattern: /^\d{1,3}$/,

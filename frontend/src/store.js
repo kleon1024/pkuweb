@@ -15,8 +15,9 @@ export default new Vuex.Store({
     majorStep: 0,
     minorStep: 0,
     loginUser: {
-      gaokao_id: null,
-      birthdate: null,
+      name: null,
+      class_selection: null,
+      highschool: null,
       assigned_group: null,
       basic_info: null,
       college_recommendations: null
@@ -41,8 +42,9 @@ export default new Vuex.Store({
   },
   mutations: {
     setUser(state, data) {
-      state.loginUser.gaokao_id = data.gaokao_id;
-      state.loginUser.birthdate = data.birthdate;
+      state.loginUser.name = data.name;
+      state.loginUser.class_selection = data.class_selection;
+      state.loginUser.highschool = data.highschool;
       state.loginUser.assigned_group = data.assigned_group;
       state.loginUser.basic_info = data.basic_info;
       state.loginUser.college_recommendations = data.college_recommendations;
@@ -51,8 +53,9 @@ export default new Vuex.Store({
     clearUser(state) {
       state.majorStep = 1;
       state.minorStep = 1;
-      state.loginUser.gaokao_id = null;
-      state.loginUser.birthdate = null;
+      state.loginUser.name = null;
+      state.loginUser.class_selection = null;
+      state.loginUser.highschool = null;
       state.loginUser.assigned_group = null;
       state.loginUser.basic_info = null;
       state.loginUser.college_recommendations = null;
@@ -114,6 +117,10 @@ export default new Vuex.Store({
       state.minorStep = step[1];
     },
     updateBasicInfo(state, basicInfo) {
+      basicInfo.name = state.loginUser.name;
+      basicInfo.class_selection = state.loginUser.class_selection;
+      basicInfo.highschool = state.loginUser.highschool;
+      
       state.loginUser.basic_info = basicInfo;
     },
     saveProbabilities(state, probabilities) {

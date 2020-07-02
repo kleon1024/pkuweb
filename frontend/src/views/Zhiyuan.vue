@@ -262,36 +262,6 @@ export default {
           this.$store.commit("storeZhiyuanColleges", zhiyuanForm.zhiyuanColleges);
           this.saveCheckpoint();
           busy.close();
-
-          // request.post(
-          //   `${this.API_URL}/submit-zhiyuan`,
-          //   { zhiyuan: zhiyuan, payment_method: zhiyuanForm.paymentMethod },
-          //   (err, res) => {
-          //     if (res) {
-          //       if (!res.data.failded) {
-          //         this.$store.commit(
-          //           "storeZhiyuanColleges",
-          //           zhiyuanForm.zhiyuanColleges
-          //         );
-          //         busy.close();
-          //         this.saveStep(this.majorStep + 1, 1);
-          //         this.zhiyuanFinished();
-          //       } else {
-          //         this.$alert(res.data.message, "提交出错", {
-          //           type: "error",
-          //           confirmButtonText: "稍后再试",
-          //           callback: () => busy.close()
-          //         });
-          //       }
-          //     } else {
-          //       this.$message({
-          //         type: "error",
-          //         message: "服务器出错，请稍后再试"
-          //       });
-          //       busy.close();
-          //     }
-          //   }
-          // );
         })
         .catch(() => {});
     }

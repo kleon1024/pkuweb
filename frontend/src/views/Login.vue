@@ -4,12 +4,7 @@
       <el-row>
         <span class="card-title">请验证你的信息</span>
         <span style="float: right;">
-          <el-button
-            type="primary"
-            plain
-            :loading="loading"
-            @click="submitForm('loginForm')"
-          >登录</el-button>
+          <el-button type="primary" plain :loading="loading" @click="submitForm('loginForm')">登录</el-button>
         </span>
       </el-row>
     </div>
@@ -20,7 +15,7 @@
       label-position="left"
       label-width="80px"
     >
-      <el-form-item
+      <!-- <el-form-item
         label="准考证号"
         prop="gaokao_id"
         required
@@ -45,6 +40,30 @@
           type="date"
           style="width: 100%;"
         />
+      </el-form-item>-->
+      <el-form-item label="姓名" prop="name" required>
+        <el-input v-model="loginForm.name" type="text" placeholder="请输入你的姓名" />
+      </el-form-item>
+      <el-form-item label="选科" prop="class_selection" required>
+        <el-radio-group v-model="loginForm.class_selection">
+          <el-radio-button label="1">理科</el-radio-button>
+          <el-radio-button label="2">文科</el-radio-button>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="所在高中" prop="highschool" required>
+        <el-select
+          v-model="loginForm.highschool"
+          style="width: 100%;"
+          placeholder="请选择你所在的高中或输入高中名搜索"
+          filterable
+        >
+          <el-option
+            v-for="highschool in highSchoolOptions"
+            :key="highschool.code"
+            :label="highschool.name"
+            :value="highschool.code"
+          />
+        </el-select>
       </el-form-item>
     </el-form>
   </el-card>
@@ -52,6 +71,7 @@
 
 <script>
 import request from "@/plugins/request";
+import highschools from "@/assets/highschools";
 
 export default {
   mounted() {
@@ -60,43 +80,29 @@ export default {
   },
   data() {
     return {
-      returnCitySN : null,
+      returnCitySN: null,
       loading: false,
       loginForm: {
-        gaokao_id: null,
-        birthdate: new Date("2000/01/01")
+        name: "",
+        class_selection: "",
+        highschool: "",
       },
       rules: {
-        gaokao_id: [
-          {
-            pattern: /^\d{10}$/,
-            required: true,
-            message: "请输入准考证号除去开头1964后剩余的10位数字"
-          }
+        name: [{ required: true, message: "姓名不能为空", trigger: "blur" }],
+        class_selection: [
+          { required: true, message: "请填写文理科", trigger: "blur" }
         ],
-        birthdate: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择出生日期",
-            trigger: "blur"
-          }
-        ]
+        highschool: [
+          { required: true, message: "高中不能为空", trigger: "blur" }
+        ],
       }
     };
   },
   computed: {
-    parsedBirthDate() {
-      const selectedBirthDate = this.loginForm.birthdate;
-      const year = selectedBirthDate.getFullYear();
-      const month = selectedBirthDate.getMonth() + 1;
-      const date = selectedBirthDate.getDate();
-      return `${year}${month
-        .toString()
-        .padStart(2, "0")}${date.toString().padStart(2, "0")}`;
-    },
-    parsedGaokaoId() {
-      return `1964${this.loginForm.gaokao_id}`;
+    highSchoolOptions() {
+      const copied = Array.from(highschools);
+      copied.sort((h1, h2) => h1.name.localeCompare(h2.name, "zh-CN"));
+      return copied;
     }
   },
   methods: {
@@ -104,11 +110,9 @@ export default {
       this.loading = true;
       this.$refs[formName].validate(valid => {
         if (valid) {
-          
           const reqBody = {
-            gaokao_id: this.parsedGaokaoId,
-            birthdate: this.parsedBirthDate,
-            ip: this.returnCitySN,
+            login: this.loginForm,
+            ip: this.returnCitySN
           };
 
           request.post(`${this.API_URL}/login`, reqBody, (err, res) => {
