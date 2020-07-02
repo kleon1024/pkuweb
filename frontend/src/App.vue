@@ -133,7 +133,7 @@ export default {
       return activeMenuItem.name;
     },
     showLogoutButton() {
-      return this.loginUser.gaokao_id != null;
+      return this.loginUser.name != null;
     }
   },
   watch: {
