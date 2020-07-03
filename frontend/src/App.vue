@@ -5,7 +5,6 @@
   >
     <el-container class="app-container">
       <el-header style="min-height: 90px; padding: 0 5px;">
-        <el-row class="top-banner">
           <el-menu
             style="float: right; margin-top: 5px;"
             :default-active="activeIndex"
@@ -71,7 +70,6 @@
               </el-menu-item>
             </el-submenu>
           </el-menu>
-        </el-row>
       </el-header>
       <el-main style="padding: 20px 5px;">
         <div>
@@ -166,11 +164,6 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.top-banner {
-  padding: 10px 10px;
-}
 
 .about-link {
   text-decoration: none;

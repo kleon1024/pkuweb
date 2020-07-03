@@ -13,7 +13,7 @@
       :model="loginForm"
       :rules="rules"
       label-position="left"
-      label-width="80px"
+      label-width="90px"
     >
       <!-- <el-form-item
         label="准考证号"
@@ -65,16 +65,15 @@
           />
         </el-select>
       </el-form-item>
-      <h4>1. 请输入你的高考总分，排名及各科分数</h4>
       <el-row :gutter="20">
-        <el-alert type="error" center :closable="false" title="按高考总分排名，含加分" />
+        <el-alert type="success" center :closable="false" style="margin-bottom: 15px" title="按高考总分排名，含加分" />
         <el-col :xs="48" :sm="24">
-          <el-form-item label="排名" prop="ranking" required>
+          <el-form-item label="高考排名" prop="ranking" required>
             <el-input v-model.number="loginForm.ranking" placeholder="例如：1500" />
           </el-form-item>
         </el-col>
         <el-col :xs="24" :sm="12">
-          <el-form-item label="总分" prop="total_score" required>
+          <el-form-item label="高考总分" prop="total_score" required>
             <el-input v-model.number="loginForm.total_score" placeholder="例如：565" />
           </el-form-item>
         </el-col>
