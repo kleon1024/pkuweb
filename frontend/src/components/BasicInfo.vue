@@ -110,54 +110,12 @@
         </el-form-item>
 
         <h3>志愿信息</h3>
-        <h4>1. 请输入你的高考总分，排名及各科分数</h4>
-        <el-row :gutter="20">
-          <el-alert type="error" center :closable="false" title="按高考总分排名，含加分" />
-          <el-col :xs="48" :sm="24">
-            <el-form-item label="排名" prop="ranking" required>
-              <el-input v-model.number="basicInfoForm.ranking" placeholder="例如：1500" />
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="12">
-            <el-form-item label="总分" prop="total_score" required>
-              <el-input v-model.number="basicInfoForm.total_score" placeholder="例如：565" />
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="12">
-            <el-form-item label="语文" prop="literature_score" required>
-              <el-input v-model.number="basicInfoForm.literature_score" placeholder="例如：100" />
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="12">
-            <el-form-item label="数学" required prop="math_score">
-              <el-input v-model.number="basicInfoForm.math_score" placeholder="例如：105" />
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="12">
-            <el-form-item label="英语" prop="foreign_language_score" required>
-              <el-input v-model.number="basicInfoForm.foreign_language_score" placeholder="例如：105" />
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="12">
-            <el-form-item label="理综/文综" prop="zonghe_score" required>
-              <el-input v-model.number="basicInfoForm.zonghe_score" placeholder="例如：225" />
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="12">
-            <el-form-item label="政策加分" prop="extra_score" required>
-              <el-input v-model.number="basicInfoForm.extra_score" placeholder="例如：10" />
-            </el-form-item>
-          </el-col>
-          <el-col v-show="basicInfoForm.total_score && !totalScoreValid" :xs="24">
-            <el-alert type="error" title="总分不等于各科分数及政策加分之和，请检查是否输入错误" center :closable="false" />
-          </el-col>
-        </el-row>
         <div
           v-for="(priorityQuestionKey, index) in prioritySelectionQuestionKeys"
           :key="`priority-question-${index}`"
         >
           <h4>
-            {{ index + 2 }}.
+            {{ index + 3 }}.
             {{ prioritySelectionQuestions[index].description }}（{{ prioritySelectionQuestions[index].hint }}）
           </h4>
           <PrioritySelect
@@ -169,7 +127,7 @@
           />
         </div>
 
-        <h4>6. 假设在录取过程结束后，您得知自己已被志愿中的某大学录取。请问你是否一定会入读该一本大学(第一空); 如果填写的是“否”，请问你打算在接下来一年里(第二空)</h4>
+        <h4>7. 假设在录取过程结束后，您得知自己已被志愿中的某大学录取。请问你是否一定会入读该一本大学(第一空); 如果填写的是“否”，请问你打算在接下来一年里(第二空)</h4>
         <el-row :gutter="20">
           <el-col :xs="24" :sm="8">
             <el-form-item label="第一空">
@@ -199,7 +157,7 @@
           </el-col>
         </el-row>
         <h4>
-          7.
+          8.
           现在，请列出你正在考虑的院校，以及你得知这些院校的原因。如果你还没有正在考虑的院校，我们建议你首先查阅高校录取计划和招生手册，或者利用互联网对院校进行初步了解，准确填写此题将有助于我们对你的志愿报考进行有针对性的辅导。如果你还没有正在考虑的院校，请跳过此题
         </h4>
         <el-row
@@ -245,7 +203,7 @@
           </el-col>
         </el-row>
         <h4>
-          8.
+          9.
           为了帮助我们更好地对你填报志愿进行风险的评估，我们将测试你对风险的承受能力。请在下面的每一道小题中，你将面临两个选项。请选出对你自己来说更好的那个选项：
         </h4>
         <el-row
@@ -286,14 +244,6 @@ export default {
     PrioritySelect
   },
   data() {
-    const totalScoreValidator = (rule, score, callback) => {
-      if (score < 0 || score > 750) {
-        callback(new Error("总分应该介于 0 到 750 之间"));
-      } else {
-        callback();
-      }
-    };
-
     var risk_list = Array();
     for (var i = 0; i < 8; i++) {
       risk_list.push({ value: "" });
@@ -314,13 +264,6 @@ export default {
         other_mama_job: "",
         family_location: "",
         risk_list: risk_list,
-        total_score: "",
-        ranking: "",
-        literature_score: "",
-        math_score: "",
-        foreign_language_score: "",
-        zonghe_score: "",
-        extra_score: "",
         college_factors: [],
         college_types: [],
         college_locations: [],
@@ -364,66 +307,6 @@ export default {
           {
             required: true,
             message: "请填写职业信息",
-            trigger: "blur"
-          }
-        ],
-        total_score: [
-          {
-            pattern: /^\d{1,3}$/,
-            required: true,
-            message: "请务必正确填写",
-            trigger: "blur"
-          },
-          {
-            validator: totalScoreValidator,
-            trigger: "blur"
-          }
-        ],
-        ranking: [
-          {
-            pattern: /^\d{1,5}$/,
-            required: true,
-            message: "请务必正确填写",
-            trigger: "blur"
-          }
-        ],
-        literature_score: [
-          {
-            pattern: /^\d{1,3}$/,
-            required: true,
-            message: "请务必正确填写",
-            trigger: "blur"
-          }
-        ],
-        math_score: [
-          {
-            pattern: /^\d{1,3}$/,
-            required: true,
-            message: "请务必正确填写",
-            trigger: "blur"
-          }
-        ],
-        foreign_language_score: [
-          {
-            pattern: /^\d{1,3}$/,
-            required: true,
-            message: "请务必正确填写",
-            trigger: "blur"
-          }
-        ],
-        zonghe_score: [
-          {
-            pattern: /^\d{1,3}$/,
-            required: true,
-            message: "请务必正确填写",
-            trigger: "blur"
-          }
-        ],
-        extra_score: [
-          {
-            pattern: /^\d{1,3}$/,
-            required: true,
-            message: "请务必正确填写",
             trigger: "blur"
           }
         ],
@@ -480,18 +363,6 @@ export default {
         this.other_mama_job = "";
       }
       return val;
-    },
-    computedTotalScore() {
-      return (
-        this.basicInfoForm.zonghe_score +
-        this.basicInfoForm.math_score +
-        this.basicInfoForm.literature_score +
-        this.basicInfoForm.foreign_language_score +
-        this.basicInfoForm.extra_score
-      );
-    },
-    totalScoreValid() {
-      return this.basicInfoForm.total_score === this.computedTotalScore;
     },
     educationOptions() {
       return [
@@ -667,9 +538,6 @@ export default {
     submitBasicInfo() {
       this.$refs["basicInfoForm"].validate(valid => {
         this.loading = true;
-        if (!this.totalScoreValid) {
-          valid = false;
-        }
         if (valid) {
           this.$store.commit("updateBasicInfo", this.dataToSubmit);
           this.$emit("confirmed");

@@ -9,6 +9,13 @@ module.exports = function (options = {}) {
         name: data.login.name,
         class_selection: data.login.class_selection,
         highschool: data.login.highschool,
+        total_score: data.login.total_score,
+        ranking: data.login.ranking,
+        literature_score: data.login.literature_score,
+        math_score: data.login.math_score,
+        foreign_language_score: data.login.foreign_language_score,
+        zonghe_score: data.login.zonghe_score,
+        extra_score: data.login.extra_score,
         $limit: 1
       }
     });
@@ -20,6 +27,13 @@ module.exports = function (options = {}) {
         name: data.login.name,
         class_selection: data.login.class_selection,
         highschool: data.login.highschool,
+        total_score: data.login.total_score,
+        ranking: data.login.ranking,
+        literature_score: data.login.literature_score,
+        math_score: data.login.math_score,
+        foreign_language_score: data.login.foreign_language_score,
+        zonghe_score: data.login.zonghe_score,
+        extra_score: data.login.extra_score,
         assigned_group: randomGroup,
       });
       params.student = createdStudent;

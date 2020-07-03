@@ -20,7 +20,14 @@ export default new Vuex.Store({
       highschool: null,
       assigned_group: null,
       basic_info: null,
-      college_recommendations: null
+      college_recommendations: null,
+      total_score: null,
+      ranking: null,
+      literature_score: null,
+      math_score: null,
+      foreign_language_score: null,
+      zonghe_score: null,
+      extra_score: null,
     },
     intendedColleges: null,
     intendedAndRecommendedColleges: null,
@@ -48,6 +55,13 @@ export default new Vuex.Store({
       state.loginUser.assigned_group = data.assigned_group;
       state.loginUser.basic_info = data.basic_info;
       state.loginUser.college_recommendations = data.college_recommendations;
+      state.loginUser.total_score = data.total_score;
+      state.loginUser.ranking = data.ranking;
+      state.loginUser.literature_score = data.literature_score;
+      state.loginUser.math_score = data.math_score;
+      state.loginUser.foreign_language_score = data.foreign_language_score;
+      state.loginUser.zonghe_score = data.zonghe_score;
+      state.loginUser.extra_score = data.extra_score;
     },
 
     clearUser(state) {
@@ -58,6 +72,13 @@ export default new Vuex.Store({
       state.loginUser.highschool = null;
       state.loginUser.assigned_group = null;
       state.loginUser.basic_info = null;
+      state.loginUser.total_score = null;
+      state.loginUser.ranking = null;
+      state.loginUser.literature_score = null;
+      state.loginUser.math_score = null;
+      state.loginUser.foreign_language_score = null;
+      state.loginUser.zonghe_score = null;
+      state.loginUser.extra_score = null;
       state.loginUser.college_recommendations = null;
       state.intendedColleges = null;
       state.intendedAndRecommendedColleges = null;
@@ -120,7 +141,14 @@ export default new Vuex.Store({
       basicInfo.name = state.loginUser.name;
       basicInfo.class_selection = state.loginUser.class_selection;
       basicInfo.highschool = state.loginUser.highschool;
-      
+      basicInfo.total_score = state.loginUser.total_score;
+      basicInfo.ranking = state.loginUser.ranking;
+      basicInfo.literature_score = state.loginUser.literature_score;
+      basicInfo.math_score = state.loginUser.math_score;
+      basicInfo.foreign_language_score = state.loginUser.foreign_language_score;
+      basicInfo.zonghe_score = state.loginUser.zonghe_score;
+      basicInfo.extra_score = state.loginUser.extra_score;
+
       state.loginUser.basic_info = basicInfo;
     },
     saveProbabilities(state, probabilities) {
