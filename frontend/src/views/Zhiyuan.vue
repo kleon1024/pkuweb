@@ -37,7 +37,7 @@
         />
       </div>
     </div>
-    <el-progress :percentage="majorStep*10" :format="format"></el-progress>
+    <el-progress :percentage="majorStep*15" :format="format"></el-progress>
     <section class="guide-content">
       <BasicInfo v-if="majorStep === 1" @confirmed="saveStep(majorStep + 1, 1)" />
       <CollegeRecommend v-if="majorStep === 2" @confirmed="saveStep(majorStep + 1, 1)" />
@@ -193,7 +193,7 @@ export default {
 
   methods: {
     format(percentage) {
-      if (this.majorStep == 10) {
+      if (this.majorStep == 7) {
         return "100%";
       }
       return this.majorStep + "-" + this.minorStep;

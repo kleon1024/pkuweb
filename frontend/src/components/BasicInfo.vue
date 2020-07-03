@@ -12,14 +12,107 @@
         label-width="90px"
         status-icon
       >
+        <h3>基本信息</h3>
+        <h4>1. 你的性别是：</h4>
+        <el-form-item prop="gender" label-width="0" required>
+          <el-radio-group v-model="basicInfoForm.gender">
+            <el-radio-button label="male">男</el-radio-button>
+            <el-radio-button label="female">女</el-radio-button>
+          </el-radio-group>
+        </el-form-item>
+        <h4>2.你父亲的教育水平是：</h4>
+        <el-form-item prop="papa_education" label-width="0" required>
+          <el-select
+            v-model="basicInfoForm.papa_education"
+            style="width: 100%;"
+            placeholder="请选择一项"
+            filterable
+          >
+            <el-option v-for="edu in educationOptions" :key="edu" :label="edu" :value="edu" />
+          </el-select>
+        </el-form-item>
+        <h4>3.你母亲的教育水平是：</h4>
+        <el-form-item prop="mama_education" label-width="0" required>
+          <el-select
+            v-model="basicInfoForm.mama_education"
+            style="width: 100%;"
+            placeholder="请选择一项"
+            filterable
+          >
+            <el-option v-for="edu in educationOptions" :key="edu" :label="edu" :value="edu" />
+          </el-select>
+        </el-form-item>
+        <h4>4. 作为一名考生，您属于：</h4>
+        <el-form-item prop="student_type" label-width="0" required>
+          <el-select
+            v-model="basicInfoForm.student_type"
+            style="width: 100%;"
+            placeholder="请选择一项"
+            filterable
+          >
+            <el-option v-for="type in studentTypeOptions" :key="type" :label="type" :value="type" />
+          </el-select>
+        </el-form-item>
+        <h4>5. 和同班同学家庭的经济状况相比，你认为自己的家庭：</h4>
+        <el-form-item prop="economics" label-width="0" required>
+          <el-select
+            v-model="basicInfoForm.economics"
+            style="width: 100%;"
+            placeholder="请选择一项"
+            filterable
+          >
+            <el-option v-for="eco in economicsOptions" :key="eco" :label="eco" :value="eco" />
+          </el-select>
+        </el-form-item>
+        <h4>6. 您父亲的工作是：</h4>
+        <el-form-item prop="papa_job" label-width="0" required>
+          <el-select
+            v-model="basicInfoForm.papa_job"
+            style="width: 100%;"
+            placeholder="请选择职业"
+            filterable
+          >
+            <el-option v-for="job in jobOptions" :key="job" :label="job" :value="job" />
+          </el-select>
+        </el-form-item>
+        <el-form-item v-if="otherPapaJob" prop="other_papa_job" label-width="0" required>
+          <el-input placeholder="其他职业说明" v-model="basicInfoForm.other_papa_job" />
+        </el-form-item>
+        <h4>7. 您母亲的工作是：</h4>
+        <el-form-item prop="mama_job" label-width="0" required>
+          <el-select
+            v-model="basicInfoForm.mama_job"
+            style="width: 100%;"
+            placeholder="请选择职业"
+            filterable
+          >
+            <el-option v-for="job in jobOptions" :key="job" :label="job" :value="job" />
+          </el-select>
+        </el-form-item>
+        <el-form-item v-if="otherMamaJob" prop="other_mama_job" label-width="0" required>
+          <el-input placeholder="其他职业说明" v-model="basicInfoForm.other_mama_job" />
+        </el-form-item>
+        <h4>8.请选择家庭所在所在县/市（区）：</h4>
+        <el-form-item prop="family_location" label-width="0" required>
+          <el-select
+            v-model="basicInfoForm.family_location"
+            style="width: 100%;"
+            placeholder="请选择你所在的县/市（区）"
+            filterable
+          >
+            <el-option
+              v-for="location in locationOptions"
+              :key="location"
+              :label="location"
+              :value="location"
+            />
+          </el-select>
+        </el-form-item>
+
+        <h3>志愿信息</h3>
         <h4>1. 请输入你的高考总分，排名及各科分数</h4>
         <el-row :gutter="20">
-          <el-alert
-            type="error"
-            center
-            :closable="false"
-            title="按高考总分排名，含加分"
-          />
+          <el-alert type="error" center :closable="false" title="按高考总分排名，含加分" />
           <el-col :xs="48" :sm="24">
             <el-form-item label="排名" prop="ranking" required>
               <el-input v-model.number="basicInfoForm.ranking" placeholder="例如：1500" />
@@ -155,7 +248,11 @@
           8.
           为了帮助我们更好地对你填报志愿进行风险的评估，我们将测试你对风险的承受能力。请在下面的每一道小题中，你将面临两个选项。请选出对你自己来说更好的那个选项：
         </h4>
-        <el-row v-for="(item, index) in basicInfoForm.risk_list" :key="`risk-take-${index}`" :gutter="1">
+        <el-row
+          v-for="(item, index) in basicInfoForm.risk_list"
+          :key="`risk-take-${index}`"
+          :gutter="1"
+        >
           <el-form-item
             :label="'第' + (index + 1) + '题：'"
             :prop="'risk_list.' + index + '.value'"
@@ -206,6 +303,16 @@ export default {
       loading: false,
       formConfig: BasicInfoFormConfig,
       basicInfoForm: {
+        gender: "",
+        papa_education: "",
+        mama_education: "",
+        student_type: "",
+        economics: "",
+        papa_job: "",
+        other_papa_job: "",
+        mama_job: "",
+        other_mama_job: "",
+        family_location: "",
         risk_list: risk_list,
         total_score: "",
         ranking: "",
@@ -228,6 +335,38 @@ export default {
         BasicInfoFormConfig.collegesToConsider.numOfColleges
       ),
       rules: {
+        gender: [{ required: true, message: "请选择一项", trigger: "blur" }],
+        papa_education: [
+          { required: true, message: "请选择一项", trigger: "blur" }
+        ],
+        mama_education: [
+          { required: true, message: "请选择一项", trigger: "blur" }
+        ],
+        papa_job: [{ required: true, message: "请选择一项", trigger: "blur" }],
+        mama_education: [
+          { required: true, message: "请选择一项", trigger: "blur" }
+        ],
+        economics: [{ required: true, message: "请选择一项", trigger: "blur" }],
+        student_type: [
+          { required: true, message: "请选择一项", trigger: "blur" }
+        ],
+        family_location: [
+          { required: true, message: "请选择一项", trigger: "blur" }
+        ],
+        other_papa_job: [
+          {
+            required: true,
+            message: "请填写职业信息",
+            trigger: "blur"
+          }
+        ],
+        other_mama_job: [
+          {
+            required: true,
+            message: "请填写职业信息",
+            trigger: "blur"
+          }
+        ],
         total_score: [
           {
             pattern: /^\d{1,3}$/,
@@ -324,6 +463,24 @@ export default {
     };
   },
   computed: {
+    otherPapaJob() {
+      var val = this.basicInfoForm.papa_job.startsWith("Q");
+      if (!val) {
+        this.other_papa_job = this.basicInfoForm.papa_job;
+      } else {
+        this.other_papa_job = "";
+      }
+      return val;
+    },
+    otherMamaJob() {
+      var val = this.basicInfoForm.mama_job.startsWith("Q");
+      if (!val) {
+        this.other_mama_job = this.basicInfoForm.mama_job;
+      } else {
+        this.other_mama_job = "";
+      }
+      return val;
+    },
     computedTotalScore() {
       return (
         this.basicInfoForm.zonghe_score +
@@ -335,6 +492,74 @@ export default {
     },
     totalScoreValid() {
       return this.basicInfoForm.total_score === this.computedTotalScore;
+    },
+    educationOptions() {
+      return [
+        "A. 小学或以下",
+        "B. 初中",
+        "C. 中专/技校/职业高中",
+        "D. 普通高中",
+        "E. 大学专科",
+        "F. 大学本科",
+        "G. 研究生及以上"
+      ];
+    },
+    studentTypeOptions() {
+      return ["A. 农村应届", "B. 城市应届", "C. 农村往届", "D. 城市往届"];
+    },
+    economicsOptions() {
+      return [
+        "A. 比大多数同学家庭状况好",
+        "B. 比平均水平稍好",
+        "C. 平均水平",
+        "D. 比平均水平稍差",
+        "E. 比大多数同学家庭状况差"
+      ];
+    },
+    jobOptions() {
+      return [
+        "A. 农民",
+        "B. 产业工人",
+        "C. 一般技术员/技术工人",
+        "D. 专业技术人员（如教师，医生，工程师等）",
+        "E. 销售及服务行业人员",
+        "F. 中小学及幼儿园教师",
+        "G. 大学教师",
+        "H. 新闻，文艺，体育工作者",
+        "I. 企业，事业单位中高层管理人员",
+        "J. 政府机关普通工作人员",
+        "K. 机关干部（正科及以下）",
+        "L. 机关干部（副处及以上）",
+        "M. 个体户和自由职业者",
+        "N. 私营企业主",
+        "O. 军人",
+        "P. 无业",
+        "Q. 其它（请说明）"
+      ];
+    },
+    locationOptions() {
+      return [
+        "石嘴山市大武口区",
+        "石嘴山市惠农区",
+        "固原市原州区",
+        "海原县",
+        "贺兰县",
+        "红寺堡县",
+        "泾源县",
+        "灵武县",
+        "隆德县",
+        "彭阳县",
+        "平罗县",
+        "青铜峡市",
+        "同心县",
+        "吴忠市",
+        "西吉县",
+        "盐池县",
+        "银川市",
+        "永宁县",
+        "中宁县",
+        "中卫市"
+      ];
     },
     highSchoolOptions() {
       const copied = Array.from(highschools);
@@ -486,7 +711,8 @@ export default {
           // );
         } else {
           this.$message({
-            message: "有信息未填写或，有误。完整的信息填写能让我们更好地提供志愿报考辅导！",
+            message:
+              "有信息未填写或，有误。完整的信息填写能让我们更好地提供志愿报考辅导！",
             type: "error"
           });
           this.loading = false;
