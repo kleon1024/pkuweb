@@ -221,15 +221,15 @@ export default {
       return copied;
     },
     totalScoreValid() {
-      return this.basicInfoForm.total_score === this.computedTotalScore;
+      return this.loginForm.total_score === this.computedTotalScore;
     },
     computedTotalScore() {
       return (
-        this.basicInfoForm.zonghe_score +
-        this.basicInfoForm.math_score +
-        this.basicInfoForm.literature_score +
-        this.basicInfoForm.foreign_language_score +
-        this.basicInfoForm.extra_score
+        this.loginForm.zonghe_score +
+        this.loginForm.math_score +
+        this.loginForm.literature_score +
+        this.loginForm.foreign_language_score +
+        this.loginForm.extra_score
       );
     }
   },
