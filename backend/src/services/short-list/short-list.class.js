@@ -16,7 +16,7 @@ class Service {
 
   async create(data, params) {
     const student = params.student;
-    const userGaokaoId = student.gaokao_id;
+    const userGaokaoId = student.name;
 
     const requestBody = {
       student_info: {
@@ -30,7 +30,7 @@ class Service {
         q4_answer: student.basic_info.college_locations
       }
     };
-    logger.info(`学生 '${userGaokaoId}' 正在请求推荐学校`);
+    logger.info(`学生 '${name}' 正在请求推荐学校`);
     logger.info(JSON.stringify(requestBody, null, 2));
     return axios
       .post(params.data_backend_url, requestBody)

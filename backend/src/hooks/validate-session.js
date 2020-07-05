@@ -37,7 +37,7 @@ module.exports = function(options = {}) {
           };
         }
         params.student = foundStudent;
-        logger.info(`学生 '${foundStudent.gaokao_id}' 发起了一次请求，路径: '${context.path}'`);
+        logger.info(`学生 '${foundStudent.name}' 发起了一次请求，路径: '${context.path}'`);
       }
     }
 
