@@ -15,6 +15,9 @@ EQUIV_SCORES <- read_rds(file.path(DATA_BASE_DIR, "equiv_scores.rds"))
 setkeyv(EQUIV_SCORES, c("class_selection", "year")) # set class_selection and year as keys for faster search
 
 convert_equiv_score <- function(student_info, to_year = APP_YEAR - 1) {
+  print(student_info)
+  print(to_year)
+
   student_ranking <- student_info$ranking
   student_class_selection <- student_info$class_selection
   student_score <- student_info$score
@@ -23,7 +26,14 @@ convert_equiv_score <- function(student_info, to_year = APP_YEAR - 1) {
     .(student_class_selection, to_year)
   ][
     ranking_f1 < student_ranking & ranking >= student_ranking
-  ][, score]
+  ]
+
+  print(converted_score)
+
+  converted_score <- converted_score[, score]
+
+  print(converted_score)
+  print(student_score)
 
   ifelse(!is.na(converted_score), converted_score, student_score)
 }

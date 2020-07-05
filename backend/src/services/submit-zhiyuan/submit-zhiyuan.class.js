@@ -24,7 +24,7 @@ class Service {
 
   async create(data, params) {
     const userId = params.student._id;
-    const userGaokaoId = params.student.gaokao_id;
+    const userGaokaoId = params.student.name;
 
     logger.info(`学生 '${userGaokaoId}' 正在提交志愿`);
 

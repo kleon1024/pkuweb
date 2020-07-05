@@ -151,7 +151,7 @@ export default {
 
   beforeRouteLeave(to, from, next) {
     // 若用户已登出或者志愿已经填写完成(如果志愿未提交给服务器，则不可能出现在store里），直接退出
-    if (!this.loginUser.gaokao_id || this.zhiyuanColleges) {
+    if (!this.loginUser.name || this.zhiyuanColleges) {
       next();
     } else {
       this.$confirm(

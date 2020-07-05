@@ -22,7 +22,7 @@ class Service {
 
   async create (data, params) {
     const user_id = params.student._id;
-    const userGaokaoId = params.student.gaokao_id;
+    const userGaokaoId = params.student.name;
 
     logger.info(`学生 '${userGaokaoId}' 正在更新基本信息`);
     logger.info(JSON.stringify(data, null, 2));
