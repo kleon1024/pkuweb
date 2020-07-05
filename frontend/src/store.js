@@ -98,7 +98,7 @@ export default new Vuex.Store({
       state.paymentMethod = null;
       if (process.env.NODE_ENV === "production") {
         cookies.remove("SIMIN-NX-SESSION", { // when removing session, needes exact options
-          domain: ".pkuzhiyuan.com",
+          domain: "pkuzhiyuan.com",
           path: "/"
         });
       } else {

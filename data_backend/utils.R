@@ -15,9 +15,6 @@ EQUIV_SCORES <- read_rds(file.path(DATA_BASE_DIR, "equiv_scores.rds"))
 setkeyv(EQUIV_SCORES, c("class_selection", "year")) # set class_selection and year as keys for faster search
 
 convert_equiv_score <- function(student_info, to_year = APP_YEAR - 1) {
-  print(student_info)
-  print(to_year)
-
   student_ranking <- student_info$ranking
   student_class_selection <- student_info$class_selection
   student_score <- student_info$score
@@ -26,14 +23,7 @@ convert_equiv_score <- function(student_info, to_year = APP_YEAR - 1) {
     .(student_class_selection, to_year)
   ][
     ranking_f1 < student_ranking & ranking >= student_ranking
-  ]
-
-  print(converted_score)
-
-  converted_score <- converted_score[, score]
-
-  print(converted_score)
-  print(student_score)
+  ][, score]
 
   ifelse(!is.na(converted_score), converted_score, student_score)
 }
@@ -221,7 +211,6 @@ get_college_short_list <- function(student_info, answers) {
   q2_answer <- answers$q2_answer # order of most important college preference factors. Can be any combination of A to H (no duplicates)
   user_factor_weights <- get_user_factor_weights(q2_answer)
 
-  print("1")
   college_qualities_per_answers <- COLLEGE_QUALITIES
   # 处理院校类型
   if (!is.na(user_factor_weights["type_weight"])) { # 院校类型在q2中被选择
@@ -236,7 +225,6 @@ get_college_short_list <- function(student_info, answers) {
     college_qualities_per_answers$major_weight <- 0
   }
 
-  print("2")
   college_qualities_matrix <- college_qualities_per_answers %>% # 将需要用到的数据转换为矩阵
     select(one_of(names(user_factor_weights))) %>%
     as.matrix()
@@ -248,7 +236,6 @@ get_college_short_list <- function(student_info, answers) {
   colleges_with_rating <- college_qualities_per_answers %>%
     select(college_code, college_overall_rating)
 
-  print("3")
   # 转换出考生去年
   equiv_score_l0 <- convert_equiv_score(student_info)
   # 和前年的等位分
@@ -266,7 +253,6 @@ get_college_short_list <- function(student_info, answers) {
   safe_candidates <- candidate_colleges %>%
     filter(strategy == "保")
 
-  print("4")
   risk_colleges <- risk_candidates %>%
     slice(1:RISK_NUMBER[2]) %>% # 备选10所
     sample_or_random(RISK_NUMBER[1]) # 随机选取其中5所
@@ -279,19 +265,11 @@ get_college_short_list <- function(student_info, answers) {
     slice(1:SAFE_NUMBER[2]) %>% # 备选6所
     sample_or_random(SAFE_NUMBER[1]) # 随机选取其中3所
 
-  print("5")
   recommended_colleges <- bind_rows(
     risk_colleges,
     level_colleges,
     safe_colleges
   ) %>% sample_or_random()
-
-  print("6")
-  print(equiv_score_l0)
-  print(equiv_score_l1)
-  print(risk_colleges)
-  print(level_colleges)
-  print(safe_colleges)
 
   list(
     "equiv_score_last_year" = jsonlite::unbox(equiv_score_l0),

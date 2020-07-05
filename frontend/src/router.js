@@ -41,6 +41,11 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, _from, next) => {
+  if (to.path === "/letter") {
+    next();
+    return;
+  }
+  
   var sessionId;
   if (process.env.NODE_ENV === "production") {
     sessionId = cookies.get("SIMIN-NX-SESSION");
