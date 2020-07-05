@@ -11,20 +11,20 @@ module.exports = function (app) {
       required: true
     },
     class_selection: {
-      type: String,
+      type: Number,
       required: true
     },
     highschool: {
       type: String,
       required: true
     },
-    total_score: { type: String, required: true },
-    ranking: { type: String, required: true },
-    literature_score: { type: String, required: true },
-    math_score: { type: String, required: true },
-    foreign_language_score: { type: String, required: true },
-    zonghe_score: { type: String, required: true },
-    extra_score: { type: String, required: true },
+    total_score: { type: Number, required: true },
+    ranking: { type: Number, required: true },
+    literature_score: { type: Number, required: true },
+    math_score: { type: Number, required: true },
+    foreign_language_score: { type: Number, required: true },
+    zonghe_score: { type: Number, required: true },
+    extra_score: { type: Number, required: true },
     payment_method: {
       type: String,
       required: false,
