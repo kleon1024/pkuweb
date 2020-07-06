@@ -51,7 +51,7 @@
       </div> -->
       <div>
         <el-alert
-          v-show="collegeRecommendForm.collegeType && recommendedColleges.length === 0"
+          v-show="recommendedColleges.length === 0"
           type="error"
           center
           title="我们无法为您推荐学校，可能您的分数没有达到一本分数线。请查看其他选项。"
@@ -102,34 +102,11 @@ export default {
   },
   data() {
     return {
-      collegeRecommendForm: {
-        collegeType: "A",
-        collegeTypes: [
-          {
-            key: "A",
-            description: "我主要想查看一本院校"
-          },
-          // {
-          //   key: "B",
-          //   description: "我想查看一本院校，同时还想查看二本或者其它类型院校"
-          // },
-          // {
-          //   key: "C",
-          //   description: "我只想查看提前批次院校"
-          // },
-          // {
-          //   key: "D",
-          //   description: "我只想查看二本院校"
-          // },
-          // {
-          //   key: "E",
-          //   description: "我还想查看其它类型的院校"
-          // }
-        ]
-      },
-
       rules: {}
     };
+  },
+  mounted() {
+    this.initRecommends();
   },
   computed: {
     collegeRecommendations() {
@@ -140,43 +117,33 @@ export default {
         ? this.collegeRecommendations.recommended_colleges
         : [];
     },
-    chosenCollegeType() {
-      return this.collegeRecommendForm.collegeTypes.find(
-        t => t.key === this.collegeRecommendForm.collegeType
-      );
-    }
   },
-  watch: {
-    "collegeRecommendForm.collegeType": {
-      handler(newType) {
-        if (["A", "B"].includes(newType)) {
-          if (!this.collegeRecommendations) {
-            const loading = this.$loading({
-              lock: true,
-              text: "为您推荐学校中...",
-              spinner: "el-icon-loading",
-              background: "rgba(0, 0, 0, 0.7)"
-            });
-            request.post(this.SHORT_LIST_URL, {}, (err, res) => {
-              if (res) {
-                if (res.data.failed) {
-                  loading.close();
-                  this.$alert(res.data.message, "推荐失败", {
-                    type: "error",
-                    confirmButtonText: "返回"
-                  });
-                } else {
-                  this.$store.commit("storeCollegeRecommendations", res.data);
-                  loading.close();
-                }
-              }
-            });
-          }
-        }
-      }
-    }
-  },
+  watch: {},
   methods: {
+    initRecommends() {
+      if (!this.collegeRecommendations) {
+        const loading = this.$loading({
+          lock: true,
+          text: "为您推荐学校中...",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)"
+        });
+        request.post(this.SHORT_LIST_URL, {}, (err, res) => {
+          if (res) {
+            if (res.data.failed) {
+              loading.close();
+              this.$alert(res.data.message, "推荐失败", {
+                type: "error",
+                confirmButtonText: "返回"
+              });
+            } else {
+              this.$store.commit("storeCollegeRecommendations", res.data);
+              loading.close();
+            }
+          }
+        });
+      }
+    },
     submitCollegeRecommend() {
       this.$emit("confirmed");
     },

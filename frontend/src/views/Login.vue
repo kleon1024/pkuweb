@@ -132,6 +132,14 @@ export default {
       }
     };
 
+    const classNumberValidator = (rule, score, callback) => {
+      if (score <= 0) {
+        callback(new Error("班级号应该大于0"));
+      } else {
+        callback();
+      }
+    }
+
     return {
       returnCitySN: null,
       loading: false,
@@ -154,7 +162,8 @@ export default {
           { required: true, message: "请填写文理科", trigger: "blur" }
         ],
         class_number: [
-          { required: true, message: "请填写班级号", trigger: "blur" }
+          { required: true, message: "请填写班级号", trigger: "blur" },
+          { validator: classNumberValidator, trigger: "blur"}
         ],
         highschool: [
           { required: true, message: "高中不能为空", trigger: "blur" }
