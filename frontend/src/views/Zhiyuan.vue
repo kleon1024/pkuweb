@@ -221,7 +221,7 @@ export default {
     },
     scrollToTop() {
       this.$nextTick(() => {
-        this.$refs.pageTop.scrollIntoView();
+        window.scrollTo(0,0);
       });
     },
     saveStep(major, minor) {

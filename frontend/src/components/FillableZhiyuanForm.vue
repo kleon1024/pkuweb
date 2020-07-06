@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import request from "@/plugins/request";
 import { mapState } from "vuex";
 export default {
   name: "FillableZhiyuanForm",
