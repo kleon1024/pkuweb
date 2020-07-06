@@ -202,13 +202,16 @@ export default {
   mounted() { },
 
   methods: {
-      highschool() {
+    highschool() {
       for (var i = 0; i < highschools.length; i++) {
         if (highschools[i].code == this.loginUser.highschool) {
           return highschools[i].name;
         }
       }
       return ""
+    },
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
     },
     format(percentage) {
       if (this.majorStep == 7) {
@@ -222,11 +225,13 @@ export default {
       });
     },
     saveStep(major, minor) {
-      this.$store.commit("saveStep", [major, minor]);
-      this.scrollToTop();
-      this.saveCheckpoint();
+      this.saveCheckpoint(() => {
+        this.$store.commit("saveStep", [major, minor]);
+        this.scrollToTop();
+      });
+      
     },
-    saveCheckpoint() {
+    saveCheckpoint(callback) {
       request.post(
         `${this.API_URL}/checkpoint`,
         this.currentState,
@@ -237,16 +242,17 @@ export default {
                 type: "success",
                 message: "检查点保存成功"
               });
+              callback();
             } else {
               this.$message({
                 type: "error",
-                message: "检查点保存失败"
+                message: "检查点保存失败，请重试"
               });
             }
           } else {
             this.$message({
               type: "error",
-              message: "网络问题，检查点保存失败"
+              message: "网络问题，检查点保存失败，请重试"
             });
           }
         }
@@ -268,8 +274,8 @@ export default {
         "志愿填报完成",
         {
           type: "success",
-          confirmButtonText: "确认提交",
-          cancelButtonText: "再考虑一会",
+          confirmButtonText: "确认",
+          // cancelButtonText: "再考虑一会",
           showClose: false,
           dangerouslyUseHTMLString: true,
         }

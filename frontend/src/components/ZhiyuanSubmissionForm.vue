@@ -1,6 +1,6 @@
 <template>
   <div>
-    <center>
+    <!-- <center>
       <h2>一本院校志愿填报</h2>
     </center>
     <p v-if="hasCompletedZhiyuan" class="success">你已经在本网站完成了志愿填写，下边是你的填报情况。</p>
@@ -51,7 +51,7 @@
       :closable="false"
       title="请一定注意：该网站主要目的在于帮助您了解志愿填报的更多信息，并不是真正的志愿填报。请务必通过宁夏教育考试院公布的高考志愿填报入口来填报志愿。"
     />
-    <el-divider />
+    <el-divider /> -->
     <div v-if="!hasCompletedZhiyuan">
       <h5>为方便我们把奖励给您，请在下面的方框中写下您的支付宝/微信账号。（若您想通过其它支付方式获得奖励，请在框内详细说明）</h5>
       <el-input v-model="paymentMethod" type="text" placeholder="支付宝账号或其他支付方式" />
@@ -61,7 +61,7 @@
           class="action-button"
           type="primary"
           @click.stop="formDone"
-        >完成一本志愿填写</el-button>
+        >确认</el-button>
       </div>
     </div>
   </div>

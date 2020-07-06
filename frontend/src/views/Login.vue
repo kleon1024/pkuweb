@@ -3,9 +3,6 @@
     <div slot="header">
       <el-row>
         <span class="card-title">请填写你的身份信息</span>
-        <span style="float: right;">
-          <el-button type="primary" plain :loading="loading" @click="submitForm('loginForm')">登录</el-button>
-        </span>
       </el-row>
     </div>
     <el-alert type="success" center :closable="false" style="margin-bottom: 15px" title="为了确保您能够获得此次调查的报酬，请务必填写完整、准确的身份信息。" />
@@ -112,6 +109,11 @@
         </el-col>
       </el-row>
     </el-form>
+    <el-row>
+      <span style="float: right;">
+        <el-button type="primary" plain :loading="loading" @click="submitForm('loginForm')">完成信息填写，进入问卷调查</el-button>
+      </span>
+    </el-row>
   </el-card>
 </template>
 

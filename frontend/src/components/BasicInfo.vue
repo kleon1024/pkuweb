@@ -110,7 +110,7 @@
         </el-form-item>
         <h4>9. 请选择你的生日：</h4>
         <el-form-item prop="birthdate" label-width="0" required>
-          <el-date-picker v-model="basicInfoForm.birthdate" type="date" default-value="2020-01-01" style="width: 100%;" />
+          <el-date-picker v-model="basicInfoForm.birthdate" type="month" default-value="2000-01" style="width: 100%;" />
         </el-form-item>
         <h3>志愿信息</h3>
         <div
