@@ -189,7 +189,7 @@ export default {
       return this.loginUser.basic_info;
     },
     class_select() {
-      result = ""
+      var result = ""
       switch(this.loginUser.class_selection) {
         case 1: result = "理科"; break;
         case 2: result = "文科"; break;
