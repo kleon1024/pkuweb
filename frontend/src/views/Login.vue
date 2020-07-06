@@ -69,6 +69,7 @@
       <el-form-item label="班级号" prop="class_number" required>
         <el-input v-model="loginForm.class_number" type="number" placeholder="请输入你的班级号" />
       </el-form-item>
+      <el-alert v-show="loginForm.class_number && !classNumberValid" type="error" title="请输入大于零的班级号" center :closable="false" />
       <el-row :gutter="20">
         <el-alert type="success" center :closable="false" style="margin-bottom: 15px" title="按高考总分排名，含加分" />
         <el-col :xs="48" :sm="24">
@@ -162,8 +163,7 @@ export default {
           { required: true, message: "请填写文理科", trigger: "blur" }
         ],
         class_number: [
-          { required: true, message: "请填写班级号", trigger: "blur" },
-          { validator: classNumberValidator, trigger: "blur"}
+          { required: true, message: "请填写班级号", trigger: "blur" }
         ],
         highschool: [
           { required: true, message: "高中不能为空", trigger: "blur" }
@@ -240,6 +240,9 @@ export default {
     totalScoreValid() {
       return this.loginForm.total_score === this.computedTotalScore;
     },
+    classNumberValid() {
+      return this.loginForm.class_number > 0;
+    },
     computedTotalScore() {
       return (
         this.loginForm.zonghe_score +
@@ -254,7 +257,7 @@ export default {
     submitForm(formName) {
       this.loading = true;
       this.$refs[formName].validate(valid => {
-        if (!this.totalScoreValid) {
+        if (!this.totalScoreValid || !this.classNumberValid) {
           valid = false;
         }
 
