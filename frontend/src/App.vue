@@ -79,15 +79,17 @@
             title="建议您使用 Chrome, Firefox 或者 Safari 浏览器访问本网站，以获取最佳的志愿辅导体验"
           />
           <el-alert
+            type="info"
+            center
+            :closable="false"
+            title="注意：本调查和高考志愿填报无关。请报考一批次志愿院校的同学请务必通过宁夏教育考试院公布的高考志愿填报入口来填报志愿。"
+          />
+          <el-alert
             type="error"
             center
             :closable="false"
-            title="报考一批次志愿院校的同学请务必通过宁夏教育考试院公布的高考志愿填报入口来填报志愿。我们的志愿辅导只是模拟志愿的填写，并不是真正的志愿填报！"
-          />
-          <el-alert
-            type="info"
-            center
-            title="注意，每次提交后将不可向前返回修改回答记录，请谨慎作答"
+            effect="dark"
+            title="本调查只适用于宁夏报考一批次志愿院校的同学。未填报一批次志愿的同学可能无法完成问卷并取得报酬！"
           />
         </div>
         <router-view />

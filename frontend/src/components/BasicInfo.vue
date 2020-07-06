@@ -108,7 +108,10 @@
             />
           </el-select>
         </el-form-item>
-
+        <h4>9. 请选择你的生日：</h4>
+        <el-form-item label="生日" prop="birthdate" required>
+          <el-date-picker v-model="basicInfoForm.birthdate" type="date" style="width: 100%;" />
+        </el-form-item>
         <h3>志愿信息</h3>
         <div
           v-for="(priorityQuestionKey, index) in prioritySelectionQuestionKeys"
@@ -204,7 +207,7 @@
         </el-row>
         <h4>
           9.
-          为了帮助我们更好地对你填报志愿进行风险的评估，我们将测试你对风险的承受能力。请在下面的每一道小题中，你将面临两个选项。请选出对你自己来说更好的那个选项：
+          请在下面的每一道小题中，你将面临两个选项。请选出对你自己来说更好的那个选项：
         </h4>
         <el-row
           v-for="(item, index) in basicInfoForm.risk_list"
@@ -263,6 +266,7 @@ export default {
         mama_job: "",
         other_mama_job: "",
         family_location: "",
+        birthdate: "",
         risk_list: risk_list,
         college_factors: [],
         college_types: [],
@@ -295,6 +299,9 @@ export default {
         ],
         family_location: [
           { required: true, message: "请选择一项", trigger: "blur" }
+        ],
+        birthdate: [
+          { required: true, message: "请选择一个日期", trigger: "blur" }
         ],
         other_papa_job: [
           {
@@ -410,26 +417,28 @@ export default {
     },
     locationOptions() {
       return [
+        "银川市兴庆区",
+        "银川市西夏区",
+        "银川市金凤区",
+        "银川市永宁县",
+        "银川市贺兰县",
+        "灵武市",
+        "吴忠市利通区",
+        "吴忠市红寺堡区",
+        "吴忠市盐池县",
+        "吴忠市同心县",
+        "青铜峡市",
+        "固原市原州区",
+        "固原市西吉县",
+        "固原市隆德县",
+        "固原市泾源县",
+        "固原市彭阳县",
         "石嘴山市大武口区",
         "石嘴山市惠农区",
-        "固原市原州区",
-        "海原县",
-        "贺兰县",
-        "红寺堡县",
-        "泾源县",
-        "灵武县",
-        "隆德县",
-        "彭阳县",
-        "平罗县",
-        "青铜峡市",
-        "同心县",
-        "吴忠市",
-        "西吉县",
-        "盐池县",
-        "银川市",
-        "永宁县",
-        "中宁县",
-        "中卫市"
+        "石嘴山市平罗县",
+        "中卫市沙坡头区",
+        "中卫市中宁县",
+        "中卫市海原县"
       ];
     },
     highSchoolOptions() {
@@ -579,8 +588,7 @@ export default {
           // );
         } else {
           this.$message({
-            message:
-              "有信息未填写或，有误。完整的信息填写能让我们更好地提供志愿报考辅导！",
+            message: "有信息未填写或有误。",
             type: "error"
           });
           this.loading = false;

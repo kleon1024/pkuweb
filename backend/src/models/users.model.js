@@ -14,6 +14,10 @@ module.exports = function (app) {
       type: Number,
       required: true
     },
+    class_number: {
+      type: Number,
+      required: true
+    },
     highschool: {
       type: String,
       required: true

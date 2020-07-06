@@ -17,6 +17,7 @@ export default new Vuex.Store({
     loginUser: {
       name: null,
       class_selection: null,
+      class_number: null,
       highschool: null,
       assigned_group: null,
       basic_info: null,
@@ -51,6 +52,8 @@ export default new Vuex.Store({
     setUser(state, data) {
       state.loginUser.name = data.name;
       state.loginUser.class_selection = data.class_selection;
+      state.loginUser.class_number = data.class_number;
+      state.loginUser.class_number = data.class_number;
       state.loginUser.highschool = data.highschool;
       state.loginUser.assigned_group = data.assigned_group;
       state.loginUser.basic_info = data.basic_info;
@@ -69,6 +72,8 @@ export default new Vuex.Store({
       state.minorStep = 1;
       state.loginUser.name = null;
       state.loginUser.class_selection = null;
+      state.loginUser.class_number = null;
+      state.loginUser.class_number = null;
       state.loginUser.highschool = null;
       state.loginUser.assigned_group = null;
       state.loginUser.basic_info = null;
@@ -140,6 +145,7 @@ export default new Vuex.Store({
     updateBasicInfo(state, basicInfo) {
       basicInfo.name = state.loginUser.name;
       basicInfo.class_selection = state.loginUser.class_selection;
+      basicInfo.class_number = state.loginUser.class_number;
       basicInfo.highschool = state.loginUser.highschool;
       basicInfo.total_score = state.loginUser.total_score;
       basicInfo.ranking = state.loginUser.ranking;

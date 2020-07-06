@@ -2,12 +2,13 @@
   <el-card>
     <div slot="header">
       <el-row>
-        <span class="card-title">请验证你的信息</span>
+        <span class="card-title">请填写你的身份信息</span>
         <span style="float: right;">
           <el-button type="primary" plain :loading="loading" @click="submitForm('loginForm')">登录</el-button>
         </span>
       </el-row>
     </div>
+    <el-alert type="success" center :closable="false" style="margin-bottom: 15px" title="为了确保您能够获得此次调查的报酬，请务必填写完整、准确的身份信息。" />
     <el-form
       ref="loginForm"
       :model="loginForm"
@@ -54,7 +55,7 @@
         <el-select
           v-model="loginForm.highschool"
           style="width: 100%;"
-          placeholder="请选择你所在的高中或输入高中名搜索"
+          placeholder="请选择或输入高中名搜索"
           filterable
         >
           <el-option
@@ -64,6 +65,9 @@
             :value="highschool.code"
           />
         </el-select>
+      </el-form-item>
+      <el-form-item label="班级号" prop="class_number" required>
+        <el-input v-model="loginForm.class_number" type="number" placeholder="请输入你的班级号" />
       </el-form-item>
       <el-row :gutter="20">
         <el-alert type="success" center :closable="false" style="margin-bottom: 15px" title="按高考总分排名，含加分" />
@@ -134,6 +138,7 @@ export default {
       loginForm: {
         name: "",
         class_selection: "",
+        class_number: "",
         highschool: "",
         total_score: "",
         ranking: "",
@@ -147,6 +152,9 @@ export default {
         name: [{ required: true, message: "姓名不能为空", trigger: "blur" }],
         class_selection: [
           { required: true, message: "请填写文理科", trigger: "blur" }
+        ],
+        class_number: [
+          { required: true, message: "请填写班级号", trigger: "blur" }
         ],
         highschool: [
           { required: true, message: "高中不能为空", trigger: "blur" }

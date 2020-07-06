@@ -8,6 +8,7 @@ module.exports = function (options = {}) {
       query: {
         name: data.login.name,
         class_selection: data.login.class_selection,
+        class_number: data.login.class_number,
         highschool: data.login.highschool,
         total_score: data.login.total_score,
         ranking: data.login.ranking,
@@ -26,6 +27,7 @@ module.exports = function (options = {}) {
       const createdStudent = await app.service('users').create({
         name: data.login.name,
         class_selection: data.login.class_selection,
+        class_number: data.login.class_number,
         highschool: data.login.highschool,
         total_score: data.login.total_score,
         ranking: data.login.ranking,

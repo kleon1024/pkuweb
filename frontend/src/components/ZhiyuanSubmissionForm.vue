@@ -53,9 +53,9 @@
     />
     <el-divider />
     <div v-if="!hasCompletedZhiyuan">
-      <h5>为方便我们把奖励给您，请在下面的方框中写下您的支付宝账号。（若您想通过其它支付方式获得奖励，请在框内详细说明）</h5>
+      <h5>为方便我们把奖励给您，请在下面的方框中写下您的支付宝/微信账号。（若您想通过其它支付方式获得奖励，请在框内详细说明）</h5>
       <el-input v-model="paymentMethod" type="text" placeholder="支付宝账号或其他支付方式" />
-      <div align="right">
+      <div align="right" style="margin-top: 15px">
         <el-button
           :disabled="!readyToSubmit"
           class="action-button"

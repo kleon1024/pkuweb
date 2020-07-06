@@ -1,12 +1,12 @@
 <template>
   <div>
     <center>
-      <h2>推荐学校</h2>
+      <h2>你可能感兴趣或者考虑过的院校</h2>
     </center>
     <el-alert
       type="warning"
       style="margin: 10px 0;"
-      title="请注意，该教程只针对一本院校的填报。欲填报二本和其它类型院校的同学请勿使用该教程!"
+      title="本调查只适用于宁夏报考一批次志愿院校的同学。未填报一批次志愿的同学可能无法完成问卷并取得报酬！"
     />
     <el-form
       ref="collegeRecommendForm"
@@ -16,7 +16,7 @@
       label-width="100px"
       status-icon
     >
-      <h4>1. 请问你想查看的是什么类型的院校</h4>
+      <!-- <h4>1. 请问你想查看的是什么类型的院校</h4>
       <el-form-item prop="collegeType" label-width="0">
         <el-select
           v-model="collegeRecommendForm.collegeType"
@@ -30,8 +30,8 @@
             :value="type.key"
           />
         </el-select>
-      </el-form-item>
-      <el-alert
+      </el-form-item> -->
+      <!-- <el-alert
         v-if="['B'].includes(collegeRecommendForm.collegeType)"
         type="warning"
         title="本网站主要针对一批次志愿填报。其它批次志愿填报的辅导在(siminedu.com)，我们在该网站上也为宁夏考生开通了免费使用通道，欢迎各位同学进行尝试"
@@ -48,8 +48,8 @@
             @click.stop="redirectUserToSimin"
           >点击进入斯民教育</el-button>
         </div>
-      </div>
-      <div v-else>
+      </div> -->
+      <div>
         <el-alert
           v-show="collegeRecommendForm.collegeType && recommendedColleges.length === 0"
           type="error"
@@ -58,7 +58,9 @@
           :closable="false"
         />
         <section v-if="collegeRecommendations && recommendedColleges.length > 0">
-          <h4>2. 根据我们的算法和您的信息，下面是推荐一本学校名单。您可以点击下方的学校名（文字部分）在百度搜索该院校相关的信息。</h4>
+          <h4>2. 根据我们的算法和您的信息，您在填报志愿的时候可能还听说/考虑过下面这些院校。
+            <strong> 请注意，我们会在部分问题中提及这些学校。</strong>
+            如果你对这些学校的名字感到陌生，请你点击下方的学校名（文字部分）在百度搜索该院校相关的信息。</h4>
           <CollegeButtonTags :colleges="recommendedColleges" />
           <el-alert
             v-if="collegeRecommendations.risk_number < 5 && collegeRecommendations.risk_number > 0"
@@ -101,28 +103,28 @@ export default {
   data() {
     return {
       collegeRecommendForm: {
-        collegeType: "",
+        collegeType: "A",
         collegeTypes: [
           {
             key: "A",
             description: "我主要想查看一本院校"
           },
-          {
-            key: "B",
-            description: "我想查看一本院校，同时还想查看二本或者其它类型院校"
-          },
-          {
-            key: "C",
-            description: "我只想查看提前批次院校"
-          },
-          {
-            key: "D",
-            description: "我只想查看二本院校"
-          },
-          {
-            key: "E",
-            description: "我还想查看其它类型的院校"
-          }
+          // {
+          //   key: "B",
+          //   description: "我想查看一本院校，同时还想查看二本或者其它类型院校"
+          // },
+          // {
+          //   key: "C",
+          //   description: "我只想查看提前批次院校"
+          // },
+          // {
+          //   key: "D",
+          //   description: "我只想查看二本院校"
+          // },
+          // {
+          //   key: "E",
+          //   description: "我还想查看其它类型的院校"
+          // }
         ]
       },
 

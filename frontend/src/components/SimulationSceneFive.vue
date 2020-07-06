@@ -1,7 +1,7 @@
 <template>
   <div>
     <center>
-      <h2>模拟填报</h2>
+      <h2>模拟情景志愿填报</h2>
     </center>
     <section>
       <h3>情景4</h3>

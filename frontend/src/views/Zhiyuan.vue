@@ -175,6 +175,7 @@ export default {
     ...mapState([
       "majorStep",
       "minorStep",
+      "loginUser",
       "intendedColleges",
       "zhiyuanQuizAnswers",
       "zhiyuanSurveyAnswers",
@@ -186,6 +187,14 @@ export default {
     ]),
     basicInfo() {
       return this.loginUser.basic_info;
+    },
+    class_select() {
+      result = ""
+      switch(this.loginUser.class_selection) {
+        case 1: result = "理科"; break;
+        case 2: result = "文科"; break;
+      }
+      return result;
     }
   },
 
@@ -242,7 +251,11 @@ export default {
     },
     onZhiyuanSubmissionFormDone(zhiyuanForm) {
       this.$confirm(
-        "恭喜你完成了我们的模拟志愿填报，我们后续将根据你的答案来计算你可以获得的奖励。你仍可以查看推荐院校并修改志愿。如果有其他问题，请与我们联系。",
+        "恭喜你完成了志愿的填写！\n\n姓名：" + 
+        this.loginUser.name + "\n学校：" + 
+        this.loginUser.high_school.name + "\n科目：" + 
+        this.class_select + "\n班级：" + 
+        this.loginUser.class_number + "\n\n请在这里截屏作为完成问卷的凭证。",
         "志愿填报完成",
         {
           type: "success",

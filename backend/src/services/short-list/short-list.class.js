@@ -22,7 +22,7 @@ class Service {
       student_info: {
         ranking: student.basic_info.ranking,
         score: student.basic_info.total_score,
-        class_selection: parseInt(student.basic_info.class_selection)
+        class_selection: parseInt(student.basic_info.class_selection),
       },
       answers: {
         q2_answer: student.basic_info.college_factors,

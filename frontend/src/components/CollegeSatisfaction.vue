@@ -4,10 +4,9 @@
       <h2>录取满意程度</h2>
     </center>
     <div>
-      根据你在模拟志愿中的填写，你选择了
-      <span
-        style="color: red;"
-      >{{ intendedColleges.map(college => college.full_name).join("，") }}</span> 作为一批次志愿院校。现在，请你移动下面的滑块来评估你对这些院校的满意程度。
+      根据你的填写，你提交的一批次志愿院校为
+      <span> {{ college_names }} </span>
+      作为一批次志愿院校。请你移动下面的滑块来评估你对这些院校的满意程度。
       <p>
         你将用 0 到 100 之间的数字来表示你对就读于某个大学的满意程度。数字越大，你的满意程度越高。因此，0 表示最不满意，100 表示最满意。
         <strong>为了使答题更方便，你只需通过移动滑块(见下图)来表达自己对学校的满意程度。</strong>
@@ -48,7 +47,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(["intendedColleges"])
+    ...mapState(["intendedColleges"]),
+    college_names() {
+    var result = "";
+     this.intendedColleges.map((college, i) => {
+        result += college.full_name + "(" + String.fromCharCode("A".charCodeAt() + i) + "志愿)";
+      }
+     )
+      return result;
+    },
   },
   methods: {
     onChange(index) {

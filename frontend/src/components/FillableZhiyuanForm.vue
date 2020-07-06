@@ -20,16 +20,16 @@
             :placeholder="placeholder[scope.row-1]"
           >
             <el-alert slot="empty" type="error" title="输入有误，没有匹配的院校" :closable="false" center />
-            <el-option-group label="推荐院校名单">
+            <el-option-group label="院校名单">
               <el-option
-                v-for="(college, index) in selectableRecommendedColleges"
+                v-for="(college, index) in allColleges"
                 :key="`fillable-zhiyuan-form-college-order-${index}`"
                 :label="college.full_name + (showStrategy ? `(${college.strategy})`: '')"
                 :value="index"
                 :disabled="selectedCollegeIndices.includes(index)"
               />
             </el-option-group>
-            <el-option-group v-if="showAllColleges" label="其他院校">
+            <!-- <el-option-group v-if="showAllColleges" label="其他院校">
               <el-option
                 v-for="(college, index) in otherColleges"
                 :key="`fillable-zhiyuan-form-college-order-${index + selectableRecommendedColleges.length}`"
@@ -37,7 +37,7 @@
                 :value="index + selectableRecommendedColleges.length"
                 :disabled="selectedCollegeIndices.includes(index + selectableRecommendedColleges.length)"
               />
-            </el-option-group>
+            </el-option-group> -->
           </el-select>
         </template>
       </el-table-column>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import request from "@/plugins/request";
 import { mapState } from "vuex";
 export default {
   name: "FillableZhiyuanForm",
@@ -86,12 +87,52 @@ export default {
       default: 4
     }
   },
-  mounted() {},
+  mounted() {
+    this.retrieveCollegeList();
+  },
   data() {
     return {
+      allColleges: [],
       selectedCollegeIndices: new Array(this.choices).fill(null),
       collegeOrders: Array.from(new Array(this.choices).keys(), x => x + 1)
     };
+  },
+  methods: {
+    retrieveCollegeList() {
+      const busy = this.$loading({
+        lock: true,
+        text: "从服务器获取数据中，请耐心等待...",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      request.post(`${this.API_URL}/college-admins`, {}, (err, res) => {
+        if (res) {
+          if (res.data.failed) {
+            this.$alert(res.data.message, "获取数据失败", {
+              type: "error",
+              confirmButtonText: "去检查",
+              callback: () => {
+                busy.close();
+              }
+            });
+        
+          } else {
+            const returnedColleges = Array.from(res.data);
+            returnedColleges.sort((c1, c2) =>
+              c1.full_name.localeCompare(c2.full_name, "zh-CN")
+            ); // 按照大学名称字母排序;
+            this.allColleges = returnedColleges;
+            busy.close();
+          }
+        } else {
+          this.$message({
+            message: "无法连接服务器，请稍后再试",
+            type: "error"
+          });
+          busy.close();
+        }
+      });
+    },
   },
   computed: {
     ...mapState(["intendedAndRecommendedColleges"]),
@@ -119,8 +160,7 @@ export default {
       return this.recommendedColleges;
     },
     selectedColleges() {
-      const selectableCollegesLength = this.selectableRecommendedColleges
-        .length; // 共有多少可供选择的推荐名单中的学校
+      const selectableCollegesLength = this.allColleges.length
       return this.selectedCollegeIndices
         .filter(index => index != null)
         .map(index =>
