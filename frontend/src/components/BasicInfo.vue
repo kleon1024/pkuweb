@@ -266,7 +266,7 @@ export default {
         mama_job: "",
         other_mama_job: "",
         family_location: "",
-        birthdate: "",
+        birthdate: Date("2000/01/01"),
         risk_list: risk_list,
         college_factors: [],
         college_types: [],

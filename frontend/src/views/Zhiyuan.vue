@@ -253,7 +253,7 @@ export default {
       this.$confirm(
         "恭喜你完成了志愿的填写！\n\n姓名：" + 
         this.loginUser.name + "\n学校：" + 
-        this.loginUser.high_school.name + "\n科目：" + 
+        this.loginUser.highschool.name + "\n科目：" + 
         this.class_select + "\n班级：" + 
         this.loginUser.class_number + "\n\n请在这里截屏作为完成问卷的凭证。",
         "志愿填报完成",
