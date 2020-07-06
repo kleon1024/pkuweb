@@ -128,6 +128,7 @@ import ZhiyuanGuideStrategy from "@/components/ZhiyuanGuideStrategy";
 import ZhiyuanSubmissionForm from "@/components/ZhiyuanSubmissionForm";
 
 import request from "@/plugins/request";
+import highschools from "@/assets/highschools";
 
 export default {
   components: {
@@ -195,12 +196,20 @@ export default {
         case 2: result = "文科"; break;
       }
       return result;
-    }
+    },
   },
 
   mounted() { },
 
   methods: {
+      highschool() {
+      for (var i = 0; i < highschools.length; i++) {
+        if (highschools[i].code == this.loginUser.highschool) {
+          return highschools[i].name;
+        }
+      }
+      return ""
+    },
     format(percentage) {
       if (this.majorStep == 7) {
         return "100%";
@@ -251,17 +260,18 @@ export default {
     },
     onZhiyuanSubmissionFormDone(zhiyuanForm) {
       this.$confirm(
-        "恭喜你完成了志愿的填写！\n\n姓名：" + 
-        this.loginUser.name + "\n学校：" + 
-        this.loginUser.highschool.name + "\n科目：" + 
-        this.class_select + "\n班级：" + 
-        this.loginUser.class_number + "\n\n请在这里截屏作为完成问卷的凭证。",
+        "恭喜你完成了志愿的填写！<br/><br/>姓名：" + 
+        this.loginUser.name + "<br/>学校：" + 
+        this.highschool() + "<br/>科目：" + 
+        this.class_select + "<br/>班级：" + 
+        this.loginUser.class_number + "<br/><br/>请在这里截屏作为完成问卷的凭证。",
         "志愿填报完成",
         {
           type: "success",
           confirmButtonText: "确认提交",
           cancelButtonText: "再考虑一会",
-          showClose: false
+          showClose: false,
+          dangerouslyUseHTMLString: true,
         }
         )
         .then(() => {
