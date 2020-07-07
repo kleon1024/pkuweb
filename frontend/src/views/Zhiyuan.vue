@@ -210,7 +210,17 @@ export default {
     },
     saveStep(major, minor) {
       this.saveCheckpoint(() => {
-        this.$store.commit("saveStep", [major, minor]);
+        if (this.loginUser 
+            && this.loginUser.college_recommendations 
+            && this.loginUser.college_recommendations.recommended_colleges.length <= 3) {
+          if (major == 6 && minor == 2) {
+            this.$$store.commit("saveStep", [7, 1]);
+          } else {
+            this.$store.commit("saveStep", [major, minor]);
+          }
+        } else {
+          this.$store.commit("saveStep", [major, minor]);
+        }
         this.scrollToTop();
       });
       
