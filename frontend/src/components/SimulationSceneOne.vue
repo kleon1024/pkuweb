@@ -24,7 +24,7 @@
     </section>
 
     <section style="margin-top: 50px;">
-      <p>在该情景中，你只能从我们推荐的12所学校中选择4所学校作为一本志愿院校。请在下面填写你的志愿。</p>
+      <p>在该情景中，你只能从我们推荐的 {{ numberOfColleges }} 所学校中选择4所学校作为一本志愿院校。请在下面填写你的志愿。</p>
       <FillableZhiyuanForm v-model="selectedColleges" />
       <el-alert
         v-show="numberOfSelectedColleges <= 3"
