@@ -77,6 +77,13 @@ export default {
         this.recommendedButNotIntendedColleges.length
       ).fill(0);
       this.answerChanged = new Array(this.satisfactions.length).fill(false);
+      if (this.recommendedButNotIntendedColleges.length == 0) {
+        this.$store.commit(
+          "storeOtherZhiyuanSatisfactionAssessAnswers",
+          this.satisfactionsToSubmit
+        );
+        this.$emit("confirmed");
+      }
     },
     onChange(index) {
       this.answerChanged[index] = true;
