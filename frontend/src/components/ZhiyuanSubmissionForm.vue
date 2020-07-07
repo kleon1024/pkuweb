@@ -3,7 +3,7 @@
     <div>
         <br/>
         <br/> 姓名：{{ loginUser.name }} 
-        <br/> 学校：{{ highschool() }} 
+        <br/> 学校：{{ highschool }} 
         <br/> 科目：{{ class_select }} 
         <br/> 班级：{{ loginUser.class_number }} 
         <br/>
@@ -14,7 +14,6 @@
       <el-input v-model="paymentMethod" type="text" placeholder="支付宝账号或其他支付方式" />
       <div align="right" style="margin-top: 15px">
         <el-button
-          :disabled="!readyToSubmit"
           class="action-button"
           type="primary"
           @click.stop="formDone"
@@ -51,14 +50,6 @@ export default {
     };
   },
   methods: {
-    highschool() {
-      for (var i = 0; i < highschools.length; i++) {
-        if (highschools[i].code == this.loginUser.highschool) {
-          return highschools[i].name;
-        }
-      }
-      return ""
-    },
     formDone() {
       this.$emit("confirmed", {
         // zhiyuanColleges: this.zhiyuanColleges,
@@ -88,7 +79,15 @@ export default {
       return ["T3"].includes(this.userGroup);
     },
     readyToSubmit() {
-      return this.selectedColleges.length >= 3;
+      return true;
+    },
+    highschool() {
+      for (var i = 0; i < highschools.length; i++) {
+        if (highschools[i].code == this.loginUser.highschool) {
+          return highschools[i].name;
+        }
+      }
+      return ""
     },
     class_select() {
       var result = ""
