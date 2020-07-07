@@ -76,7 +76,7 @@
           <el-alert
             type="success"
             center
-            title="建议您使用 Chrome, Firefox 或者 Safari 浏览器访问本网站，以获取最佳的志愿辅导体验"
+            title="建议您使用 Chrome, Firefox 或者 Safari 浏览器访问本网站，以获取最佳的志愿调查体验"
           />
           <el-alert
             type="info"
@@ -115,7 +115,7 @@ export default {
           index: "/letter"
         },
         {
-          name: "志愿辅导",
+          name: "志愿调查",
           index: "/zhiyuan"
         },
         {

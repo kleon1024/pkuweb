@@ -8,7 +8,7 @@
             type="primary"
             plain
             @click="gotoZhiyuan('loginForm')"
-          >进入志愿辅导</el-button>
+          >进入志愿调查</el-button>
         </span>
       </el-row>
     </div>

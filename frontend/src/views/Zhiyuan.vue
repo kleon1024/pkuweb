@@ -2,7 +2,7 @@
   <el-card>
     <div slot="header">
       <el-row>
-        <span class="card-title">志愿辅导</span>
+        <span class="card-title">志愿调查</span>
       </el-row>
       <div class="personal-info">
         <div class="personal-tags" align="right">
@@ -189,27 +189,11 @@ export default {
     basicInfo() {
       return this.loginUser.basic_info;
     },
-    class_select() {
-      var result = ""
-      switch(this.loginUser.class_selection) {
-        case 1: result = "理科"; break;
-        case 2: result = "文科"; break;
-      }
-      return result;
-    },
   },
 
   mounted() { },
 
   methods: {
-    highschool() {
-      for (var i = 0; i < highschools.length; i++) {
-        if (highschools[i].code == this.loginUser.highschool) {
-          return highschools[i].name;
-        }
-      }
-      return ""
-    },
     sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
@@ -265,34 +249,36 @@ export default {
       });
     },
     onZhiyuanSubmissionFormDone(zhiyuanForm) {
-      this.$confirm(
-        "恭喜你完成了志愿的填写！<br/><br/>姓名：" + 
-        this.loginUser.name + "<br/>学校：" + 
-        this.highschool() + "<br/>科目：" + 
-        this.class_select + "<br/>班级：" + 
-        this.loginUser.class_number + "<br/><br/>请在这里截屏作为完成问卷的凭证。",
-        "志愿填报完成",
-        {
-          type: "success",
-          confirmButtonText: "确认",
-          // cancelButtonText: "再考虑一会",
-          showClose: false,
-          dangerouslyUseHTMLString: true,
-        }
-        )
-        .then(() => {
-          const busy = this.$loading({
-            lock: true,
-            text: "提交数据中...",
-            spinner: "el-icon-loading",
-            background: "rgba(0, 0, 0, 0.7)"
-          });
-          this.$store.commit("savePaymentMethod", zhiyuanForm.paymentMethod);
-          this.$store.commit("storeZhiyuanColleges", zhiyuanForm.zhiyuanColleges);
-          this.saveCheckpoint();
-          busy.close();
-        })
-        .catch(() => {});
+      this.$store.commit("savePaymentMethod", zhiyuanForm.paymentMethod);
+      this.saveCheckpoint();
+
+      // this.$confirm(
+      //   "恭喜你完成了志愿的填写！<br/><br/>姓名：" + 
+      //   this.loginUser.name + "<br/>学校：" + 
+      //   this.highschool() + "<br/>科目：" + 
+      //   this.class_select + "<br/>班级：" + 
+      //   this.loginUser.class_number + "<br/><br/>请在这里截屏作为完成问卷的凭证。",
+      //   "志愿填报完成",
+      //   {
+      //     type: "success",
+      //     confirmButtonText: "确认",
+      //     // cancelButtonText: "再考虑一会",
+      //     showClose: false,
+      //     dangerouslyUseHTMLString: true,
+      //   })
+      //   .then(() => {
+      //     const busy = this.$loading({
+      //       lock: true,
+      //       text: "提交数据中...",
+      //       spinner: "el-icon-loading",
+      //       background: "rgba(0, 0, 0, 0.7)"
+      //     });
+      //     this.$store.commit("savePaymentMethod", zhiyuanForm.paymentMethod);
+      //     this.$store.commit("storeZhiyuanColleges", zhiyuanForm.zhiyuanColleges);
+      //     this.saveCheckpoint();
+      //     busy.close();
+      //   })
+      //   .catch(() => {});
     }
   }
 };
