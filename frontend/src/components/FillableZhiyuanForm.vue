@@ -160,15 +160,21 @@ export default {
       return this.recommendedColleges;
     },
     selectedColleges() {
-      const selectableCollegesLength = this.selectableRecommendedColleges
-        .length; // 共有多少可供选择的推荐名单中的学校
-      return this.selectedCollegeIndices
-        .filter(index => index != null)
-        .map(index =>
-          index < selectableCollegesLength
-            ? this.selectableRecommendedColleges[index]
-            : this.otherColleges[index - selectableCollegesLength]
-        );
+      if (this.showAllColleges) {
+        const selectableCollegesLength = this.allColleges.length;
+        return this.selectedCollegeIndices
+          .filter(index => index != null)
+          .map(index => this.allColleges[index]);
+      } else {
+        const selectableCollegesLength = this.selectableRecommendedColleges
+          .length; // 共有多少可供选择的推荐名单中的学校
+        return this.selectedCollegeIndices
+          .filter(index => index != null)
+          .map(index =>
+            index < selectableCollegesLength
+              ? this.selectableRecommendedColleges[index]
+              : this.otherColleges[index - selectableCollegesLength]);
+      }
     }
   },
   watch: {
