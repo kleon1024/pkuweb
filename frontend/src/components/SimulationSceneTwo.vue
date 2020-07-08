@@ -136,6 +136,12 @@ export default {
           break;
         }
       }
+      if (this.q1_choices.length == 2) {
+        this.q1_choices.push({
+          college: null,
+          value: 60,
+        })
+      }
     },
 
     testDone() {

@@ -124,7 +124,6 @@ import highschools from "@/assets/highschools";
 export default {
   mounted() {
     this.returnCitySN = JSON.parse(localStorage.getItem("returnCitySN"));
-    console.log(this.returnCitySN);
   },
   data() {
     const totalScoreValidator = (rule, score, callback) => {
