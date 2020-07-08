@@ -9,7 +9,7 @@
         <br/>
         <br/> 请在这里截屏作为完成问卷的凭证。
     </div>
-    <div v-if="isShow">
+    <div v-if="!isShow">
       <h5>为方便我们把奖励给您，请在下面的方框中写下您的支付宝/微信账号。（若您想通过其它支付方式获得奖励，请在框内详细说明）</h5>
       <el-input v-model="paymentMethod" type="text" placeholder="支付宝账号或其他支付方式" />
       <div align="right" style="margin-top: 15px">
