@@ -153,10 +153,10 @@ export default {
       return this.collegeRecommendations.other_colleges;
     },
     selectableRecommendedColleges() {
-      if (this.intendedAndRecommendedColleges) {
+      //if (this.intendedAndRecommendedColleges) {
         // 如果是最后填报的志愿表，则直接显示所有用户已选择和推荐的
-        return this.intendedAndRecommendedColleges;
-      }
+      //  return this.intendedAndRecommendedColleges;
+      //}
       return this.recommendedColleges;
     },
     selectedColleges() {
