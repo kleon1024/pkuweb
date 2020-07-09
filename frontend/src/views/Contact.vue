@@ -4,7 +4,7 @@
       <el-row>
         <span class="card-title">我们的联系方式</span>
         <span style="float: right;">
-          <el-button type="primary" plain @click="$router.push('/zhiyuan')">进入志愿调查</el-button>
+          <el-button type="primary" plain @click="$router.push('/zhiyuan')">进入问卷调查</el-button>
         </span>
       </el-row>
     </div>

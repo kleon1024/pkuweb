@@ -23,7 +23,7 @@
     </section>
 
     <section style="margin-top: 50px;" v-if="satisfactions[0]">
-      <h4>【问题3】（该题将计入情景2的奖励）小明需要你为他出主意。请在下面为他填写你的建议：</h4>
+      <h4>【问题3】（该题将计入情景2的报酬）小明需要你为他出主意。请在下面为他填写你的建议：</h4>
       <FillableZhiyuanForm v-model="sim3selectedColleges" />
       <el-alert
         v-show="numberOfSelectedColleges <= 3"

@@ -108,7 +108,7 @@
             />
           </el-select>
         </el-form-item>
-        <h4>9. 请选择你的生日：</h4>
+        <h4>9. 请选择你的出生年月：</h4>
         <el-form-item prop="birthdate" label-width="0" required>
           <el-date-picker v-model="basicInfoForm.birthdate" type="month" default-value="2000-01" style="width: 100%;" />
         </el-form-item>

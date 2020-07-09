@@ -24,28 +24,28 @@
 
     <section style="margin-top: 50px;" v-if="satisfactions[0]">
       <p>
-        小明现在需要你帮助他填报志愿。为了鼓励你认真作答，我们将会根据你在第3题的回答，以及今年学校的录取分数线来计算小明获得的满意度，并以此为据为你发放奖励，奖励额度与满意度相同。
+        小明现在需要你帮助他填报志愿。为了鼓励你认真作答，我们将会根据你在第3题的回答，以及今年学校的录取分数线来计算小明获得的满意度，并以此为据为你发放报酬，报酬额度与满意度相同。
         比如说，如果小明被
         <span
           style="color:red; font-weight: bold;"
         >{{ satisfactions[0].college.full_name }}</span> 录取，
         那么我们将给你
-        <span style="color:red; font-weight: bold;">{{ satisfactions[0].value }}</span> 元奖励。
-        如果小明未被任何学校录取，那么你将不能从第3题获得任何奖励。
+        <span style="color:red; font-weight: bold;">{{ satisfactions[0].value }}</span> 元报酬。
+        如果小明未被任何学校录取，那么你将不能从第3题获得任何报酬。
       </p>
       <p>在仔细阅读该情景后，请问答下面的问题：</p>
       <h4>
         【问题1】如果小明被
         <span
           style="color:red; font-weight: bold;"
-        >{{ q1_choices[0].college.full_name }}</span>录取，那么你将获得______元奖励
+        >{{ q1_choices[0].college.full_name }}</span>录取，那么你将获得______元报酬
       </h4>
       <el-radio-group v-model="q1_answer">
         <el-radio-button label="A">A. {{ q1_choices[2].value }}</el-radio-button>
         <el-radio-button label="B">B. {{ q1_choices[1].value }}</el-radio-button>
         <el-radio-button label="C">C. {{ q1_choices[0].value }}</el-radio-button>
       </el-radio-group>
-      <h4>【问题2】如果小明没有被任何一本志愿录取，那么你将获得______元奖励</h4>
+      <h4>【问题2】如果小明没有被任何一本志愿录取，那么你将获得______元报酬</h4>
       <el-radio-group v-model="q2_answer">
         <el-radio-button label="A">A. 0</el-radio-button>
         <el-radio-button label="B">B. 5</el-radio-button>

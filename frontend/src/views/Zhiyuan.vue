@@ -21,13 +21,6 @@
           show-icon
         />
         <el-alert
-          style="margin-top: 12px;"
-          title="奖励会在高考志愿填报结束之后通过微信/支付宝统一发放。"
-          type="success"
-          :closable="false"
-          show-icon
-        />
-        <el-alert
           v-if="majorStep >= 1 && !zhiyuanColleges"
           style="margin-top: 20px;"
           type="error"

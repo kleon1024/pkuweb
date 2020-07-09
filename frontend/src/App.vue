@@ -82,14 +82,7 @@
             type="info"
             center
             :closable="false"
-            title="注意：本调查和高考志愿填报无关。请报考一批次志愿院校的同学请务必通过宁夏教育考试院公布的高考志愿填报入口来填报志愿。"
-          />
-          <el-alert
-            type="error"
-            center
-            :closable="false"
-            effect="dark"
-            title="本调查只适用于宁夏报考一批次志愿院校的同学。未填报一批次志愿的同学可能无法完成问卷并取得报酬！"
+            title="注意：本调查和高考志愿填报无关。同学们务必通过宁夏教育考试院公布的高考志愿填报入口来填报志愿。"
           />
         </div>
         <router-view />
@@ -111,7 +104,7 @@ export default {
       activeIndex: "/letter",
       menuItems: [
         {
-          name: "致宁夏2020届考生的一封信",
+          name: "北京大学志愿调查",
           index: "/letter"
         },
         {

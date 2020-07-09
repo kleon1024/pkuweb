@@ -25,9 +25,9 @@
     <section style="margin-top: 50px;" v-if="satisfactions[0]">
       <p>
         小红现在需要你帮助她填报志愿。
-        为了鼓励你认真作答，我们将会根据你的回答，以及今年学校的录取分数线来计算小红获得的满意度，并以此为据为你发放奖励，奖励额度与满意度相同。
-        比如说，如果小红被{{ satisfactions[0].college.full_name }}录取，那么我们将给你 {{ satisfactions[0].value }}元奖励。
-        如果小红未被任何学校录取，那么你将不能获得任何奖励。
+        为了鼓励你认真作答，我们将会根据你的回答，以及今年学校的录取分数线来计算小红获得的满意度，并以此为据为你发放报酬，报酬额度与满意度相同。
+        比如说，如果小红被{{ satisfactions[0].college.full_name }}录取，那么我们将给你 {{ satisfactions[0].value }}元报酬。
+        如果小红未被任何学校录取，那么你将不能获得任何报酬。
       </p>
       <h4>小红只愿意填写两所学校，她需要你的帮助。请问在这种情况下你会如何填写志愿？</h4>
       <FillableZhiyuanForm v-model="sim4selectedColleges" :choices="2" />
