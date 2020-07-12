@@ -5,10 +5,8 @@
     <CollegeProbabilitySlider v-model="demoProbability" />
     <p>在上面的例子中，你的分数高于或等于北大录取分数线的可能性是 {{ demoProbability }}%</p>
     <p>
-      如果该部分被系统抽中，我们将会把系统计算出的录取可能性和你的回答进行比较。 当你的回答和系统计算出的结果相差小于 5%时，你的回答将会被认为是正确的。
-      <span
-        class="danger"
-      >对于每道正确的题，你将能获得 2 元。</span>
+      如果该部分被系统抽中，我们将会把系统计算出的录取可能性和你的回答进行比较。
+      <span class="danger"> 当你的回答和系统计算出的结果相差小于 5%时，你的回答将会被认为是正确的。>对于每道正确的题，你将能获得 2 元。</span>
     </p>
     <el-divider />
     <section>

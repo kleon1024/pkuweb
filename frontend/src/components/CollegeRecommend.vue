@@ -16,39 +16,6 @@
       label-width="100px"
       status-icon
     >
-      <!-- <h4>1. 请问你想查看的是什么类型的院校</h4>
-      <el-form-item prop="collegeType" label-width="0">
-        <el-select
-          v-model="collegeRecommendForm.collegeType"
-          style="width: 100%;"
-          placeholder="点击此处选择院校类型"
-        >
-          <el-option
-            v-for="type in collegeRecommendForm.collegeTypes"
-            :key="`college-type-${type.key}`"
-            :label="type.description"
-            :value="type.key"
-          />
-        </el-select>
-      </el-form-item> -->
-      <!-- <el-alert
-        v-if="['B'].includes(collegeRecommendForm.collegeType)"
-        type="warning"
-        title="本网站主要针对一批次志愿填报。其它批次志愿填报的辅导在(siminedu.com)，我们在该网站上也为宁夏考生开通了免费使用通道，欢迎各位同学进行尝试"
-        :closable="false"
-        show-icon
-      />
-      <div v-if="['C', 'D', 'E'].includes(collegeRecommendForm.collegeType)" class="danger">
-        <div>本网站主要针对一批次志愿填报。其它批次志愿填报的辅导请访问斯民教育。进入斯民教育网站并选择生源地为宁夏后，将会验证你的考生号和生日，验证成功即可免费使用。</div>
-        <div align="right">
-          <el-button
-            type="success"
-            class="redirect-button action-button"
-            plain
-            @click.stop="redirectUserToSimin"
-          >点击进入斯民教育</el-button>
-        </div>
-      </div> -->
       <div>
         <el-alert
           v-show="recommendedColleges.length === 0"
@@ -58,9 +25,11 @@
           :closable="false"
         />
         <section v-if="collegeRecommendations && recommendedColleges.length > 0">
-          <h4>1. 根据我们的算法和您的信息，您在填报志愿的时候可能还听说/考虑过下面这些院校。
-            <strong> 请注意，我们会在部分问题中提及这些学校。</strong>
-            如果你对这些学校的名字感到陌生，请你点击下方的学校名（文字部分）在百度搜索该院校相关的信息。</h4>
+          <h4>
+            根据我们的算法和您的信息，您在填报志愿的时候可能还听说/考虑过下面这些院校。
+            <strong>请注意，我们会在部分问题中提及这些学校。
+              <span style="color: red" > 如果你对这些学校的名字感到陌生，请你点击下方的学校名（文字部分）在百度搜索该院校相关的信息。</span> </strong>
+          </h4>
           <CollegeButtonTags :colleges="recommendedColleges" />
           <el-alert
             v-if="collegeRecommendations.risk_number < 5 && collegeRecommendations.risk_number > 0"
@@ -78,11 +47,11 @@
           />
           <div align="right">
             <el-button
-              :disabled="recommendedColleges.length === 0"
+              :disabled="!clickable"
               class="action-button"
               type="primary"
               @click.stop="submitCollegeRecommend"
-            >下一步</el-button>
+            >{{ content }}</el-button>
           </div>
         </section>
       </div>
@@ -102,11 +71,15 @@ export default {
   },
   data() {
     return {
-      rules: {}
+      rules: {},
+      clickable: false,
+      timeout: 30,
+      content: ""
     };
   },
   mounted() {
     this.initRecommends();
+    this.countDown();
   },
   computed: {
     collegeRecommendations() {
@@ -116,10 +89,22 @@ export default {
       return this.collegeRecommendations
         ? this.collegeRecommendations.recommended_colleges
         : [];
-    },
+    }
   },
   watch: {},
   methods: {
+    countDown() {
+      this.content = this.timeout + "s后可以进行下一步";
+      let clock = window.setInterval(() => {
+        this.timeout--;
+        this.content = this.timeout + "s后可以进行下一步";
+        if (this.timeout < 0) {
+          window.clearInterval(clock);
+          this.content = "下一步";
+          this.clickable = true;
+        }
+      }, 1000);
+    },
     initRecommends() {
       if (!this.collegeRecommendations) {
         const loading = this.$loading({
@@ -147,21 +132,6 @@ export default {
     submitCollegeRecommend() {
       this.$emit("confirmed");
     },
-    redirectUserToSimin() {
-      if (this.chosenCollegeType) {
-        request.post(
-          `${this.API_URL}/student-redirected`,
-          {
-            reason: this.chosenCollegeType
-          },
-          () => {}
-        );
-      }
-      window.open(
-        "https://siminedu.com/simin/client/user/userReg.html",
-        "_blank"
-      );
-    }
   }
 };
 </script>

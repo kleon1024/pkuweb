@@ -3,9 +3,9 @@
     <center>
       <h2>录取满意程度</h2>
     </center>
-    <p>现在，我们来考虑那些你可能考虑过，但未放入志愿表的院校。对于下面的每个学校，请考虑：如果你最终在该院校就读，你的满意程度是多少?</p>
+    <p>对于下面的每个学校，请考虑：如果你最终在该院校就读，你的满意程度是多少?</p>
     <section>
-      <div>现在请考虑对以下学校你的满意程度</div>
+      <div>请通过移动滑块来表明以下学校的满意程度。</div>
       <div
         v-for="(college, i) in recommendedButNotIntendedColleges"
         :key="`other-colleges-satisfaction-quiz-other-college-${i}`"

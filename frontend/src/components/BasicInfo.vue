@@ -160,52 +160,6 @@
           </el-col>
         </el-row>
         <h4>
-          8.
-          现在，请列出你正在考虑的院校，以及你得知这些院校的原因。如果你还没有正在考虑的院校，我们建议你首先查阅高校录取计划和招生手册，或者利用互联网对院校进行初步了解，准确填写此题将有助于我们对你的志愿报考进行有针对性的辅导。如果你还没有正在考虑的院校，请跳过此题
-        </h4>
-        <el-row
-          v-for="rowNumber in collegesToConsider.numOfColleges"
-          :key="`college-selection-${rowNumber}`"
-          :gutter="5"
-        >
-          <el-col :span="12">
-            <el-form-item :label="`院校 ${rowNumber}`">
-              <el-select
-                v-model="selectedCollegeIndices[rowNumber - 1]"
-                :disabled="rowNumber > 1 && (selectedCollegeIndices[rowNumber - 2] == null || reasonForSelectedColleges[rowNumber - 2] == null)"
-                clearable
-                filterable
-                placeholder="选择或搜索院校"
-                style="width: 100%;"
-              >
-                <el-alert slot="empty" type="error" title="输入有误，没有匹配的院校" :closable="false" center />
-                <el-option
-                  v-for="(college, index) in allColleges"
-                  :key="`basic-info-form-college-list-${rowNumber}-${index}`"
-                  :disabled="selectedCollegeIndices.includes(index)"
-                  :label="college.full_name"
-                  :value="index"
-                />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-select
-              v-model="reasonForSelectedColleges[rowNumber - 1]"
-              :disabled="rowNumber > 1 && (selectedCollegeIndices[rowNumber - 2] == null || reasonForSelectedColleges[rowNumber - 2] == null)"
-              placeholder="选择该院校的主要原因"
-              style="width: 100%;"
-            >
-              <el-option
-                v-for="reason in collegesToConsider.reasons"
-                :key="reason.key"
-                :label="reason.description"
-                :value="reason.key"
-              />
-            </el-select>
-          </el-col>
-        </el-row>
-        <h4>
           9.
           请在下面的每一道小题中，你将面临两个选项。请选出对你自己来说更好的那个选项：
         </h4>
@@ -275,12 +229,6 @@ export default {
         will_attend: true,
         reason_not_attending: "A"
       },
-      selectedCollegeIndices: Array(
-        BasicInfoFormConfig.collegesToConsider.numOfColleges
-      ),
-      reasonForSelectedColleges: Array(
-        BasicInfoFormConfig.collegesToConsider.numOfColleges
-      ),
       rules: {
         gender: [{ required: true, message: "请选择一项", trigger: "blur" }],
         papa_education: [
@@ -470,19 +418,8 @@ export default {
     disableReasonForNotAttending() {
       return this.basicInfoForm.will_attend;
     },
-    selectedColleges() {
-      return this.selectedCollegeIndices
-        .map((colIndex, i) => {
-          if (colIndex == null) return null;
-          const college = this.allColleges[colIndex];
-          college.reason = this.reasonForSelectedColleges[i];
-          return college;
-        })
-        .filter(college => college != null);
-    },
     dataToSubmit() {
       const data = JSON.parse(JSON.stringify(this.basicInfoForm));
-      data.selected_colleges = this.selectedColleges;
       if (data.will_attend) {
         delete data.reason_not_attending;
       }
@@ -549,11 +486,6 @@ export default {
         if (valid) {
           this.$store.commit("updateBasicInfo", this.dataToSubmit);
           this.$emit("confirmed");
-          this.$message({
-            message:
-              "信息填写完毕！现在你可以使用魁伟系统进行志愿填报了。该软件主要针对报考一批次的同学。欲报考其它批次高校的同学请和客服人员联系。",
-            type: "success"
-          });
         } else {
           this.$message({
             message: "有信息未填写或有误。",

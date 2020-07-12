@@ -33,6 +33,7 @@ export default new Vuex.Store({
     intendedColleges: null,
     intendedAndRecommendedColleges: null,
     zhiyuanQuizAnswers: null,
+    lessThanThree: null,
     zhiyuanSatisfactionAssessAnswers: null,
     otherZhiyuanSatisfactionAssessAnswers: null,
     recommendedZhiyuanSatisfactions: null,
@@ -88,6 +89,7 @@ export default new Vuex.Store({
       state.intendedColleges = null;
       state.intendedAndRecommendedColleges = null;
       state.zhiyuanQuizAnswers = null;
+      state.lessThanThree = null;
       state.zhiyuanSatisfactionAssessAnswers = null;
       state.otherZhiyuanSatisfactionAssessAnswers = null;
       state.recommendedZhiyuanSatisfactions = null;
@@ -126,6 +128,7 @@ export default new Vuex.Store({
       state.whatthefuckAnsw = zhiyuan.whatthefuckAnsw;
       state.zhiyuanSurveyAnswers = zhiyuan.zhiyuanSurveyAnswers;
       state.otherCollegesInfo = zhiyuan.otherCollegesInfo;
+      state.lessThanThree = zhiyuan.lessThanThree;
       state.zhiyuanGuideAnswers = zhiyuan.zhiyuanGuideAnswers;
       if (zhiyuan.zhiyuanColleges == null) {
         state.zhiyuanColleges = [];
@@ -187,6 +190,9 @@ export default new Vuex.Store({
         });
       });
       state.intendedAndRecommendedColleges = collegesWithZhiyuanOrder.concat(otherRecommendedColleges);
+    },
+    storeLessThanThree(state, checked) {
+      state.lessThanThree = checked;
     },
     storeZhiyuanQuizAnswers(state, answers) {
       state.zhiyuanQuizAnswers = answers;
@@ -250,6 +256,7 @@ export default new Vuex.Store({
         "loginUser",
         "whatthefuckAnswers",
         "intendedColleges",
+        "lessThanThree",
         "intendedAndRecommendedColleges",
         "zhiyuanQuizAnswers",
         "zhiyuanSatisfactionAssessAnswers",

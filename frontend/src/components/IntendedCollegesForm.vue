@@ -6,7 +6,7 @@
     <section>
       <p>下面，请你填写你在志愿填报系统中提交的第一批次（非定向）的志愿院校。请完整地填写你填报的志愿院校，以免影响问卷报酬的发放。</p>
 
-      <p>请至少填写三个学校。只准备填报三个院校的同学不须填写 D 院校；如果你实际只填报了一所或者两所院校，请在B,C院校两空中选择你知道的其它院校。</p>
+      <p  style="color: red; font-weight: bold;">请至少填写三个学校。只准备填报三个院校的同学不须填写 D 院校；如果你实际只填报的普通一批次院校不足三所，请在B,C院校两空中选择你知道的其它院校。</p>
       <FillableZhiyuanForm v-model="selectedColleges" show-all-colleges />
       <el-alert
         v-show="numberOfSelectedColleges <= 3"
@@ -15,21 +15,16 @@
         :title="zhiyuanFormHint"
         :closable="false"
       />
+      <el-checkbox v-model="checked" style="color: red; font-weight: bold;" >如果你实际只填报的普通一批次院校不足三所，请点击左边的方框打勾。</el-checkbox>
     </section>
     <section style="margin-top: 20px;">
       <el-divider />
-      <el-alert
-        type="error"
-        :closable="false"
-        center
-        title="接下来你只需要花30分钟左右的时间来回答一些与录取规则相关的问题，就能获得50~110元等的报酬。"
-      />
       <div>
         <p>
           为了更加了解宁夏考生在填报志愿时的想法和困难，我们需要你回答一些与志愿填报有关的问题。 正确的回答越多，你将会获得越多的报酬。
         </p>
-        <p>
-          在基础报酬50元之上，系统将会从即将出现题目中随机选取一些题目作为额外报酬的依据。 你答对的题目数量越多，能获得的报酬也就越高。
+        <p style="color: red; font-weight: bold;">
+          完成问卷后，你将获得50元作为基础报酬。在基础报酬50元之上，系统将会从即将出现题目中随机选取一些题目作为额外报酬的依据。 你答对的题目数量越多，能获得的报酬也就越高。
         </p>
         <p>
           你的回答有助于我们发现考生对录取规则理解的偏差，为高考的改革提供更多线索。因此，我们希望你在这些题中认真阅读题目，尽力得到准确的答案。
@@ -52,7 +47,8 @@ export default {
   },
   data() {
     return {
-      selectedColleges: []
+      selectedColleges: [],
+      checked: false,
     };
   },
   computed: {
@@ -77,6 +73,7 @@ export default {
     submitIntendedCollegesForm() {
       if (this.numberOfSelectedColleges >= 3) {
         this.$store.commit("storeIntendedColleges", this.selectedColleges);
+        this.$store.commit("storeLessThanThree", this.checked);
         this.$emit("confirmed");
       } else {
         this.$alert("请至少填写三个院校！", "请注意", {
