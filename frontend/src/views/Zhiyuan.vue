@@ -30,7 +30,7 @@
         />
       </div>
     </div>
-    <el-progress :percentage="majorStep*15" :format="format"></el-progress>
+    <el-progress :percentage="(majorStep % 8 + 1)*15" :format="format"></el-progress>
     <section class="guide-content">
       <BasicInfo v-if="majorStep === 1" @confirmed="saveStep(majorStep + 1, 1)" />
       <CollegeRecommend v-if="majorStep === 2" @confirmed="saveStep(majorStep + 1, 1)" />
@@ -90,13 +90,24 @@
       <ZhiyuanGuideStrategy
         v-if="majorStep === 8 && minorStep === 2"
         @confirmed="saveStep(majorStep + 1, 1)"
-      />    -->
+      />-->
 
       <ZhiyuanSubmissionForm
         v-if="majorStep === 7 && minorStep === 1"
         @confirmed="onZhiyuanSubmissionFormDone"
       />
 
+      <IntendedCollegesForm2 v-if="majorStep === 8" @confirmed="saveStep(majorStep + 1, 1)" />
+
+      <CollegeSatisfaction2
+        v-if="majorStep === 9"
+        @confirmed="saveStep(majorStep, minorStep + 1)"
+      />
+
+      <Probabilities2
+        v-if="majorStep === 10"
+        @confirmed="saveStep(7, 1)"
+      />
     </section>
   </el-card>
 </template>
@@ -106,7 +117,9 @@ import { mapState } from "vuex";
 import BasicInfo from "@/components/BasicInfo";
 import CollegeRecommend from "@/components/CollegeRecommend";
 import IntendedCollegesForm from "@/components/IntendedCollegesForm";
+import IntendedCollegesForm2 from "@/components/IntendedCollegesForm2";
 import CollegeSatisfaction from "@/components/CollegeSatisfaction";
+import CollegeSatisfaction2 from "@/components/CollegeSatisfaction2";
 import OtherCollegesSatisfaction from "@/components/OtherCollegesSatisfaction";
 import SimulationSceneOne from "@/components/SimulationSceneOne";
 import SimulationSceneTwo from "@/components/SimulationSceneTwo";
@@ -115,6 +128,7 @@ import SimulationSceneFour from "@/components/SimulationSceneFour";
 import SimulationSceneFive from "@/components/SimulationSceneFive";
 import ProbabilityPreTest from "@/components/ProbabilityPreTest";
 import Probabilities from "@/components/Probabilities";
+import Probabilities2 from "@/components/Probabilities2";
 import AdmissionScoresInfoTest from "@/components/AdmissionScoresInfoTest";
 import ZhiyuanGuideCollegeOrder from "@/components/ZhiyuanGuideCollegeOrder";
 import ZhiyuanGuideStrategy from "@/components/ZhiyuanGuideStrategy";
@@ -128,7 +142,9 @@ export default {
     BasicInfo,
     CollegeRecommend,
     IntendedCollegesForm,
+    IntendedCollegesForm2,
     CollegeSatisfaction,
+    CollegeSatisfaction2,
     OtherCollegesSatisfaction,
     SimulationSceneOne,
     SimulationSceneTwo,
@@ -137,10 +153,11 @@ export default {
     SimulationSceneFive,
     ProbabilityPreTest,
     Probabilities,
+    Probabilities2,
     AdmissionScoresInfoTest,
     ZhiyuanGuideCollegeOrder,
     ZhiyuanGuideStrategy,
-    ZhiyuanSubmissionForm,
+    ZhiyuanSubmissionForm
   },
 
   beforeRouteLeave(to, from, next) {
@@ -181,10 +198,10 @@ export default {
     ]),
     basicInfo() {
       return this.loginUser.basic_info;
-    },
+    }
   },
 
-  mounted() { },
+  mounted() {},
 
   methods: {
     sleep(ms) {
@@ -194,20 +211,37 @@ export default {
       if (this.majorStep == 7) {
         return "100%";
       }
+      if (this.majorStep >= 8) {
+        return "";
+      }
       return this.majorStep + "-" + this.minorStep;
     },
     scrollToTop() {
       this.$nextTick(() => {
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
       });
     },
     saveStep(major, minor) {
       this.saveCheckpoint(() => {
-        if (this.loginUser 
-            && this.loginUser.college_recommendations 
-            && this.loginUser.college_recommendations.recommended_colleges.length <= 3) {
+        if (
+          this.loginUser &&
+          this.loginUser.college_recommendations &&
+          this.loginUser.college_recommendations.recommended_colleges.length <=
+            3
+        ) {
           if (major == 5 && minor == 1) {
             this.$store.commit("saveStep", [6, 1]);
+          } else {
+            this.$store.commit("saveStep", [major, minor]);
+          }
+        } else if (
+          (int(this.loginUser.class_selection) == 1 &&
+            this.loginUser.ranking > 12000) ||
+          (int(this.loginUser.class_selection) == 2 &&
+            this.loginUser.ranking > 3500)
+        ) {
+          if (major == 1 && minor == 1) {
+            this.$store.commit("saveStep", [8, 1]);
           } else {
             this.$store.commit("saveStep", [major, minor]);
           }

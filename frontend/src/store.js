@@ -48,6 +48,9 @@ export default new Vuex.Store({
     sim5SelectedColleges: null,
     probabilities: null,
     paymentMethod: null,
+    intendedColleges2: null,
+    zhiyuanSatisfactionAssessAnswers2: null,
+    probabilities2: null,
   },
   mutations: {
     setUser(state, data) {
@@ -103,6 +106,9 @@ export default new Vuex.Store({
       state.sim5SelectedColleges = null;
       state.probabilities = null;
       state.paymentMethod = null;
+      state.intendedColleges2 = null;
+      state.zhiyuanSatisfactionAssessAnswers2 = null;
+      state.probabilities2 = null;
       if (process.env.NODE_ENV === "production") {
         cookies.remove("SIMIN-NX-SESSION", { // when removing session, needes exact options
           domain: "pkuzhiyuan.com",
@@ -130,6 +136,9 @@ export default new Vuex.Store({
       state.otherCollegesInfo = zhiyuan.otherCollegesInfo;
       state.lessThanThree = zhiyuan.lessThanThree;
       state.zhiyuanGuideAnswers = zhiyuan.zhiyuanGuideAnswers;
+      state.intendedColleges2 = zhiyuan.intendedColleges2;
+      state.zhiyuanSatisfactionAssessAnswers2 = zhiyuan.zhiyuanSatisfactionAssessAnswers2;
+      state.probabilities2 = zhiyuan.probabilities2;
       if (zhiyuan.zhiyuanColleges == null) {
         state.zhiyuanColleges = [];
       } else {
@@ -163,6 +172,9 @@ export default new Vuex.Store({
     saveProbabilities(state, probabilities) {
       state.probabilities = probabilities;
     },
+    saveProbabilities2(state, probabilities) {
+      state.probabilities2 = probabilities;
+    },
     saveSim5SelectedColleges(state, sim5SelectedColleges) {
       state.sim5SelectedColleges = sim5SelectedColleges;
     },
@@ -172,6 +184,9 @@ export default new Vuex.Store({
     storeCollegeRecommendations(state, collegeRecommendations) {
       collegeRecommendations.other_colleges.sort((c1, c2) => c1.college.localeCompare(c2.college, "zh-CN")); // 按照大学名称字母排序
       state.loginUser.college_recommendations = collegeRecommendations;
+    },
+    storeIntendedColleges2(state, colleges) {
+      state.intendedColleges2 = colleges;
     },
     storeIntendedColleges(state, colleges) {
       const collegesWithZhiyuanOrder = colleges.map((college, i) => {
@@ -199,6 +214,9 @@ export default new Vuex.Store({
     },
     storeZhiyuanSatisfactionAssessAnswers(state, answers) {
       state.zhiyuanSatisfactionAssessAnswers = answers;
+    },
+    storeZhiyuanSatisfactionAssessAnswers2(state, answers) {
+      state.zhiyuanSatisfactionAssessAnswers2 = answers;
     },
     storeOtherZhiyuanSatisfactionAssessAnswers(state, answers) {
       state.otherZhiyuanSatisfactionAssessAnswers = answers;
@@ -272,6 +290,9 @@ export default new Vuex.Store({
         "sim5SelectedColleges",
         "probabilities",
         "paymentMethod",
+        "intendedColleges2",
+        "zhiyuanSatisfactionAssessAnswers2",
+        "probabilities2",
       ],
       // // Enable encription
       // storage: {
