@@ -165,7 +165,7 @@ export default {
         this.$notify({
           title: this.buttonString,
           message: this.content,
-          duration: 10000,
+          duration: 9000,
           showClose: false,
         });
       } else {
