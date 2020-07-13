@@ -1,7 +1,7 @@
 <template>
   <div>
     <center>
-      <h2>你可能感兴趣或者考虑过的院校</h2>
+      <h2>您可能感兴趣或者考虑过的院校</h2>
     </center>
     <el-alert
       type="warning"
@@ -28,7 +28,7 @@
           <h4>
             根据我们的算法和您的信息，您在填报志愿的时候可能还听说/考虑过下面这些院校。
             <strong>请注意，我们会在部分问题中提及这些学校。
-              <span style="color: red" > 如果你对这些学校的名字感到陌生，请你点击下方的学校名（文字部分）在百度搜索该院校相关的信息。</span> </strong>
+              <span style="color: red" > 如果您对这些学校的名字感到陌生，请您点击下方的学校名（文字部分）在百度搜索该院校相关的信息。</span> </strong>
           </h4>
           <CollegeButtonTags :colleges="recommendedColleges" />
           <el-alert

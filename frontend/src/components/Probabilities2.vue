@@ -1,11 +1,11 @@
 <template>
   <div>
     <div>
-      你填写的二批次志愿表是：
+      您填写的二批次志愿表是：
       <FillableZhiyuanForm2 :colleges="filledColleges" disabled />
     </div>
     <section>
-      <div>现在请考虑以下学校录取你的可能性</div>
+      <div>现在请考虑以下学校录取您的可能性</div>
       <div
         v-for="(college, i) in filledColleges"
         :key="`other-colleges-probability-quiz-zhiyuan-college-${i}`"

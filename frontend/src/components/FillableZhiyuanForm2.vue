@@ -13,7 +13,13 @@
       </el-table-column>
       <el-table-column align="center" label="院校">
         <template slot-scope="scope">
-          <el-input :disabled="disabled" placeholder="请输入学校" v-model="filledColleges[scope.row - 1]" clearable></el-input>
+          <el-input
+            :disabled="disabled"
+            placeholder="请输入学校"
+            v-model="filledColleges[scope.row - 1]"
+            clearable
+            @input="filledColleges[scope.row - 1]=filledColleges[scope.row - 1].replace(/[^\u4e00-\u9fa5]/g,'');"
+          ></el-input>
         </template>
       </el-table-column>
     </el-table>
@@ -34,7 +40,7 @@ export default {
     title: {
       type: String,
       required: false,
-      default: "一本志愿表（本科一批）"
+      default: "二批次志愿表"
     },
     showStrategy: {
       type: Boolean,

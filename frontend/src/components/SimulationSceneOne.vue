@@ -3,10 +3,10 @@
     <center>
       <h2>模拟情景志愿填报</h2>
     </center>
-    <p>在该部分中，你需要在虚拟情景中考虑如何填报志愿。我们会从情景2，3，4中等可能地抽取一个，根据你在该情景中的回答给予0~60元不等的报酬。</p>
+    <p>在该部分中，您需要在虚拟情景中考虑如何填报志愿。我们会从情景2，3，4中等可能地抽取一个，根据您在该情景中的回答给予0~60元不等的报酬。</p>
     <section>
       <h3>情景1</h3>
-      <p>在调查的开始，我们列出了{{ numberOfColleges }}所你可能考虑过的院校。院校的名字以及你对这些院校的满意度如下（如果你发现自己填写的满意度有误，可以通过“+”和“-”进行调整）</p>
+      <p>在调查的开始，我们列出了{{ numberOfColleges }}所您可能考虑过的院校。院校的名字以及您对这些院校的满意度如下（如果您发现自己填写的满意度有误，可以通过“+”和“-”进行调整）</p>
       <el-row style="margin-top: 20px;" :gutter="24">
         <el-col
           :xs="24"
@@ -24,7 +24,7 @@
     </section>
 
     <section style="margin-top: 50px;">
-      <p>在该情景中，你只能从我们推荐的 {{ numberOfColleges }} 所学校中选择4所学校作为一本志愿院校。请在下面填写你的志愿。</p>
+      <p>在该情景中，您只能从我们推荐的 {{ numberOfColleges }} 所学校中选择4所学校作为一本志愿院校。请在下面填写您的志愿。</p>
       <FillableZhiyuanForm v-model="selectedColleges" />
       <el-alert
         v-show="numberOfSelectedColleges <= 3"
@@ -71,7 +71,7 @@ export default {
         this.numberOfSelectedColleges < 3
           ? ""
           : "";
-      return `${dp1}请严格按照你最终提交的志愿表中院校的顺序进行填写。志愿顺序的错位可能会影响问卷报酬的发放！`;
+      return `${dp1}请严格按照您最终提交的志愿表中院校的顺序进行填写。志愿顺序的错位可能会影响问卷报酬的发放！`;
     },
     numberOfColleges() {
       return this.recommendedColleges.length;

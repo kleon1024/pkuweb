@@ -13,14 +13,14 @@
         status-icon
       >
         <h3>基本信息</h3>
-        <h4>1. 你的性别是：</h4>
+        <h4>1. 您的性别是：</h4>
         <el-form-item prop="gender" label-width="0" required>
           <el-radio-group v-model="basicInfoForm.gender">
             <el-radio-button label="male">男</el-radio-button>
             <el-radio-button label="female">女</el-radio-button>
           </el-radio-group>
         </el-form-item>
-        <h4>2.你父亲的教育水平是：</h4>
+        <h4>2.您父亲的教育水平是：</h4>
         <el-form-item prop="papa_education" label-width="0" required>
           <el-select
             v-model="basicInfoForm.papa_education"
@@ -31,7 +31,7 @@
             <el-option v-for="edu in educationOptions" :key="edu" :label="edu" :value="edu" />
           </el-select>
         </el-form-item>
-        <h4>3.你母亲的教育水平是：</h4>
+        <h4>3.您母亲的教育水平是：</h4>
         <el-form-item prop="mama_education" label-width="0" required>
           <el-select
             v-model="basicInfoForm.mama_education"
@@ -53,7 +53,7 @@
             <el-option v-for="type in studentTypeOptions" :key="type" :label="type" :value="type" />
           </el-select>
         </el-form-item>
-        <h4>5. 和同班同学家庭的经济状况相比，你认为自己的家庭：</h4>
+        <h4>5. 和同班同学家庭的经济状况相比，您认为自己的家庭：</h4>
         <el-form-item prop="economics" label-width="0" required>
           <el-select
             v-model="basicInfoForm.economics"
@@ -97,7 +97,7 @@
           <el-select
             v-model="basicInfoForm.family_location"
             style="width: 100%;"
-            placeholder="请选择你所在的县/市（区）"
+            placeholder="请选择您所在的县/市（区）"
             filterable
           >
             <el-option
@@ -108,7 +108,7 @@
             />
           </el-select>
         </el-form-item>
-        <h4>9. 请选择你的出生年月：</h4>
+        <h4>9. 请选择您的出生年月：</h4>
         <el-form-item prop="birthdate" label-width="0" required>
           <el-date-picker v-model="basicInfoForm.birthdate" type="month" default-value="2000-01" style="width: 100%;" />
         </el-form-item>
@@ -130,7 +130,7 @@
           />
         </div>
 
-        <h4>7. 假设在录取过程结束后，您得知自己已被志愿中的某大学录取。请问你是否一定会入读该一本大学(第一空); 如果填写的是“否”，请问你打算在接下来一年里(第二空)</h4>
+        <h4>7. 假设在录取过程结束后，您得知自己已被志愿中的某大学录取。请问您是否一定会入读该一本大学(第一空); 如果填写的是“否”，请问您打算在接下来一年里(第二空)</h4>
         <el-row :gutter="20">
           <el-col :xs="24" :sm="8">
             <el-form-item label="第一空">
@@ -161,7 +161,7 @@
         </el-row>
         <h4>
           8.
-          请在下面的每一道小题中，你将面临两个选项。请选出对你自己来说更好的那个选项：
+          请在下面的每一道小题中，您将面临两个选项。请选出对您自己来说更好的那个选项：
         </h4>
         <el-row
           v-for="(item, index) in basicInfoForm.risk_list"
@@ -432,43 +432,8 @@ export default {
     }
   },
   mounted() {
-    // this.retrieveCollegeList();
   },
   methods: {
-    retrieveCollegeList() {
-      const busy = this.$loading({
-        lock: true,
-        text: "从服务器获取数据中，请耐心等待...",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
-      });
-      request.post(`${this.API_URL}/college-admins`, {}, (err, res) => {
-        if (res) {
-          if (res.data.failed) {
-            this.$alert(res.data.message, "获取数据失败", {
-              type: "error",
-              confirmButtonText: "去检查",
-              callback: () => {
-                busy.close();
-              }
-            });
-          } else {
-            const returnedColleges = Array.from(res.data);
-            returnedColleges.sort((c1, c2) =>
-              c1.full_name.localeCompare(c2.full_name, "zh-CN")
-            ); // 按照大学名称字母排序;
-            this.allColleges = returnedColleges;
-            busy.close();
-          }
-        } else {
-          this.$message({
-            message: "无法连接服务器，请稍后再试",
-            type: "error"
-          });
-          busy.close();
-        }
-      });
-    },
     getValidatorByQuestion(question) {
       const numberOfSelections = question.numberOfSelections;
       const validateTopFactors = (rule, selectedFactors, callback) => {
@@ -480,7 +445,6 @@ export default {
       };
       return validateTopFactors;
     },
-
     submitBasicInfo() {
       this.$refs["basicInfoForm"].validate(valid => {
         if (valid) {

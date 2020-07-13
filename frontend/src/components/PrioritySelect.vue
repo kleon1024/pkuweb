@@ -58,7 +58,7 @@ export default {
     },
     placeholder: {
       type: String,
-      default: "请先选择你认为最重要的因素"
+      default: "请先选择您认为最重要的因素"
     }
   },
 

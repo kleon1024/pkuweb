@@ -2,7 +2,7 @@
   <el-card>
     <div slot="header">
       <el-row>
-        <span class="card-title">请填写你的身份信息</span>
+        <span class="card-title">请填写您的身份信息</span>
       </el-row>
     </div>
     <el-alert type="success" center :closable="false" style="margin-bottom: 15px" title="为了确保您能够获得此次调查的报酬，请务必填写完整、准确的身份信息。" />
@@ -23,7 +23,7 @@
           minlength="10"
           maxlength="10"
           show-word-limit
-          placeholder="输入你的高考准考证号"
+          placeholder="输入您的高考准考证号"
         >
           <span slot="prepend">1964</span>
         </el-input>
@@ -40,7 +40,7 @@
         />
       </el-form-item>-->
       <el-form-item label="姓名" prop="name" required>
-        <el-input v-model="loginForm.name" type="text" placeholder="请输入你的姓名" />
+        <el-input v-model="loginForm.name" type="text" placeholder="请输入您的姓名" />
       </el-form-item>
       <el-form-item label="选科" prop="class_selection" required>
         <el-radio-group v-model="loginForm.class_selection">
@@ -64,7 +64,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="班级号" prop="class_number" required>
-        <el-input v-model="loginForm.class_number" type="number" placeholder="请输入你的班级号" />
+        <el-input v-model="loginForm.class_number" type="number" placeholder="请输入您的班级号" />
       </el-form-item>
       <el-alert v-show="loginForm.class_number && !classNumberValid" type="error" title="请输入大于零的班级号" center :closable="false" />
       <el-row :gutter="20">
@@ -235,7 +235,7 @@ export default {
   computed: {
     highSchoolOptions() {
       const copied = Array.from(highschools);
-      copied.sort((h1, h2) => h1.name.localeCompare(h2.name, "zh-CN"));
+      // copied.sort((h1, h2) => h1.name.localeCompare(h2.name, "zh-CN"));
       return copied;
     },
     totalScoreValid() {

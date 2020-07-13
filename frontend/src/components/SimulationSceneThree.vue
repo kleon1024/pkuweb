@@ -5,7 +5,7 @@
     </center>
     <section>
       <h3>情景2</h3>
-      <p>你的朋友，小明，也参与了本调查。系统给他推荐的学校和给你推荐的相同，他的分数也你的分数相同。不过，他对学校满意度是不同的：</p>
+      <p>您的朋友，小明，也参与了本调查。系统给他推荐的学校和给您推荐的相同，他的分数也您的分数相同。不过，他对学校满意度是不同的：</p>
       <el-row style="margin-top: 20px;" :gutter="24">
         <el-col
           :xs="24"
@@ -23,7 +23,7 @@
     </section>
 
     <section style="margin-top: 50px;" v-if="satisfactions[0]">
-      <h4>【问题3】（该题将计入情景2的报酬）小明需要你为他出主意。请在下面为他填写你的建议：</h4>
+      <h4>【问题3】（该题将计入情景2的报酬）小明需要您为他出主意。请在下面为他填写您的建议：</h4>
       <FillableZhiyuanForm v-model="sim3selectedColleges" />
       <el-alert
         v-show="numberOfSelectedColleges <= 3"
@@ -35,7 +35,7 @@
       <h4>【问题4】（答对该题将会额外获得2元）假设小明填报的志愿是：</h4>
       <FillableZhiyuanForm v-model="colleges" :colleges="xiaoMingselectedColleges" disabled />
       <h4>
-        录取分数线出来后，你发现小明的分数
+        录取分数线出来后，您发现小明的分数
         比{{ satisfactions[0].college.full_name }}和 {{ satisfactions[1].college.full_name }} 高，
         比{{ satisfactions[2].college.full_name }}和 {{satisfactions[3].college.full_name}} 低，
         那么______:
@@ -99,7 +99,7 @@ export default {
       return this.collegeRecommendations.recommended_colleges;
     },
     zhiyuanFormHint() {
-      return `请填写四个院校！一本录取规则是“分数优先，遵循志愿”。因为院校在录取的时候只会考虑你的分数，不会因为 B, C, D 院校在你的志愿表上位置较低而不去录取你。也就是说，B, C, D 院校享受和 A 院校同样的优先录取权！`;
+      return `请填写四个院校！一本录取规则是“分数优先，遵循志愿”。因为院校在录取的时候只会考虑您的分数，不会因为 B, C, D 院校在您的志愿表上位置较低而不去录取您。也就是说，B, C, D 院校享受和 A 院校同样的优先录取权！`;
     }
   },
   mounted() {

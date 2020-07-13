@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4>
-      {{index}}. 你的分数高于或等于
+      {{index}}. 您的分数高于或等于
       <span style="color: teal;">{{ college }}</span>
       录取分数线的可能性：{{ probability }}% (
       <span

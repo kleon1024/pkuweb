@@ -1,5 +1,9 @@
 export default [
   {
+    name: "宁夏六盘山高级中学",
+    code: "A1"
+  },
+  {
     name: "吴忠市回民中学",
     code: "A24"
   },
@@ -90,10 +94,6 @@ export default [
   {
     name: "宁夏育才高级中学",
     code: "A2"
-  },
-  {
-    name: "宁夏六盘山高级中学",
-    code: "A1"
   },
   {
     name: "彭阳县第一中学",

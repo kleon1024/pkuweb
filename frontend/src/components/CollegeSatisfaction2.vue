@@ -1,13 +1,13 @@
 <template>
   <div>
     <div>
-      你填写的二批次志愿表是：
+      您填写的二批次志愿表是：
       <FillableZhiyuanForm2 :colleges="filledColleges" disabled />
     </div>
 
     <div>
       <p style="color:red; font-weight: bold;">
-        你需要用 0 到 100 之间的数字来表示你对就读于某个大学的满意程度。数字越大，你的满意程度越高。因此，0 表示最不满意，100 表示最满意。
+        您需要用 0 到 100 之间的数字来表示您对就读于某个大学的满意程度。数字越大，您的满意程度越高。因此，0 表示最不满意，100 表示最满意。
       </p>
     </div>
     <div>

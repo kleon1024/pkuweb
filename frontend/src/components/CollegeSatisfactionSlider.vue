@@ -6,7 +6,7 @@
       就读的满意程度：{{ satisfaction }} %
     </h4>
     <el-slider v-model="satisfaction" :marks="marks" @change="onChange" />
-    <div class="hint-text" style="margin-top: 20px; color: red;">(请至少移动一次滑块来调整你的满意程度)</div>
+    <div class="hint-text" style="margin-top: 20px; color: red;">(请至少移动一次滑块来调整您的满意程度)</div>
   </div>
 </template>
 

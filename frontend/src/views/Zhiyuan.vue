@@ -158,7 +158,7 @@ export default {
       next();
     } else {
       this.$confirm(
-        "如果你有尚未提交的志愿信息，这些信息将无法被记录。",
+        "如果您有尚未提交的志愿信息，这些信息将无法被记录。",
         "确认要离开该页面么？",
         {
           confirmButtonText: "确定",
@@ -273,7 +273,7 @@ export default {
     zhiyuanFinished() {
       this.$message({
         type: "success",
-        message: "你已成功提交志愿，如有问题请与我们联系"
+        message: "您已成功提交志愿，如有问题请与我们联系"
       });
     },
     onZhiyuanSubmissionFormDone(zhiyuanForm) {

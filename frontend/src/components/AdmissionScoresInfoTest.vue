@@ -3,7 +3,7 @@
     <center>
       <h2>录取分数线信息</h2>
     </center>
-    <p>报考学校时，你需要对学校录取难度有充分的了解。以下，我们列出了相关院校往年的分数线和平均分。</p>
+    <p>报考学校时，您需要对学校录取难度有充分的了解。以下，我们列出了相关院校往年的分数线和平均分。</p>
     <div ref="college-admissions-table">
       <el-collapse v-model="activeNames">
         <el-collapse-item title="往年录取分数线" :name="1">
@@ -12,7 +12,7 @@
       </el-collapse>
       <el-alert
         type="error"
-        title="请注意，你不需要记忆该表中的信息，在回答后面的问题时，你可以随时参考此表中的信息!"
+        title="请注意，您不需要记忆该表中的信息，在回答后面的问题时，您可以随时参考此表中的信息!"
         center
         :closable="false"
       />

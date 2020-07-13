@@ -1,8 +1,8 @@
 export default {
   college_factors: {
     type: "priority_select",
-    description: "选择三个择校时你最重视的因素",
-    hint: "请先选择对你来说最重要的因素",
+    description: "选择三个择校时您最重视的因素",
+    hint: "请先选择对您来说最重要的因素",
     numberOfSelections: 3,
     options: [
       {
@@ -54,8 +54,8 @@ export default {
 
   college_types: {
     type: "priority_select",
-    description: "选择三种你最想去的院校类型",
-    hint: "请先选择你最满意的院校类型",
+    description: "选择三种您最想去的院校类型",
+    hint: "请先选择您最满意的院校类型",
     numberOfSelections: 3,
     options: [
       {
@@ -103,8 +103,8 @@ export default {
 
   college_locations: {
     type: "priority_select",
-    description: "选择三个你最理想的大学所在地理位置",
-    hint: "请先选择你最理想的地理位置",
+    description: "选择三个您最理想的大学所在地理位置",
+    hint: "请先选择您最理想的地理位置",
     numberOfSelections: 3,
     options: [
       {
@@ -317,8 +317,8 @@ export default {
 
   college_majors: {
     type: "priority_select",
-    description: "请从下列选项中选出你比较想在本科学习的专业",
-    hint: "请先选择你最想学的专业",
+    description: "请从下列选项中选出您比较想在本科学习的专业",
+    hint: "请先选择您最想学的专业",
     numberOfSelections: 3,
     options: [
       {

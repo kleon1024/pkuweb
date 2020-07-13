@@ -4,10 +4,10 @@
       <h2>院校录取可能性估计</h2>
     </center>
     <p>
-      在本部分中，你将对自己分数高于或等于某些大学录取分数线的可能性作出估计和回答。
+      在本部分中，您将对自己分数高于或等于某些大学录取分数线的可能性作出估计和回答。
       <span
         class="danger"
-      >当你的回答和系统计算出的结果相差小于5%时，你的回答将会被认为是正确的。对于每道正确的题，你将能获得2元。</span>
+      >当您的回答和系统计算出的结果相差小于5%时，您的回答将会被认为是正确的。对于每道正确的题，您将能获得2元。</span>
     </p>
     <el-divider />
     <section ref="quiz" class="quiz-part">
@@ -67,8 +67,8 @@ export default {
       return [
         {
           propositionDescription:
-            "现在，<u><strong>假设你没有填写提前批次的志愿</strong></u>，请对下列情况发生的可能性(概率)做一个估计",
-          proposition: `你进入 <span style='color: red;'>${this.demoQuestionCollegeName}</span> 读本科`
+            "现在，<u><strong>假设您没有填写提前批次的志愿</strong></u>，请对下列情况发生的可能性(概率)做一个估计",
+          proposition: `您进入 <span style='color: red;'>${this.demoQuestionCollegeName}</span> 读本科`
         }
       ];
     },
@@ -76,7 +76,7 @@ export default {
       return [
         {
           description:
-            "如果在我们的系统中，你被北京大学录取的概率是60%，而你的回答是63%，那么你将获得___________元",
+            "如果在我们的系统中，您被北京大学录取的概率是60%，而您的回答是63%，那么您将获得___________元",
           options: [
             {
               key: "A",
@@ -94,7 +94,7 @@ export default {
         },
         {
           description:
-            "如果在我们的系统中，你被北京大学录取的概率是60%，而你的回答是50%，那么你将获得___________元",
+            "如果在我们的系统中，您被北京大学录取的概率是60%，而您的回答是50%，那么您将获得___________元",
           options: [
             {
               key: "A",
