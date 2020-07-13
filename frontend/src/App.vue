@@ -165,13 +165,12 @@ export default {
         this.$notify({
           title: this.buttonString,
           message: this.content,
-          duration: 9000,
+          duration: 9500,
           showClose: false,
         });
       } else {
         this.buttonString = "确定要退出么？";
         this.$confirm(this.content, this.buttonString, {
-          showConfirmButton: this.clickable,
           confirmButtonText: "确认",
           cancelButtonText: "取消",
           type: "warning"
