@@ -240,7 +240,7 @@ export default {
           (parseInt(this.loginUser.class_selection) == 2 &&
             this.loginUser.ranking > 3500)
         ) {
-          if (major == 1 && minor == 1) {
+          if (major == 2 && minor == 1) {
             this.$store.commit("saveStep", [8, 1]);
           } else {
             this.$store.commit("saveStep", [major, minor]);
