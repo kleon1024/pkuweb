@@ -235,9 +235,9 @@ export default {
             this.$store.commit("saveStep", [major, minor]);
           }
         } else if (
-          (int(this.loginUser.class_selection) == 1 &&
+          (parseInt(this.loginUser.class_selection) == 1 &&
             this.loginUser.ranking > 12000) ||
-          (int(this.loginUser.class_selection) == 2 &&
+          (parseInt(this.loginUser.class_selection) == 2 &&
             this.loginUser.ranking > 3500)
         ) {
           if (major == 1 && minor == 1) {

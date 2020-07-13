@@ -432,7 +432,7 @@ export default {
     }
   },
   mounted() {
-    this.retrieveCollegeList();
+    // this.retrieveCollegeList();
   },
   methods: {
     retrieveCollegeList() {
