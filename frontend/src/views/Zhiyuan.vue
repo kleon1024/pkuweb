@@ -98,16 +98,8 @@
       />
 
       <IntendedCollegesForm2 v-if="majorStep === 8" @confirmed="saveStep(majorStep + 1, 1)" />
-
-      <CollegeSatisfaction2
-        v-if="majorStep === 9"
-        @confirmed="saveStep(majorStep, minorStep + 1)"
-      />
-
-      <Probabilities2
-        v-if="majorStep === 10"
-        @confirmed="saveStep(7, 1)"
-      />
+      <CollegeSatisfaction2 v-if="majorStep === 9" @confirmed="saveStep(majorStep + 1 , 1)" />
+      <Probabilities2 v-if="majorStep === 10" @confirmed="saveStep(7, 1)" />
     </section>
   </el-card>
 </template>
@@ -224,6 +216,17 @@ export default {
     saveStep(major, minor) {
       this.saveCheckpoint(() => {
         if (
+          (parseInt(this.loginUser.class_selection) == 1 &&
+            this.loginUser.ranking > 12000) ||
+          (parseInt(this.loginUser.class_selection) == 2 &&
+            this.loginUser.ranking > 3500)
+        ) {
+          if (major == 2) {
+            this.$store.commit("saveStep", [8, 1]);
+          } else {
+            this.$store.commit("saveStep", [major, minor]);
+          }
+        } else if (
           this.loginUser &&
           this.loginUser.college_recommendations &&
           this.loginUser.college_recommendations.recommended_colleges.length <=
@@ -231,17 +234,6 @@ export default {
         ) {
           if (major == 5 && minor == 1) {
             this.$store.commit("saveStep", [6, 1]);
-          } else {
-            this.$store.commit("saveStep", [major, minor]);
-          }
-        } else if (
-          (parseInt(this.loginUser.class_selection) == 1 &&
-            this.loginUser.ranking > 12000) ||
-          (parseInt(this.loginUser.class_selection) == 2 &&
-            this.loginUser.ranking > 3500)
-        ) {
-          if (major == 2 && minor == 1) {
-            this.$store.commit("saveStep", [8, 1]);
           } else {
             this.$store.commit("saveStep", [major, minor]);
           }
