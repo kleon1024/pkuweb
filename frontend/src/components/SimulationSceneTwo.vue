@@ -34,7 +34,7 @@
         如果小明未被任何学校录取，那么您将不能从第3题获得任何报酬。
       </p>
       <p>在仔细阅读该情景后，请问答下面的问题：</p>
-      <h4>
+      <!-- <h4>
         【问题1】如果小明被
         <span
           style="color:red; font-weight: bold;"
@@ -44,8 +44,8 @@
         <el-radio-button label="A">A. {{ q1_choices[2].value }}</el-radio-button>
         <el-radio-button label="B">B. {{ q1_choices[1].value }}</el-radio-button>
         <el-radio-button label="C">C. {{ q1_choices[0].value }}</el-radio-button>
-      </el-radio-group>
-      <h4>【问题2】如果小明没有被任何一本志愿录取，那么您将获得______元报酬</h4>
+      </el-radio-group> -->
+      <h4>【问题1】如果小明没有被任何一本志愿录取，那么您将获得______元报酬</h4>
       <el-radio-group v-model="q2_answer">
         <el-radio-button label="A">A. 0</el-radio-button>
         <el-radio-button label="B">B. 5</el-radio-button>
@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       satisfactions: [],
-      q1_answer: "",
+      // q1_answer: "",
       q2_answer: "",
       q1_choices: [],
     };
@@ -84,7 +84,7 @@ export default {
       "xiaoMingSatisfactions"
     ]),
     answersCorrect() {
-      return this.q1_answer === "C" && this.q2_answer === "A";
+      return this.q2_answer === "A";
     },
     collegeRecommendations() {
       return this.loginUser.college_recommendations;
