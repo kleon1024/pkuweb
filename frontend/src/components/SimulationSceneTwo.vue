@@ -1,16 +1,21 @@
 <template>
   <div>
     <center>
-      <h2>模拟情景志愿填报</h2>
+      <h2>模拟情景</h2>
     </center>
     <section>
-      <h3>情景2</h3>
-      <p>您的朋友，小明，也参与了本调查。系统给他推荐的学校和给您推荐的相同，他的分数也您的分数相同。不过，他对学校满意度是不同的：</p>
-      <el-row style="margin-top: 20px;" :gutter="24">
+      <p>
+        在本页中，你需要在虚拟场景中在帮助自己的朋友李华，韩梅梅填报志愿。
+        <strong>为鼓励认真作答，我们会从李华和韩梅梅的志愿填报问题中随机抽取一道题，根据该题中你的回答给予额外报酬。具体来说，你获得报酬的额度和朋友的满意度相同。</strong>
+      </p>
+      <p>
+        <span class="danger">李华的分数和你的分数相同。</span> 下表列出了他正在考虑的学校以及满意度：
+      </p>
+      <el-row style="margin-top: 30px;" :gutter="24">
         <el-col
           :xs="24"
           :sm="12"
-          style="margin-top: 20px"
+          style="margin-top: 30px"
           v-for="(answer, i) in satisfactions"
           :key="`simulation-1-colleges-recommendation-${i}`"
         >
@@ -24,28 +29,31 @@
 
     <section style="margin-top: 50px;" v-if="satisfactions[0]">
       <p>
-        小明现在需要您帮助他填报志愿。为了鼓励您认真作答，我们将会根据您在第3题的回答，以及今年学校的录取分数线来计算小明获得的满意度，并以此为据为您发放报酬，报酬额度与满意度相同。
-        比如说，如果小明被
+        李华现在需要你帮助他填报志愿。
+        <span class="danger"> 在此题中，奖励额度与满意度相同。</span>
+      </p>
+      <p>
+        比如说，如果李华被
         <span
           style="color:red; font-weight: bold;"
         >{{ satisfactions[0].college.full_name }}</span> 录取，
         那么我们将给您
         <span style="color:red; font-weight: bold;">{{ satisfactions[0].value }}</span> 元报酬。
-        如果小明未被任何学校录取，那么您将不能从第3题获得任何报酬。
+        如果李华未被任何学校录取，那么您将不能从本题中获得任何报酬。
       </p>
       <p>在仔细阅读该情景后，请问答下面的问题：</p>
-      <!-- <h4>
-        【问题1】如果小明被
+      <h4>
+        1. 如果李华被
         <span
           style="color:red; font-weight: bold;"
-        >{{ q1_choices[0].college.full_name }}</span>录取，那么您将获得______元报酬
+        >{{ satisfactions[1].college.full_name }}</span>录取，那么你将获得______元奖励
       </h4>
       <el-radio-group v-model="q1_answer">
-        <el-radio-button label="A">A. {{ q1_choices[2].value }}</el-radio-button>
-        <el-radio-button label="B">B. {{ q1_choices[1].value }}</el-radio-button>
-        <el-radio-button label="C">C. {{ q1_choices[0].value }}</el-radio-button>
-      </el-radio-group> -->
-      <h4>【问题1】如果小明没有被任何一本志愿录取，那么您将获得______元报酬</h4>
+        <el-radio-button label="A">A. {{ satisfactions[1].value - 10 }}</el-radio-button>
+        <el-radio-button label="B">B. {{ satisfactions[1].value }}</el-radio-button>
+        <el-radio-button label="C">C. {{ satisfactions[1].value + 10 }}</el-radio-button>
+      </el-radio-group>
+      <h4>2. 如果李华没有被任何一本志愿录取，那么你将获得______元奖励</h4>
       <el-radio-group v-model="q2_answer">
         <el-radio-button label="A">A. 0</el-radio-button>
         <el-radio-button label="B">B. 5</el-radio-button>
@@ -71,9 +79,8 @@ export default {
   data() {
     return {
       satisfactions: [],
-      // q1_answer: "",
+      q1_answer: "",
       q2_answer: "",
-      q1_choices: [],
     };
   },
   computed: {
@@ -84,7 +91,7 @@ export default {
       "xiaoMingSatisfactions"
     ]),
     answersCorrect() {
-      return this.q2_answer === "A";
+      return this.q1_answer == "B" && this.q2_answer === "A";
     },
     collegeRecommendations() {
       return this.loginUser.college_recommendations;
@@ -118,32 +125,7 @@ export default {
       } else {
         this.satisfactions = this.xiaoMingSatisfactions;
       }
-      var record_choice = false;
-      this.q1_choices.push(this.satisfactions[1]);
-      for (var i = 0; i < this.satisfactions.length; i++) {
-        record_choice = false;
-        for (var j = 0; j < this.q1_choices.length; j++) {
-          if (this.satisfactions[i].college.strategy === this.q1_choices[j].college.strategy) {
-            record_choice = false;
-            break;
-          }
-          record_choice = true;
-        }
-        if (record_choice) {
-          this.q1_choices.push(this.satisfactions[i]);
-        }
-        if (this.q1_choices.length == 3) {
-          break;
-        }
-      }
-      if (this.q1_choices.length == 2) {
-        this.q1_choices.push({
-          college: null,
-          value: 60,
-        })
-      }
     },
-
     testDone() {
       if (this.answersCorrect) {
         this.$emit("confirmed");

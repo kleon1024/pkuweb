@@ -51,6 +51,8 @@ export default new Vuex.Store({
     intendedColleges2: null,
     zhiyuanSatisfactionAssessAnswers2: null,
     probabilities2: null,
+    hanMeiMeiColleges: null,
+    hanMeiMeiCollegeOptions: null,
   },
   mutations: {
     setUser(state, data) {
@@ -109,6 +111,8 @@ export default new Vuex.Store({
       state.intendedColleges2 = null;
       state.zhiyuanSatisfactionAssessAnswers2 = null;
       state.probabilities2 = null;
+      state.hanMeiMeiColleges = null;
+      state.hanMeiMeiCollegeOptions = null;
       if (process.env.NODE_ENV === "production") {
         cookies.remove("SIMIN-NX-SESSION", { // when removing session, needes exact options
           domain: "pkuzhiyuan.com",
@@ -149,6 +153,8 @@ export default new Vuex.Store({
       state.sim4selectedColleges = zhiyuan.sim4selectedColleges;
       state.sim5SelectedColleges = zhiyuan.sim5SelectedColleges;
       state.probabilities = zhiyuan.probabilities;
+      state.hanMeiMeiColleges = zhiyuan.hanMeiMeiColleges;
+      state.hanMeiMeiCollegeOptions = zhiyuan.hanMeiMeiCollegeOptions;
     },
     saveStep(state, step) {
       state.majorStep = step[0];
@@ -241,6 +247,12 @@ export default new Vuex.Store({
     },
     storeXiaoMingSatisfactions(state, satisfactions) {
       state.xiaoMingSatisfactions = satisfactions;
+    },
+    storeHanMeiMeiColleges(state, colleges) {
+      state.hanMeiMeiColleges = colleges;
+    },
+    storeHanMeiMeiCollegeOptions(state, options) {
+      state.hanMeiMeiCollegeOptions = options;
     }
   },
   actions: {
@@ -293,6 +305,8 @@ export default new Vuex.Store({
         "intendedColleges2",
         "zhiyuanSatisfactionAssessAnswers2",
         "probabilities2",
+        "hanMeiMeiColleges",
+        "hanMeiMeiCollegeOptions",
       ],
       // // Enable encription
       // storage: {

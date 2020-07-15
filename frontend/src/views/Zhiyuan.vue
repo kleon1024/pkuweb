@@ -99,7 +99,8 @@
 
       <IntendedCollegesForm2 v-if="majorStep === 8" @confirmed="saveStep(majorStep + 1, 1)" />
       <CollegeSatisfaction2 v-if="majorStep === 9" @confirmed="saveStep(majorStep + 1 , 1)" />
-      <Probabilities2 v-if="majorStep === 10" @confirmed="saveStep(7, 1)" />
+      <Probabilities2 v-if="majorStep === 10" @confirmed="saveStep(majorStep + 1 , 1)" />
+      <SimulationSceneOne2 v-if="majorStep === 11" @confirmed="saveStep(majorStep, minorStep + 1)" />
     </section>
   </el-card>
 </template>
@@ -114,6 +115,7 @@ import CollegeSatisfaction from "@/components/CollegeSatisfaction";
 import CollegeSatisfaction2 from "@/components/CollegeSatisfaction2";
 import OtherCollegesSatisfaction from "@/components/OtherCollegesSatisfaction";
 import SimulationSceneOne from "@/components/SimulationSceneOne";
+import SimulationSceneOne2 from "@/components/SimulationSceneOne2";
 import SimulationSceneTwo from "@/components/SimulationSceneTwo";
 import SimulationSceneThree from "@/components/SimulationSceneThree";
 import SimulationSceneFour from "@/components/SimulationSceneFour";
@@ -139,6 +141,7 @@ export default {
     CollegeSatisfaction2,
     OtherCollegesSatisfaction,
     SimulationSceneOne,
+    SimulationSceneOne2,
     SimulationSceneTwo,
     SimulationSceneThree,
     SimulationSceneFour,

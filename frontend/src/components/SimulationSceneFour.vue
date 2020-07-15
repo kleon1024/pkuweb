@@ -1,37 +1,56 @@
 <template>
   <div>
     <center>
-      <h2>模拟情景志愿填报</h2>
+      <h2>模拟情景</h2>
     </center>
     <section>
-      <h3>情景3</h3>
-      <p>您的朋友，小红，也参与了本调查。系统给她推荐的学校和给您推荐学校相同，她的分数也您的分数相同。她对学校满意度和小明相同：</p>
-      <el-row style="margin-top: 20px;" :gutter="24">
-        <el-col
-          :xs="24"
-          :sm="12"
-          style="margin-top: 20px"
-          v-for="(answer, i) in satisfactions"
-          :key="`simulation-1-colleges-recommendation-${i}`"
-        >
-          <el-col :span="10">{{ answer.college.full_name }}</el-col>
-          <el-col :span="5">
-            <el-input-number v-model="answer.value" :min="1" :max="100" disabled></el-input-number>
-          </el-col>
-        </el-col>
+      <p>现在，你需要帮助自己的另一个朋友，韩梅梅。她没有告诉你高考分数，不过你知道她的分数远远超出一本线。目前，她还没确定一批次A院校该填什么：</p>
+      <el-table :data="tableData" style="width: 100%">
+        <el-table-column prop="order" label="志愿号"></el-table-column>
+        <el-table-column prop="college" label="院校"></el-table-column>
+        <el-table-column prop="satisfaction" label="满意度"></el-table-column>
+      </el-table>
+      <p>
+        她已经从招生办了解到，自己的分数远远超过{{ hanMeiMeiColleges[4].college }}往年的分数线。
+        如果没有被自己的第一选择（一批次A院校）录取，那么她一定会被{{ hanMeiMeiColleges[4].college }}或者{{ hanMeiMeiColleges[2].college }},{{ hanMeiMeiColleges[3].college }}录取。
+        <span
+          class="danger"
+        >在这种情况下，她的满意度是15。也就是说，在这种情况下你一定能获得15元。</span>
+      </p>
+      <p>经过资料查询，她认为如果被{{ hanMeiMeiColleges[1].college }}录取，她的满意度为20，自己的分数超过{{ hanMeiMeiColleges[1].college }}分数线的可能性为80%。</p>
+      <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].college }}分数线的可能性为40%。不过，她还不确定自己对{{ hanMeiMeiColleges[0].college }}的满意程度，需要你帮她做一些计划。</p>
+    </section>
+    <section class>
+      <p>请回答以下问题来确认你对情景的理解：</p>
+      <h4>1. 如果韩梅梅未被一批次A志愿录取，那么你将获得________</h4>
+      <el-radio-group v-model="q1_answer">
+        <el-radio-button label="A">A. 15元</el-radio-button>
+        <el-radio-button label="B">B. 20元</el-radio-button>
+        <el-radio-button label="C">C. 无法确定</el-radio-button>
+      </el-radio-group>
+      <h4>2. 如果韩梅梅被{{ hanMeiMeiColleges[1].full_name }}录取，那么你将获得_______</h4>
+      <el-radio-group v-model="q1_answer">
+        <el-radio-button label="A">A. 15元</el-radio-button>
+        <el-radio-button label="B">B. 20元</el-radio-button>
+        <el-radio-button label="C">C. 无法确定</el-radio-button>
+      </el-radio-group>
+    </section>
+
+    <section>
+      <h4>请给出你的建议：</h4>
+      <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
+        <h4>{{ index + 1 }}. 如果她对{{ hanMeiMeiColleges[0].full_name }}的满意度是{{ satisfaction }}，那么你建议她应该选择____作为一批次A院校。</h4>
+        <el-select v-model="value" placeholder="请选择">
+          <el-option
+            v-for="(college, i) in hanMeiMeiCollegeOptions[index]"
+            :key="college.full_name"
+            :label="String.fromCharCode('A'.charCodeAt(0) + i) + '. ' +  college.full_name"
+            :value="college"
+          ></el-option>
+        </el-select>
       </el-row>
     </section>
 
-    <section style="margin-top: 50px;" v-if="satisfactions[0]">
-      <p>
-        小红现在需要您帮助她填报志愿。
-        为了鼓励您认真作答，我们将会根据您的回答，以及今年学校的录取分数线来计算小红获得的满意度，并以此为据为您发放报酬，报酬额度与满意度相同。
-        比如说，如果小红被{{ satisfactions[0].college.full_name }}录取，那么我们将给您 {{ satisfactions[0].value }}元报酬。
-        如果小红未被任何学校录取，那么您将不能获得任何报酬。
-      </p>
-      <h4>小红只愿意填写两所学校，她需要您的帮助。请问在这种情况下您会如何填写志愿？</h4>
-      <FillableZhiyuanForm v-model="sim4selectedColleges" :choices="2" />
-    </section>
     <div align="center" style="margin-top: 50px;">
       <el-button type="primary" @click.stop="testDone">下一步</el-button>
     </div>
@@ -42,6 +61,7 @@
 import { mapState } from "vuex";
 import FillableZhiyuanForm from "@/components/FillableZhiyuanForm";
 import utils from "@/plugins/utils";
+import request from "@/plugins/request";
 
 export default {
   name: "SimulationSceneFour",
@@ -50,9 +70,12 @@ export default {
   },
   data() {
     return {
+      tableData: [],
       satisfactions: [],
       sim4selectedColleges: [],
-      colleges: []
+      colleges: [],
+      allColleges: [],
+      satisfactionOptions: []
     };
   },
   computed: {
@@ -60,11 +83,10 @@ export default {
       "intendedColleges",
       "zhiyuanSatisfactionAssessAnswers",
       "otherZhiyuanSatisfactionAssessAnswers",
-      "xiaoMingSatisfactions"
+      "xiaoMingSatisfactions",
+      "hanMeiMeiColleges",
+      "hanMeiMeiCollegeOptions"
     ]),
-    numberOfSelectedColleges() {
-      return this.sim3selectedColleges.length;
-    },
     collegeRecommendations() {
       return this.loginUser.college_recommendations;
     },
@@ -77,19 +99,157 @@ export default {
   },
   methods: {
     init() {
-      this.satisfactions = this.xiaoMingSatisfactions;
-    },
+      this.retrieveCollegeList();
+      if (this.hanMeiMeiColleges == null) {
+        var hanMeiMeiColleges = [];
+        console.log(hanMeiMeiColleges);
 
-    testDone() {
-      if (this.sim4selectedColleges.length != 2) {
-        this.$message({
-          message: "请填写两个志愿",
-          type: "error"
-        });
-      } else {
-        this.$store.commit('saveSim4selectedColleges', this.sim4selectedColleges)
-        this.$emit("confirmed")
+        var type = 0;
+        var chongs = [];
+        var baos = [];
+        for (var college in this.recommendedColleges) {
+          if (college.strategy == "冲") {
+            chongs.push(college);
+          }
+          if (college.strategy == "保") {
+            baos.push(college);
+          }
+          if (college.strategy in ["冲", "稳"]) {
+            if (college.full_name in ["宁夏大学", "宁夏医科大学", "兰州大学"]) {
+              type = 1;
+              break;
+            }
+          }
+        }
+
+        var ningda;
+        var ningyi;
+        var landa;
+        var group1 = [];
+        var group2 = [];
+
+        for (var college in this.allColleges) {
+          if (college.full_name == "宁夏大学") {
+            ningda = college;
+          } else if (college.full_name == "宁夏医科大学") {
+            ningyi = college;
+          } else if (college.full_name == "兰州大学") {
+            landa = college;
+          }
+
+          if (
+            college.full_name in
+            ["厦门大学", "中山大学", "南京大学", "中央财经大学", "上海财经大学"]
+          ) {
+            group1.push(college);
+          }
+
+          if (
+            college.full_name in
+            ["西北政法大学", "西安交通大学", "山东大学", "四川大学"]
+          ) {
+            group2.push(college);
+          }
+        }
+
+        console.log(ningda);
+        console.log(ningyi);
+        console.log(landa);
+        console.log(group1);
+        console.log(group2);
+
+        if (type == 0) {
+          hanMeiMeiColleges.push(chongs[utils.getRandomInt(0, chongs.length)]);
+          hanMeiMeiColleges.push(baos[utils.getRandomInt(0, baos.length)]);
+          hanMeiMeiColleges.push(landa);
+          hanMeiMeiColleges.push(ningyi);
+          hanMeiMeiColleges.push(ningda);
+        } else if (type == 1) {
+          hanMeiMeiColleges.push(group1[utils.getRandomInt(0, group1.length)]);
+          hanMeiMeiColleges.push(group2[utils.getRandomInt(0, group2.length)]);
+          hanMeiMeiColleges.push(landa);
+          hanMeiMeiColleges.push(ningyi);
+          hanMeiMeiColleges.push(ningda);
+        }
+
+        // Mock
+        // HanMeiMeiColleges
+        // hanMeiMeiColleges = [];
+        // hanMeiMeiColleges.push(...this.recommendedColleges);
+
+        this.$store.commit("storeHanMeiMeiColleges", hanMeiMeiColleges);
       }
+
+      var collegeOptions = [];
+
+      for (var i = 0; i < 6; i++) {
+        var number0 = utils.getRandomInt(0, 2);
+        var number1 = 1 - number0;
+        collegeOptions.push([
+          this.hanMeiMeiColleges[number0],
+          this.hanMeiMeiColleges[number1]
+        ]);
+      }
+
+      this.satisfactionOptions = [22, 25, 27, 30, 40, 60];
+
+      this.$store.commit("storeHanMeiMeiCollegeOptions", collegeOptions);
+
+      this.tableData = [
+        { order: "一批次A院校", college: "?", satisfaction: "?" },
+        {
+          order: "一批次B院校",
+          college: this.hanMeiMeiColleges[2].full_name,
+          satisfaction: "15"
+        },
+        {
+          order: "一批次C院校",
+          college: this.hanMeiMeiColleges[3].full_name,
+          satisfaction: "15"
+        },
+        {
+          order: "一批次D院校",
+          college: this.hanMeiMeiColleges[4].full_name,
+          satisfaction: "15"
+        }
+      ];
+    },
+    testDone() {
+      this.$emit("confirmed");
+    },
+    retrieveCollegeList() {
+      const busy = this.$loading({
+        lock: true,
+        text: "从服务器获取数据中，请耐心等待...",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      request.post(`${this.API_URL}/college-admins`, {}, (err, res) => {
+        if (res) {
+          if (res.data.failed) {
+            this.$alert(res.data.message, "获取数据失败", {
+              type: "error",
+              confirmButtonText: "去检查",
+              callback: () => {
+                busy.close();
+              }
+            });
+          } else {
+            const returnedColleges = Array.from(res.data);
+            returnedColleges.sort((c1, c2) =>
+              c1.college.localeCompare(c2.college, "zh-CN")
+            ); // 按照大学名称字母排序;
+            this.allColleges = returnedColleges;
+            busy.close();
+          }
+        } else {
+          this.$message({
+            message: "无法连接服务器，请稍后再试",
+            type: "error"
+          });
+          busy.close();
+        }
+      });
     }
   }
 };

@@ -38,7 +38,6 @@
                 :disabled="selectedCollegeIndices.includes(index)"
               />
             </el-option-group>
-            
           </el-select>
         </template>
       </el-table-column>
@@ -67,6 +66,11 @@ export default {
       required: false,
       default: false
     },
+    intendeds: {
+      type: Array,
+      required: false,
+      default: () => Array()
+    },
     showAllColleges: {
       type: Boolean,
       required: false,
@@ -89,7 +93,11 @@ export default {
     }
   },
   mounted() {
-    this.retrieveCollegeList();
+    if (this.showAllColleges) {
+      this.retrieveCollegeList();
+      this.intendeds.push(...this.allColleges);
+      this.allColleges = this.intendeds;
+    }
   },
   data() {
     return {
@@ -132,7 +140,7 @@ export default {
           busy.close();
         }
       });
-    },
+    }
   },
   computed: {
     ...mapState(["intendedAndRecommendedColleges"]),
@@ -173,7 +181,8 @@ export default {
           .map(index =>
             index < selectableCollegesLength
               ? this.selectableRecommendedColleges[index]
-              : this.otherColleges[index - selectableCollegesLength]);
+              : this.otherColleges[index - selectableCollegesLength]
+          );
       }
     }
   },

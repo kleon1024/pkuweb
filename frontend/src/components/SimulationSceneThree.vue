@@ -1,11 +1,16 @@
 <template>
   <div>
     <center>
-      <h2>模拟情景志愿填报</h2>
+      <h2>模拟情景</h2>
     </center>
     <section>
-      <h3>情景2</h3>
-      <p>您的朋友，小明，也参与了本调查。系统给他推荐的学校和给您推荐的相同，他的分数也您的分数相同。不过，他对学校满意度是不同的：</p>
+      <p>
+        在本页中，你需要在虚拟场景中在帮助自己的朋友李华，韩梅梅填报志愿。
+        <strong>为鼓励认真作答，我们会从李华和韩梅梅的志愿填报问题中随机抽取一道题，根据该题中你的回答给予额外报酬。具体来说，你获得报酬的额度和朋友的满意度相同。</strong>
+      </p>
+      <p>
+        <span class="danger">李华的分数和你的分数相同。</span> 下表列出了他正在考虑的学校以及满意度：
+      </p>
       <el-row style="margin-top: 20px;" :gutter="24">
         <el-col
           :xs="24"
@@ -23,39 +28,12 @@
     </section>
 
     <section style="margin-top: 50px;" v-if="satisfactions[0]">
-      <h4>【问题3】（该题将计入情景2的报酬）小明需要您为他出主意。请在下面为他填写您的建议：</h4>
-      <FillableZhiyuanForm v-model="sim3selectedColleges" />
-      <el-alert
-        v-show="numberOfSelectedColleges <= 3"
-        type="error"
-        center
-        :title="zhiyuanFormHint"
-        :closable="false"
-      />
-      <h4>【问题4】（答对该题将会额外获得2元）假设小明填报的志愿是：</h4>
-      <FillableZhiyuanForm v-model="colleges" :colleges="xiaoMingselectedColleges" disabled />
-      <h4>
-        录取分数线出来后，您发现小明的分数
-        比{{ satisfactions[0].college.full_name }}和 {{ satisfactions[1].college.full_name }} 高，
-        比{{ satisfactions[2].college.full_name }}和 {{satisfactions[3].college.full_name}} 低，
-        那么______:
-      </h4>
-      <el-radio-group v-model="sim3Answer" required>
-        <el-row style="margin-top: 20px;">
-          <el-radio label="A">A. 小明一定会被{{satisfactions[0].college.full_name}}录取</el-radio>
-        </el-row>
-        <el-row style="margin-top: 20px;">
-          <el-radio label="B">B. 小明一定会被{{satisfactions[1].college.full_name}}录取</el-radio>
-        </el-row>
-        <el-row style="margin-top: 20px;">
-          <el-radio
-            label="C"
-          >C. 小明可能会被{{satisfactions[0].college.full_name}}录取，也可能会被{{satisfactions[1].college.full_name}}录取</el-radio>
-        </el-row>
-        <el-row style="margin-top: 20px;">
-          <el-radio label="D">D. 小明有可能落榜</el-radio>
-        </el-row>
-      </el-radio-group>
+      <h4>如果你可以帮助李华选择上述学校的中的四所作为一批次志愿，你会如何选择？</h4>
+      <FillableZhiyuanForm v-model="sim3selected4Colleges" :choices="4" />
+      <h4>如果李华只愿意选择两所学校作为一批次志愿，C,D院校的位置空着，你会如何选择？</h4>
+      <FillableZhiyuanForm v-model="sim3selected2Colleges" :choices="2" />
+      <h4>如果李华只愿意选择一所学校，B,C,D院校的位置都空着，你会如何选择？</h4>
+      <FillableZhiyuanForm v-model="sim3selected1Colleges" :choices="2" />
     </section>
     <div align="center" style="margin-top: 50px;">
       <el-button type="primary" @click.stop="testDone">下一步</el-button>
@@ -76,8 +54,9 @@ export default {
   data() {
     return {
       satisfactions: [],
-      sim3selectedColleges: [],
-      xiaoMingselectedColleges: [],
+      sim3selected4Colleges: [],
+      sim3selected2Colleges: [],
+      sim3selected1Colleges: [],
       colleges: [],
       sim3Answer: ""
     };
@@ -108,12 +87,6 @@ export default {
   methods: {
     init() {
       this.satisfactions = this.xiaoMingSatisfactions;
-      this.xiaoMingselectedColleges = [
-        this.recommendedColleges[0],
-        this.recommendedColleges[3],
-        this.recommendedColleges[2],
-        this.recommendedColleges[1]
-      ];
     },
 
     testDone() {
