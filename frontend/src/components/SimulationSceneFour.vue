@@ -125,7 +125,15 @@ export default {
         var type = 0;
         var chongs = [];
         var baos = [];
-        for (var college in this.recommendedColleges) {
+
+        console.log("-------------------------")
+        console.log(this.recommendedColleges)
+        for (var key in this.recommendedColleges) {
+          var college = this.recommendedColleges[key];
+
+          console.log("college")
+          console.log(college);
+          console.log(college.strategy)
           if (college.strategy == "冲") {
             chongs.push(college);
           }
@@ -150,7 +158,9 @@ export default {
         var group1 = [];
         var group2 = [];
 
-        for (var college in this.allColleges) {
+        for (var key in this.allColleges) {
+          var college = this.allColleges[key];
+
           if (college.full_name == "宁夏大学") {
             ningda = college;
           } else if (college.full_name == "宁夏医科大学") {
