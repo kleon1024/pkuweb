@@ -78,7 +78,7 @@ export default {
       };
     },
     checkNumber() {
-      return this.selected2Colleges == 2 && this.selected2Colleges == 1;
+      return this.selected2Colleges.length == 2 && this.selected2Colleges.length == 1;
     }
   },
   mounted() {},

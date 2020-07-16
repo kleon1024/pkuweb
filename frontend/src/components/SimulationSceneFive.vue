@@ -25,7 +25,7 @@
         <el-radio-button label="C">C. 无法确定</el-radio-button>
       </el-radio-group>
       <h4>2. 如果韩梅梅被{{ hanMeiMeiColleges[1].full_name }}录取，那么你将获得_______</h4>
-      <el-radio-group v-model="q1_answer">
+      <el-radio-group v-model="q2_answer">
         <el-radio-button label="A">A. 15元</el-radio-button>
         <el-radio-button label="B">B. 20元</el-radio-button>
         <el-radio-button label="C">C. 无法确定</el-radio-button>
@@ -71,7 +71,10 @@ export default {
   data() {
     return {
       tableData: [],
+      q1_answer: "",
+      q2_answer: "",
       satisfactions: [],
+      selectedColleges: Array(6).fill(null),
       selectedColleges: [],
       colleges: [],
       allColleges: [],

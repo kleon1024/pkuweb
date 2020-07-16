@@ -91,8 +91,8 @@ export default {
     checkNumber() {
       return (
         this.selected4Colleges.length == 4 &&
-        this.selected2Colleges == 2 &&
-        this.selected2Colleges == 1
+        this.selected2Colleges.length == 2 &&
+        this.selected2Colleges.length == 1
       );
     }
   },
