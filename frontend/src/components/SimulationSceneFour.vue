@@ -123,6 +123,7 @@ export default {
   },
   methods: {
     init() {
+      console.log(this.hanMeiMeiColleges);
       if (this.hanMeiMeiColleges == null) {
         var hanMeiMeiColleges = [];
         console.log(hanMeiMeiColleges);
@@ -144,6 +145,10 @@ export default {
             }
           }
         }
+
+        console.log(type);
+        console.log(chongs);
+        console.log(baos);
 
         var ningda;
         var ningyi;
@@ -283,6 +288,7 @@ export default {
               c1.full_name.localeCompare(c2.full_name, "zh-CN")
             ); // 按照大学名称字母排序;
             this.allColleges = returnedColleges;
+            console.log(this.allColleges);
             callback();
             busy.close();
           }
