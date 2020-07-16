@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="hanMeiMeiColleges.length > 0">
     <center>
       <h2>模拟情景</h2>
     </center>
@@ -20,7 +20,7 @@
       <p>经过资料查询，她认为如果被{{ hanMeiMeiColleges[1].college }}录取，她的满意度为20，自己的分数超过{{ hanMeiMeiColleges[1].college }}分数线的可能性为80%。</p>
       <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].college }}分数线的可能性为40%。不过，她还不确定自己对{{ hanMeiMeiColleges[0].college }}的满意程度，需要你帮她做一些计划。</p>
     </section>
-    <section class>
+    <section>
       <p>请回答以下问题来确认你对情景的理解：</p>
       <h4>1. 如果韩梅梅未被一批次A志愿录取，那么你将获得________</h4>
       <el-radio-group v-model="q1_answer">
@@ -35,7 +35,6 @@
         <el-radio-button label="C">C. 无法确定</el-radio-button>
       </el-radio-group>
     </section>
-
     <section>
       <h4>请你告诉她，在下列六种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
       <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
@@ -55,11 +54,6 @@
         </el-select>
       </el-row>
     </section>
-
-    <section>
-      <h4>请你告诉她，在下列六种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
-    </section>
-
     <div align="center" style="margin-top: 50px;">
       <el-button type="primary" @click.stop="testDone">下一步</el-button>
     </div>
