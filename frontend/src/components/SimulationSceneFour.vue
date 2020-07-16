@@ -119,11 +119,10 @@ export default {
     }
   },
   mounted() {
-    this.init();
+    this.retrieveCollegeList();
   },
   methods: {
     init() {
-      this.retrieveCollegeList();
       if (this.hanMeiMeiColleges == null) {
         var hanMeiMeiColleges = [];
         console.log(hanMeiMeiColleges);
@@ -284,6 +283,7 @@ export default {
               c1.college.localeCompare(c2.college, "zh-CN")
             ); // 按照大学名称字母排序;
             this.allColleges = returnedColleges;
+            this.init();
             busy.close();
           }
         } else {
