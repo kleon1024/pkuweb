@@ -5,11 +5,11 @@
     </center>
     <div>
       根据您的填写，您提交的一批次志愿院校为
-      <span> {{ college_names }} </span>
+      <span>{{ college_names }}</span>
       。
-      <p style="color:red; font-weight: bold;">
-        您需要用 0 到 100 之间的数字来表示您对就读于某个大学的满意程度。数字越大，您的满意程度越高。因此，0 表示最不满意，100 表示最满意。
-      </p>
+      <p
+        style="color:red; font-weight: bold;"
+      >您需要用 0 到 100 之间的数字来表示您对就读于某个大学的满意程度。数字越大，您的满意程度越高。因此，0 表示最不满意，100 表示最满意。</p>
     </div>
     <div>
       <div
@@ -23,6 +23,7 @@
           :index="i + 1"
         />
       </div>
+      <CollegeSatisfactionSlider v-model="satisfactionAnswers[4]" @change="onChange(i)" no-college />
     </div>
     <div align="right">
       <el-button type="primary" @click.stop="collegeSatisfactionDone">下一步</el-button>
@@ -41,20 +42,24 @@ export default {
   },
   data() {
     return {
-      satisfactionAnswers: new Array(4).fill(0),
-      answerChanged: new Array(4).fill(false)
+      satisfactionAnswers: new Array(5).fill(0),
+      answerChanged: new Array(5).fill(false),
+      ifNotAnswer: 0
     };
   },
   computed: {
     ...mapState(["intendedColleges"]),
     college_names() {
-    var result = "";
-     this.intendedColleges.map((college, i) => {
-        result += college.full_name + "(" + String.fromCharCode("A".charCodeAt() + i) + "志愿)";
-      }
-     )
+      var result = "";
+      this.intendedColleges.map((college, i) => {
+        result +=
+          college.full_name +
+          "(" +
+          String.fromCharCode("A".charCodeAt() + i) +
+          "志愿)";
+      });
       return result;
-    },
+    }
   },
   methods: {
     onChange(index) {
@@ -70,7 +75,15 @@ export default {
           break;
         }
       }
+
       if (finished) {
+        if (!this.answerChanged[4]) {
+          this.$message({
+            message: `必须滑动所有滑块`,
+            type: "error"
+          });
+        }
+
         this.$store.commit(
           "storeZhiyuanSatisfactionAssessAnswers",
           this.intendedColleges.map((c, i) => {

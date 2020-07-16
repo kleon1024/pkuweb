@@ -37,11 +37,7 @@
       <IntendedCollegesForm v-if="majorStep === 3" @confirmed="saveStep(majorStep + 1, 1)" />
       <CollegeSatisfaction
         v-if="majorStep === 4 && minorStep === 1"
-        @confirmed="saveStep(majorStep, minorStep + 1)"
-      />
-      <OtherCollegesSatisfaction
-        v-if="majorStep === 4 && minorStep === 2"
-        @confirmed="saveStep(majorStep + 1, 1)"
+        @confirmed="saveStep(majorStep, 1)"
       />
       <SimulationSceneOne
         v-if="majorStep === 5 && minorStep === 1"
@@ -64,6 +60,11 @@
 
       <SimulationSceneFive
         v-if="majorStep === 5 && minorStep === 5"
+        @confirmed="saveStep(majorStep, minorStep + 1)"
+      />
+
+      <OtherCollegesSatisfaction
+        v-if="majorStep === 5 && minorStep === 6"
         @confirmed="saveStep(majorStep + 1, 1)"
       />
 
