@@ -92,7 +92,7 @@ export default {
       return (
         this.selected4Colleges.length == 4 &&
         this.selected2Colleges.length == 2 &&
-        this.selected2Colleges.length == 1
+        this.selected1Colleges.length == 1
       );
     }
   },

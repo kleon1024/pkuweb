@@ -280,7 +280,7 @@ export default {
           } else {
             const returnedColleges = Array.from(res.data);
             returnedColleges.sort((c1, c2) =>
-              c1.college.localeCompare(c2.college, "zh-CN")
+              c1.full_name.localeCompare(c2.full_name, "zh-CN")
             ); // 按照大学名称字母排序;
             this.allColleges = returnedColleges;
             this.init();
@@ -295,6 +295,7 @@ export default {
         }
       });
     }
+  },
   }
 };
 </script>
