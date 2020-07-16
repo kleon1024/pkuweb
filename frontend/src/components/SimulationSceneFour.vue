@@ -29,7 +29,7 @@
         <el-radio-button label="C">C. 无法确定</el-radio-button>
       </el-radio-group>
       <h4>2. 如果韩梅梅被{{ hanMeiMeiColleges[1].full_name }}录取，那么你将获得_______</h4>
-      <el-radio-group v-model="q1_answer">
+      <el-radio-group v-model="q2_answer">
         <el-radio-button label="A">A. 15元</el-radio-button>
         <el-radio-button label="B">B. 20元</el-radio-button>
         <el-radio-button label="C">C. 无法确定</el-radio-button>
@@ -37,7 +37,7 @@
     </section>
 
     <section>
-      <h4>请你告诉她，在下列六种情况下，她应该选择哪一所大学作为一批次A院校  ：</h4>
+      <h4>请你告诉她，在下列六种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
       <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
         <h4>
           {{ index + 1 }}.
@@ -45,7 +45,7 @@
           对{{ hanMeiMeiColleges[1].full_name }}的满意度是20，上线概率是50%。
           那么你建议她应该选择____作为一批次A院校。
         </h4>
-        <el-select v-model="value" placeholder="请选择">
+        <el-select v-model="selectedColleges[index]" placeholder="请选择">
           <el-option
             v-for="(college, i) in hanMeiMeiCollegeOptions[index]"
             :key="college.full_name"
@@ -80,8 +80,10 @@ export default {
   data() {
     return {
       tableData: [],
+      q1_answer: "",
+      q2_answer: "",
       satisfactions: [],
-      sim4selectedColleges: [],
+      selectedColleges: Array(6).fill(null),
       colleges: [],
       allColleges: [],
       satisfactionOptions: []
@@ -101,6 +103,19 @@ export default {
     },
     recommendedColleges() {
       return this.collegeRecommendations.recommended_colleges;
+    },
+    checkCollege() {
+      for (var college in this.selectedColleges) {
+        if (college == null) {
+          return false;
+        }
+      }
+      return true;
+    },
+    submitAnswer() {
+      return {
+        selectedColleges: this.selectedColleges,
+      };
     }
   },
   mounted() {
@@ -224,7 +239,27 @@ export default {
       ];
     },
     testDone() {
-      this.$emit("confirmed");
+      if (this.q1_answer != "A") {
+        let message = "题目1回答错误。请仔细阅读样例。";
+        this.$alert(message, "请注意！", {
+          confirmButtonText: "知道了",
+          type: "error"
+        });
+      } else if (this.q2_answer != "B") {
+        let message = "题目2回答错误。请仔细阅读样例。";
+        this.$alert(message, "请注意！", {
+          confirmButtonText: "知道了",
+          type: "error"
+        });
+      } else if (!this.checkCollege) {
+        this.$message({
+          message: "请填写所有题目",
+          type: "error"
+        });
+      } else {
+        this.$store.commit("storeSim4Answer", this.submitAnswer);
+        this.$emit("confirmed");
+      }
     },
     retrieveCollegeList() {
       const busy = this.$loading({

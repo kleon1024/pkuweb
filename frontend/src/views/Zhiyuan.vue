@@ -100,7 +100,7 @@
       <IntendedCollegesForm2 v-if="majorStep === 8" @confirmed="saveStep(majorStep + 1, 1)" />
       <CollegeSatisfaction2 v-if="majorStep === 9" @confirmed="saveStep(majorStep + 1 , 1)" />
       <Probabilities2 v-if="majorStep === 10" @confirmed="saveStep(majorStep + 1 , 1)" />
-      <SimulationSceneOne2 v-if="majorStep === 11" @confirmed="saveStep(majorStep, minorStep + 1)" />
+      <SimulationSceneOne2 v-if="majorStep === 11" @confirmed="saveStep(7, 1)" />
     </section>
   </el-card>
 </template>
@@ -235,7 +235,7 @@ export default {
           this.loginUser.college_recommendations.recommended_colleges.length <=
             3
         ) {
-          if (major == 5 && minor == 1) {
+          if (major == 5 && minor == 2) {
             this.$store.commit("saveStep", [6, 1]);
           } else {
             this.$store.commit("saveStep", [major, minor]);

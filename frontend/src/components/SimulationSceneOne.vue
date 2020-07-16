@@ -30,11 +30,21 @@
     </section>
     <section style="margin-top: 50px;">
       <h4>2. 假设你只能在一本志愿表中填写两所院校，C院校，D院校的位置空着，那么你会如何填写？</h4>
-      <FillableZhiyuanForm v-model="selected2Colleges" :intendeds="intendedColleges" :choices="2" show-all-colleges />
+      <FillableZhiyuanForm
+        v-model="selected2Colleges"
+        :intendeds="intendedColleges"
+        :choices="2"
+        show-all-colleges
+      />
     </section>
     <section style="margin-top: 50px;">
       <h4>3. 假设你只能在一本志愿表中填写一所院校，B院校，C院校，D院校的位置空着，那么你会如何填写？</h4>
-      <FillableZhiyuanForm v-model="selected1Colleges" :intendeds="intendedColleges" :choices="1" show-all-colleges />
+      <FillableZhiyuanForm
+        v-model="selected1Colleges"
+        :intendeds="intendedColleges"
+        :choices="1"
+        show-all-colleges
+      />
     </section>
     <div align="center" style="margin-top: 50px;">
       <el-button type="primary" @click.stop="satisfactionsDone">下一步</el-button>
@@ -59,14 +69,30 @@ export default {
     };
   },
   computed: {
-    ...mapState([
-      "intendedColleges",
-    ]),
+    ...mapState(["intendedColleges"]),
+    submitAnswer() {
+      return {
+        q1_answer: this.q1_answer,
+        selected2Colleges: this.selected2Colleges,
+        selected1Colleges: this.selected1Colleges
+      };
+    },
+    checkNumber() {
+      return this.selected2Colleges == 2 && this.selected2Colleges == 1;
+    }
   },
   mounted() {},
   methods: {
     satisfactionsDone() {
-      this.$emit("confirmed");
+      if (!this.checkNumber) {
+        this.$message({
+          message: "请填写所有志愿",
+          type: "error"
+        });
+      } else {
+        this.$store.commit("storeSim1Answer", this.submitAnswer);
+        this.$emit("confirmed");
+      }
     }
   }
 };

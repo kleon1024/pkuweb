@@ -29,11 +29,11 @@
 
     <section style="margin-top: 50px;" v-if="satisfactions[0]">
       <h4>如果你可以帮助李华选择上述学校的中的四所作为一批次志愿，你会如何选择？</h4>
-      <FillableZhiyuanForm v-model="sim3selected4Colleges" :choices="4" />
+      <FillableZhiyuanForm v-model="selected4Colleges" :choices="4" />
       <h4>如果李华只愿意选择两所学校作为一批次志愿，C,D院校的位置空着，你会如何选择？</h4>
-      <FillableZhiyuanForm v-model="sim3selected2Colleges" :choices="2" />
+      <FillableZhiyuanForm v-model="selected2Colleges" :choices="2" />
       <h4>如果李华只愿意选择一所学校，B,C,D院校的位置都空着，你会如何选择？</h4>
-      <FillableZhiyuanForm v-model="sim3selected1Colleges" :choices="1" />
+      <FillableZhiyuanForm v-model="selected1Colleges" :choices="1" />
     </section>
     <div align="center" style="margin-top: 50px;">
       <el-button type="primary" @click.stop="testDone">下一步</el-button>
@@ -54,9 +54,9 @@ export default {
   data() {
     return {
       satisfactions: [],
-      sim3selected4Colleges: [],
-      sim3selected2Colleges: [],
-      sim3selected1Colleges: [],
+      selected4Colleges: [],
+      selected2Colleges: [],
+      selected1Colleges: [],
       colleges: [],
       sim3Answer: ""
     };
@@ -69,7 +69,11 @@ export default {
       "xiaoMingSatisfactions"
     ]),
     checkNumber() {
-      return this.sim3selected4Colleges.length == 4 && this.sim3selected2Colleges == 2 && this.sim3selected1Colleges == 1;
+      return (
+        this.selected4Colleges.length == 4 &&
+        this.selected2Colleges == 2 &&
+        this.selected1Colleges == 1
+      );
     },
     collegeRecommendations() {
       return this.loginUser.college_recommendations;
@@ -77,8 +81,19 @@ export default {
     recommendedColleges() {
       return this.collegeRecommendations.recommended_colleges;
     },
-    zhiyuanFormHint() {
-      return `请填写四个院校！一本录取规则是“分数优先，遵循志愿”。因为院校在录取的时候只会考虑您的分数，不会因为 B, C, D 院校在您的志愿表上位置较低而不去录取您。也就是说，B, C, D 院校享受和 A 院校同样的优先录取权！`;
+    submitAnswer() {
+      return {
+        selected4Colleges: this.selected4Colleges,
+        selected2Colleges: this.selected2Colleges,
+        selected1Colleges: this.selected1Colleges
+      };
+    },
+    checkNumber() {
+      return (
+        this.selected4Colleges.length == 4 &&
+        this.selected2Colleges == 2 &&
+        this.selected2Colleges == 1
+      );
     }
   },
   mounted() {
@@ -96,6 +111,7 @@ export default {
         });
       } else {
         this.$emit("confirmed");
+        this.$store.commit("storeSim3Answer", this.submitAnswer);
       }
     }
   }

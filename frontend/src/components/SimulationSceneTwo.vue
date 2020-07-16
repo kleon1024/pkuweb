@@ -91,14 +91,14 @@ export default {
       "xiaoMingSatisfactions"
     ]),
     answersCorrect() {
-      return this.q1_answer == "B" && this.q2_answer === "A";
+      return this.q1_answer == "B" && this.q2_answer == "A";
     },
     collegeRecommendations() {
       return this.loginUser.college_recommendations;
     },
     recommendedColleges() {
       return this.collegeRecommendations.recommended_colleges;
-    }
+    },
   },
   mounted() {
     this.init();
@@ -130,7 +130,13 @@ export default {
       if (this.answersCorrect) {
         this.$emit("confirmed");
       } else {
-        let message = "题目回答错误。请仔细阅读样例。";
+        var a = "";
+        if (this.q1_answer != "B") {
+          a = 1;
+        } else {
+          a = 2;
+        }
+        let message = "题目" + a.toString + "回答错误。请仔细阅读样例。";
         this.$alert(message, "请注意！", {
           confirmButtonText: "知道了",
           type: "error"

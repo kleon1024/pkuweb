@@ -4,15 +4,16 @@
       <h2>模拟情景</h2>
     </center>
     <section>
-      <p>在了解了更多情况后，<span class="danger"> 韩梅梅对B,C,D中院校的满意度降低了 </span> </p>
+      <p>
+        在了解了更多情况后，
+        <span class="danger">韩梅梅对B,C,D中院校的满意度降低了</span>
+      </p>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="order" label="志愿号"></el-table-column>
         <el-table-column prop="college" label="院校"></el-table-column>
         <el-table-column prop="satisfaction" label="满意度"></el-table-column>
       </el-table>
-      <p>
-        她对 {{ hanMeiMeiColleges[1].full_name }} 满意度仍然为20，自己的分数超过X2分数线的可能性为80%。
-      </p>
+      <p>她对 {{ hanMeiMeiColleges[1].full_name }} 满意度仍然为20，自己的分数超过X2分数线的可能性为80%。</p>
       <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].full_name }}分数线的可能性为40%。不过，她还不确定自己对{{ hanMeiMeiColleges[0].full_name }}的满意程度，需要你帮她做一些计划。</p>
     </section>
     <section class>
@@ -32,14 +33,14 @@
     </section>
 
     <section>
-      <h4>请你告诉她，在下列六种情况下，她应该选择哪一所大学作为一批次A院校  ：</h4>
+      <h4>请你告诉她，在下列六种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
       <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
         <h4>
           {{ index + 1 }}.
           对{{ hanMeiMeiColleges[0].full_name }}的满意度是{{ satisfaction }}，上线概率25%。
           对{{ hanMeiMeiColleges[1].full_name }}的满意度是20，上线概率是50%。
         </h4>
-        <el-select v-model="value" placeholder="请选择">
+        <el-select v-model="selectedColleges[index]" placeholder="请选择">
           <el-option
             v-for="(college, i) in hanMeiMeiCollegeOptions[index]"
             :key="college.full_name"
@@ -71,7 +72,7 @@ export default {
     return {
       tableData: [],
       satisfactions: [],
-      sim4selectedColleges: [],
+      selectedColleges: [],
       colleges: [],
       allColleges: [],
       collegeOptions: [],
@@ -92,6 +93,19 @@ export default {
     },
     recommendedColleges() {
       return this.collegeRecommendations.recommended_colleges;
+    },
+    checkCollege() {
+      for (var college in this.selectedColleges) {
+        if (college == null) {
+          return false;
+        }
+      }
+      return true;
+    },
+    submitAnswer() {
+      return {
+        selectedColleges: this.selectedColleges
+      };
     }
   },
   mounted() {
@@ -120,8 +134,28 @@ export default {
       ];
     },
     testDone() {
-      this.$emit("confirmed");
-    },
+      if (this.q1_answer != "A") {
+        let message = "题目1回答错误。请仔细阅读样例。";
+        this.$alert(message, "请注意！", {
+          confirmButtonText: "知道了",
+          type: "error"
+        });
+      } else if (this.q2_answer != "B") {
+        let message = "题目2回答错误。请仔细阅读样例。";
+        this.$alert(message, "请注意！", {
+          confirmButtonText: "知道了",
+          type: "error"
+        });
+      } else if (!this.checkCollege) {
+        this.$message({
+          message: "请填写所有题目",
+          type: "error"
+        });
+      } else {
+        this.$store.commit("storeSim5Answer", this.submitAnswer);
+        this.$emit("confirmed");
+      }
+    }
   }
 };
 </script>

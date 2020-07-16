@@ -53,6 +53,12 @@ export default new Vuex.Store({
     probabilities2: null,
     hanMeiMeiColleges: null,
     hanMeiMeiCollegeOptions: null,
+    sim1Answer: null,
+    sim2Answer: null,
+    sim3Answer: null,
+    sim4Answer: null,
+    sim5Answer: null,
+    sim12Answer: null,
   },
   mutations: {
     setUser(state, data) {
@@ -113,6 +119,12 @@ export default new Vuex.Store({
       state.probabilities2 = null;
       state.hanMeiMeiColleges = null;
       state.hanMeiMeiCollegeOptions = null;
+      state.sim1Answer = null;
+      state.sim2Answer = null;
+      state.sim3Answer = null;
+      state.sim4Answer = null;
+      state.sim5Answer = null;
+      state.sim12Answer = null;
       if (process.env.NODE_ENV === "production") {
         cookies.remove("SIMIN-NX-SESSION", { // when removing session, needes exact options
           domain: "pkuzhiyuan.com",
@@ -155,6 +167,12 @@ export default new Vuex.Store({
       state.probabilities = zhiyuan.probabilities;
       state.hanMeiMeiColleges = zhiyuan.hanMeiMeiColleges;
       state.hanMeiMeiCollegeOptions = zhiyuan.hanMeiMeiCollegeOptions;
+      state.sim1Answer = zhiyuan.sim1Answer;
+      state.sim2Answer = zhiyuan.sim2Answer;
+      state.sim3Answer = zhiyuan.sim3Answer;
+      state.sim4Answer = zhiyuan.sim4Answer;
+      state.sim5Answer = zhiyuan.sim5Answer;
+      state.sim12Answer = zhiyuan.sim12Answer;
     },
     saveStep(state, step) {
       state.majorStep = step[0];
@@ -253,7 +271,13 @@ export default new Vuex.Store({
     },
     storeHanMeiMeiCollegeOptions(state, options) {
       state.hanMeiMeiCollegeOptions = options;
-    }
+    },
+    storeSim1Answer(state, answer) { state.sim1Answer = answer; },
+    storeSim2Answer(state, answer) { state.sim2Answer = answer; },
+    storeSim3Answer(state, answer) { state.sim3Answer = answer; },
+    storeSim4Answer(state, answer) { state.sim4Answer = answer; },
+    storeSim5Answer(state, answer) { state.sim5Answer = answer; },
+    storeSim12Answer(state, answer) { state.sim12Answer = answer; },
   },
   actions: {
     login({ commit }, data) {
@@ -307,6 +331,12 @@ export default new Vuex.Store({
         "probabilities2",
         "hanMeiMeiColleges",
         "hanMeiMeiCollegeOptions",
+        "sim1Answer",
+        "sim2Answer",
+        "sim3Answer",
+        "sim4Answer",
+        "sim5Answer",
+        "sim12Answer",
       ],
       // // Enable encription
       // storage: {
