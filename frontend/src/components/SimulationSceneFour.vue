@@ -273,6 +273,7 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
       request.post(`${this.API_URL}/college-admins`, {}, (err, res) => {
+        console.log(res);
         if (res) {
           if (res.data.failed) {
             this.$alert(res.data.message, "获取数据失败", {
