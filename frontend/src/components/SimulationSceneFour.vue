@@ -119,7 +119,7 @@ export default {
     }
   },
   mounted() {
-    this.retrieveCollegeList(this.init());
+    this.retrieveCollegeList(this.init);
   },
   methods: {
     init() {
