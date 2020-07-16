@@ -1,5 +1,5 @@
 <template>
-  <div v-if="hanMeiMeiColleges.length > 0">
+  <div v-if="hanMeiMeiColleges && hanMeiMeiColleges.length > 0">
     <center>
       <h2>模拟情景</h2>
     </center>
