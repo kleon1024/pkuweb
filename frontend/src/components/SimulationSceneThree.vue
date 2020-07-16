@@ -33,7 +33,7 @@
       <h4>如果李华只愿意选择两所学校作为一批次志愿，C,D院校的位置空着，你会如何选择？</h4>
       <FillableZhiyuanForm v-model="sim3selected2Colleges" :choices="2" />
       <h4>如果李华只愿意选择一所学校，B,C,D院校的位置都空着，你会如何选择？</h4>
-      <FillableZhiyuanForm v-model="sim3selected1Colleges" :choices="2" />
+      <FillableZhiyuanForm v-model="sim3selected1Colleges" :choices="1" />
     </section>
     <div align="center" style="margin-top: 50px;">
       <el-button type="primary" @click.stop="testDone">下一步</el-button>
@@ -68,8 +68,8 @@ export default {
       "otherZhiyuanSatisfactionAssessAnswers",
       "xiaoMingSatisfactions"
     ]),
-    numberOfSelectedColleges() {
-      return this.sim3selectedColleges.length;
+    checkNumber() {
+      return this.sim3selected4Colleges.length == 4 && this.sim3selected2Colleges == 2 && this.sim3selected1Colleges == 1;
     },
     collegeRecommendations() {
       return this.loginUser.college_recommendations;
@@ -88,16 +88,10 @@ export default {
     init() {
       this.satisfactions = this.xiaoMingSatisfactions;
     },
-
     testDone() {
-      if (this.sim3selectedColleges.length != 4) {
+      if (!this.checkNumber) {
         this.$message({
-          message: "请填写四个志愿",
-          type: "error"
-        });
-      } else if (this.sim3Answer === "") {
-        this.$message({
-          message: "请回答问题【4】",
+          message: "请填写所有志愿",
           type: "error"
         });
       } else {

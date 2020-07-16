@@ -32,9 +32,13 @@
     </section>
 
     <section>
-      <h4>请给出你的建议：</h4>
+      <h4>请你告诉她，在下列六种情况下，她应该选择哪一所大学作为一批次A院校  ：</h4>
       <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
-        <h4>{{ index + 1 }}. 如果她对{{ hanMeiMeiColleges[0].full_name }}的满意度是{{ satisfaction }}，那么你建议她应该选择____作为一批次A院校。</h4>
+        <h4>
+          {{ index + 1 }}.
+          对{{ hanMeiMeiColleges[0].full_name }}的满意度是{{ satisfaction }}，上线概率25%。
+          对{{ hanMeiMeiColleges[1].full_name }}的满意度是20，上线概率是50%。
+        </h4>
         <el-select v-model="value" placeholder="请选择">
           <el-option
             v-for="(college, i) in hanMeiMeiCollegeOptions[index]"
