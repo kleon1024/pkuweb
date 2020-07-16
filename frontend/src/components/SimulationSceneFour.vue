@@ -120,6 +120,7 @@ export default {
   },
   mounted() {
     this.retrieveCollegeList();
+    this.init();
   },
   methods: {
     init() {
@@ -283,7 +284,6 @@ export default {
               c1.full_name.localeCompare(c2.full_name, "zh-CN")
             ); // 按照大学名称字母排序;
             this.allColleges = returnedColleges;
-            this.init();
             busy.close();
           }
         } else {
