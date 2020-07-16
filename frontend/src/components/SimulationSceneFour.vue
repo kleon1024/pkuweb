@@ -114,13 +114,12 @@ export default {
     },
     submitAnswer() {
       return {
-        selectedColleges: this.selectedColleges,
+        selectedColleges: this.selectedColleges
       };
     }
   },
   mounted() {
-    this.retrieveCollegeList();
-    this.init();
+    this.retrieveCollegeList(this.init());
   },
   methods: {
     init() {
@@ -261,7 +260,7 @@ export default {
         this.$emit("confirmed");
       }
     },
-    retrieveCollegeList() {
+    retrieveCollegeList(callback) {
       const busy = this.$loading({
         lock: true,
         text: "从服务器获取数据中，请耐心等待...",
@@ -284,6 +283,7 @@ export default {
               c1.full_name.localeCompare(c2.full_name, "zh-CN")
             ); // 按照大学名称字母排序;
             this.allColleges = returnedColleges;
+            callback();
             busy.close();
           }
         } else {
@@ -295,7 +295,7 @@ export default {
         }
       });
     }
-  },
+  }
 };
 </script>
 
