@@ -45,7 +45,7 @@
             v-for="(college, i) in hanMeiMeiCollegeOptions[index]"
             :key="college.full_name"
             :label="String.fromCharCode('A'.charCodeAt(0) + i) + '. ' +  college.full_name"
-            :value="college"
+            :value="college.full_name"
           ></el-option>
         </el-select>
       </el-row>
