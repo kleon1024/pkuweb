@@ -52,7 +52,7 @@ export default {
       return this.intendedAndRecommendedColleges.map((college, i) => {
         return {
           student_filled_probability: this.probabilities[i] / 100,
-          college: college
+          college: college.full_name,
         };
       });
     }

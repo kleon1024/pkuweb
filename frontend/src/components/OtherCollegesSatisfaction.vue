@@ -53,7 +53,7 @@ export default {
       return this.recommendedButNotIntendedColleges.map((college, i) => {
         return {
           student_filled_satisfaction_score: this.satisfactions[i],
-          college: college
+          college: college.full_name
         };
       });
     }
