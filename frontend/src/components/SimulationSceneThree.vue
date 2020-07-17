@@ -83,9 +83,9 @@ export default {
     },
     submitAnswer() {
       return {
-        selected4Colleges: this.selected4Colleges,
-        selected2Colleges: this.selected2Colleges,
-        selected1Colleges: this.selected1Colleges
+        selected4Colleges: this.selected4Colleges.map(c => c.full_name),
+        selected2Colleges: this.selected2Colleges.map(c => c.full_name),
+        selected1Colleges: this.selected1Colleges.map(c => c.full_name),
       };
     },
     checkNumber() {

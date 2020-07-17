@@ -107,7 +107,7 @@ export default {
     },
     submitAnswer() {
       return {
-        selectedColleges: this.selectedColleges
+        selectedColleges: this.selectedColleges.map(c => c.full_name),
       };
     }
   },
