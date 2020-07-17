@@ -23,7 +23,7 @@
           :index="i + 1"
         />
       </div>
-      <CollegeSatisfactionSlider v-model="satisfactionAnswers[4]" @change="onChange(i)" no-college />
+      <CollegeSatisfactionSlider v-model="satisfactionAnswers[4]" @change="onChange(4)" no-college />
     </div>
     <div align="right">
       <el-button type="primary" @click.stop="collegeSatisfactionDone">下一步</el-button>
