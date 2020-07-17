@@ -42,7 +42,6 @@
           {{ index + 1 }}.
           对{{ hanMeiMeiColleges[0].full_name }}的满意度是{{ satisfaction }}，上线概率25%。
           对{{ hanMeiMeiColleges[1].full_name }}的满意度是20，上线概率是50%。
-          那么你建议她应该选择____作为一批次A院校。
         </h4>
         <el-select v-model="selectedColleges[index]" placeholder="请选择">
           <el-option

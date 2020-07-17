@@ -82,18 +82,18 @@ export default {
             message: `必须滑动所有滑块`,
             type: "error"
           });
+        } else {
+          this.$store.commit(
+            "storeZhiyuanSatisfactionAssessAnswers",
+            this.intendedColleges.map((c, i) => {
+              return {
+                student_filled_satisfaction_score: this.satisfactionAnswers[i],
+                college: c
+              };
+            })
+          );
+          this.$emit("confirmed");
         }
-
-        this.$store.commit(
-          "storeZhiyuanSatisfactionAssessAnswers",
-          this.intendedColleges.map((c, i) => {
-            return {
-              student_filled_satisfaction_score: this.satisfactionAnswers[i],
-              college: c
-            };
-          })
-        );
-        this.$emit("confirmed");
       } else {
         this.$message({
           message: `${info}的滑块还没滑动过`,

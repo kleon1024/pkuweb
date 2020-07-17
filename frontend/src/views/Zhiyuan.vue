@@ -37,7 +37,7 @@
       <IntendedCollegesForm v-if="majorStep === 3" @confirmed="saveStep(majorStep + 1, 1)" />
       <CollegeSatisfaction
         v-if="majorStep === 4 && minorStep === 1"
-        @confirmed="saveStep(majorStep, 1)"
+        @confirmed="saveStep(majorStep + 1, 1)"
       />
       <SimulationSceneOne
         v-if="majorStep === 5 && minorStep === 1"
