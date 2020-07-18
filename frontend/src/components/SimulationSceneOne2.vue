@@ -6,7 +6,7 @@
     <p>在本部分中，您需要回答一些虚拟场景中的问题。这些问题有助于我们更加了解考生在报考中可能遇到的问题，为高考改革提供有价值的参考。希望您能够认真作答。</p>
     <section style="margin-top: 50px;">
       <p>您填写的二批次志愿是：</p>
-      <FillableZhiyuanForm :colleges="intendedColleges2" disabled />
+      <FillableZhiyuanForm :colleges="intendedColleges2" show-all-colleges disabled />
     </section>
     <p>请回答以下问题:</p>
     <section style="margin-top: 50px;">

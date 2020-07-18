@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import FillableZhiyuanForm from "@/components/FillableZhiyuanForm";
 
 export default {
@@ -48,7 +49,11 @@ export default {
       checked: false,
     };
   },
+  mounted() {
+    this.initRecommends();
+  },
   computed: {
+    ...mapState(["collegeRecommendations"]),
     numberOfSelectedColleges() {
       return this.selectedColleges.length;
     },
@@ -61,6 +66,30 @@ export default {
     }
   },
   methods: {
+    initRecommends() {
+      if (!this.collegeRecommendations) {
+        const loading = this.$loading({
+          lock: true,
+          text: "为您推荐学校中...",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)"
+        });
+        request.post(this.SHORT_LIST_URL, {}, (err, res) => {
+          if (res) {
+            if (res.data.failed) {
+              loading.close();
+              this.$alert(res.data.message, "推荐失败", {
+                type: "error",
+                confirmButtonText: "返回"
+              });
+            } else {
+              this.$store.commit("storeCollegeRecommendations", res.data);
+              loading.close();
+            }
+          }
+        });
+      }
+    },
     submitIntendedCollegesForm() {
       if (this.numberOfSelectedColleges >= 3) {
         this.$store.commit("storeIntendedColleges", this.selectedColleges);

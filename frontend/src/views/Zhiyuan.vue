@@ -135,6 +135,7 @@ export default {
     SimulationSceneFour,
     SimulationSceneFive,
     SimulationSceneSix,
+    SimulationSceneIntro,
     ProbabilityPreTest,
     Probabilities,
     Probabilities2,

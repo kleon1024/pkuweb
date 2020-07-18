@@ -59,15 +59,12 @@
 
 <script>
 import { mapState } from "vuex";
-import FillableZhiyuanForm from "@/components/FillableZhiyuanForm";
 import utils from "@/plugins/utils";
 import request from "@/plugins/request";
 
 export default {
   name: "SimulationSceneFive",
-  components: {
-    FillableZhiyuanForm
-  },
+  components: {},
   data() {
     return {
       tableData: [],

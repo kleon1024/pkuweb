@@ -78,7 +78,6 @@ export default {
     };
   },
   mounted() {
-    this.initRecommends();
     this.countDown();
   },
   computed: {
@@ -104,30 +103,6 @@ export default {
           this.clickable = true;
         }
       }, 1000);
-    },
-    initRecommends() {
-      if (!this.collegeRecommendations) {
-        const loading = this.$loading({
-          lock: true,
-          text: "为您推荐学校中...",
-          spinner: "el-icon-loading",
-          background: "rgba(0, 0, 0, 0.7)"
-        });
-        request.post(this.SHORT_LIST_URL, {}, (err, res) => {
-          if (res) {
-            if (res.data.failed) {
-              loading.close();
-              this.$alert(res.data.message, "推荐失败", {
-                type: "error",
-                confirmButtonText: "返回"
-              });
-            } else {
-              this.$store.commit("storeCollegeRecommendations", res.data);
-              loading.close();
-            }
-          }
-        });
-      }
     },
     submitCollegeRecommend() {
       this.$emit("confirmed");
