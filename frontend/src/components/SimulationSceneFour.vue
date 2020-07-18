@@ -246,7 +246,7 @@ export default {
     },
     testDone() {
       if (!this.correctAnswer) {
-        if (this.q1_answer != "A") {
+        if (this.q1_answer != "B") {
           let message = "题目1回答错误。请仔细阅读样例。";
           this.$alert(message, "请注意！", {
             confirmButtonText: "知道了",
