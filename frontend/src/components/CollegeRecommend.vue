@@ -3,11 +3,6 @@
     <center>
       <h2>您可能感兴趣或者考虑过的院校</h2>
     </center>
-    <el-alert
-      type="warning"
-      style="margin: 10px 0;"
-      title="本调查只适用于宁夏报考一批次志愿院校的同学。未填报一批次志愿的同学可能无法完成问卷并取得报酬！"
-    />
     <el-form
       ref="collegeRecommendForm"
       :model="collegeRecommendForm"
