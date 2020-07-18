@@ -30,78 +30,63 @@
         />
       </div>
     </div>
-    <el-progress :percentage="(majorStep % 8 + 1)*15" :format="format"></el-progress>
+    <el-progress :percentage="(majorStep % 10 + 1)*10" :format="format"></el-progress>
     <section class="guide-content">
       <BasicInfo v-if="majorStep === 1" @confirmed="saveStep(majorStep + 1, 1)" />
-      <CollegeRecommend v-if="majorStep === 2" @confirmed="saveStep(majorStep + 1, 1)" />
-      <IntendedCollegesForm v-if="majorStep === 3" @confirmed="saveStep(majorStep + 1, 1)" />
+      <IntendedCollegesForm v-if="majorStep === 2" @confirmed="saveStep(majorStep + 1, 1)" />
       <CollegeSatisfaction
-        v-if="majorStep === 4 && minorStep === 1"
+        v-if="majorStep === 3 && minorStep === 1"
         @confirmed="saveStep(majorStep + 1, 1)"
       />
       <SimulationSceneOne
+        v-if="majorStep === 4 && minorStep === 1"
+        @confirmed="saveStep(majorStep, minorStep + 1)"
+      />
+      <SimulationSceneIntro
+        v-if="majorStep === 4 && minorStep === 2"
+        @confirmed="saveStep(majorStep + 1, 1)"      
+      />
+      <SimulationSceneFour
         v-if="majorStep === 5 && minorStep === 1"
         @confirmed="saveStep(majorStep, minorStep + 1)"
       />
-      <SimulationSceneTwo
+      <SimulationSceneFive
         v-if="majorStep === 5 && minorStep === 2"
         @confirmed="saveStep(majorStep, minorStep + 1)"
       />
-
-      <SimulationSceneThree
+      <SimulationSceneSix
         v-if="majorStep === 5 && minorStep === 3"
+        @confirmed="saveStep(majorStep + 1, 1)"
+      />
+      <CollegeRecommend v-if="majorStep === 6" @confirmed="saveStep(majorStep + 1, 1)" />
+      <SimulationSceneTwo
+        v-if="majorStep === 7 && minorStep === 1"
         @confirmed="saveStep(majorStep, minorStep + 1)"
       />
-
-      <SimulationSceneFour
-        v-if="majorStep === 5 && minorStep === 4"
-        @confirmed="saveStep(majorStep, minorStep + 1)"
+      <SimulationSceneThree
+        v-if="majorStep === 7 && minorStep === 2"
+        @confirmed="saveStep(majorStep + 1, 1)"
       />
-
-      <SimulationSceneFive
-        v-if="majorStep === 5 && minorStep === 5"
-        @confirmed="saveStep(majorStep, minorStep + 1)"
-      />
-
       <OtherCollegesSatisfaction
-        v-if="majorStep === 5 && minorStep === 6"
-        @confirmed="saveStep(majorStep + 1, 1)"
-      />
-
-      <ProbabilityPreTest
-        v-if="majorStep === 6 && minorStep === 1"
-        @confirmed="saveStep(majorStep, minorStep + 1)"
-      />
-
-      <Probabilities
-        v-if="majorStep === 6 && minorStep === 2"
-        @confirmed="saveStep(majorStep + 1, 1)"
-      />
-
-      <!-- <AdmissionScoresInfoTest
-        v-if="majorStep === 7 && minorStep === 1"
-        @confirmed="saveStep(majorStep + 1, 1)"
-      />
-
-      <ZhiyuanGuideCollegeOrder
         v-if="majorStep === 8 && minorStep === 1"
+        @confirmed="saveStep(majorStep + 1, 1)"
+      />
+      <ProbabilityPreTest
+        v-if="majorStep === 9 && minorStep === 1"
         @confirmed="saveStep(majorStep, minorStep + 1)"
       />
-   
-      <ZhiyuanGuideStrategy
-        v-if="majorStep === 8 && minorStep === 2"
+      <Probabilities
+        v-if="majorStep === 9 && minorStep === 2"
         @confirmed="saveStep(majorStep + 1, 1)"
-      />-->
-
+      />
       <ZhiyuanSubmissionForm
-        v-if="majorStep === 7 && minorStep === 1"
+        v-if="majorStep === 10 && minorStep === 1"
         @confirmed="onZhiyuanSubmissionFormDone"
       />
-
-      <IntendedCollegesForm2 v-if="majorStep === 8" @confirmed="saveStep(majorStep + 1, 1)" />
-      <CollegeSatisfaction2 v-if="majorStep === 9" @confirmed="saveStep(majorStep + 1 , 1)" />
-      <Probabilities2 v-if="majorStep === 10" @confirmed="saveStep(majorStep + 1 , 1)" />
-      <SimulationSceneOne2 v-if="majorStep === 11" @confirmed="saveStep(7, 1)" />
+      <IntendedCollegesForm2 v-if="majorStep === 11" @confirmed="saveStep(majorStep + 1, 1)" />
+      <CollegeSatisfaction2 v-if="majorStep === 12" @confirmed="saveStep(majorStep + 1 , 1)" />
+      <Probabilities2 v-if="majorStep === 13" @confirmed="saveStep(majorStep + 1 , 1)" />
+      <SimulationSceneOne2 v-if="majorStep === 14" @confirmed="saveStep(10, 1)" />
     </section>
   </el-card>
 </template>
@@ -121,6 +106,8 @@ import SimulationSceneTwo from "@/components/SimulationSceneTwo";
 import SimulationSceneThree from "@/components/SimulationSceneThree";
 import SimulationSceneFour from "@/components/SimulationSceneFour";
 import SimulationSceneFive from "@/components/SimulationSceneFive";
+import SimulationSceneSix from "@/components/SimulationSceneSix";
+import SimulationSceneIntro from "@/components/SimulationSceneIntro";
 import ProbabilityPreTest from "@/components/ProbabilityPreTest";
 import Probabilities from "@/components/Probabilities";
 import Probabilities2 from "@/components/Probabilities2";
@@ -147,6 +134,7 @@ export default {
     SimulationSceneThree,
     SimulationSceneFour,
     SimulationSceneFive,
+    SimulationSceneSix,
     ProbabilityPreTest,
     Probabilities,
     Probabilities2,
@@ -190,7 +178,8 @@ export default {
       "zhiyuanGuideAnswers",
       "zhiyuanColleges",
       "otherZhiyuanSatisfactionAssessAnswers",
-      "zhiyuanSatisfactionAssessAnswers"
+      "zhiyuanSatisfactionAssessAnswers",
+      "branch",
     ]),
     basicInfo() {
       return this.loginUser.basic_info;
@@ -226,7 +215,7 @@ export default {
             this.loginUser.ranking > 3500)
         ) {
           if (major == 2) {
-            this.$store.commit("saveStep", [8, 1]);
+            this.$store.commit("saveStep", [11, 1]);
           } else {
             this.$store.commit("saveStep", [major, minor]);
           }
@@ -236,7 +225,17 @@ export default {
           this.loginUser.college_recommendations.recommended_colleges.length <=
             3
         ) {
-          if (major == 5 && minor == 2) {
+          if (major == 4 && minor == 2) {
+            this.$store.commit("saveStep", [8, 1]);
+          } else {
+            this.$store.commit("saveStep", [major, minor]);
+          }
+        } else if (this.branch == 1) {
+          if (major == 5 && minor ==1) {
+            this.$store.commit("saveStep", [5, 3]);
+          } else if (major == 6 && minor == 1) {
+            this.$store.commit("saveStep", [5, 1]);
+          } else if (major == 5 && minor == 2) {
             this.$store.commit("saveStep", [6, 1]);
           } else {
             this.$store.commit("saveStep", [major, minor]);

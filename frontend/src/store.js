@@ -7,6 +7,7 @@ import SecureLS from "secure-ls";
 var ls = new SecureLS({ isCompression: false });
 
 import request from "@/plugins/request";
+import utils from "@/plugins/utils";
 
 Vue.use(Vuex);
 
@@ -59,6 +60,8 @@ export default new Vuex.Store({
     sim4Answer: null,
     sim5Answer: null,
     sim12Answer: null,
+    riskForm: null,
+    branch: utils.getRandomInt(0, 2),
   },
   mutations: {
     setUser(state, data) {
@@ -125,6 +128,8 @@ export default new Vuex.Store({
       state.sim4Answer = null;
       state.sim5Answer = null;
       state.sim12Answer = null;
+      state.riskForm = null;
+      state.branch = utils.getRandomInt(0, 2);
       if (process.env.NODE_ENV === "production") {
         cookies.remove("SIMIN-NX-SESSION", { // when removing session, needes exact options
           domain: "pkuzhiyuan.com",
@@ -173,6 +178,8 @@ export default new Vuex.Store({
       state.sim4Answer = zhiyuan.sim4Answer;
       state.sim5Answer = zhiyuan.sim5Answer;
       state.sim12Answer = zhiyuan.sim12Answer;
+      state.riskForm = zhiyuan.riskForm;
+      state.branch = zhiyuan.branch;
     },
     saveStep(state, step) {
       state.majorStep = step[0];
@@ -190,7 +197,6 @@ export default new Vuex.Store({
       basicInfo.foreign_language_score = state.loginUser.foreign_language_score;
       basicInfo.zonghe_score = state.loginUser.zonghe_score;
       basicInfo.extra_score = state.loginUser.extra_score;
-
       state.loginUser.basic_info = basicInfo;
     },
     saveProbabilities(state, probabilities) {
@@ -278,6 +284,7 @@ export default new Vuex.Store({
     storeSim4Answer(state, answer) { state.sim4Answer = answer; },
     storeSim5Answer(state, answer) { state.sim5Answer = answer; },
     storeSim12Answer(state, answer) { state.sim12Answer = answer; },
+    storeRiskForm(state, risk) { state.riskFrom = risk; },
   },
   actions: {
     login({ commit }, data) {
@@ -337,6 +344,8 @@ export default new Vuex.Store({
         "sim4Answer",
         "sim5Answer",
         "sim12Answer",
+        "riskForm",
+        "branch",
       ],
       // // Enable encription
       // storage: {

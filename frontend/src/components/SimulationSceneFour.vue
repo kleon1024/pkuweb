@@ -1,10 +1,10 @@
 <template>
   <div v-if="hanMeiMeiColleges && hanMeiMeiColleges.length > 0">
     <center>
-      <h2>模拟情景</h2>
+      <h2>情景：帮助韩梅梅报志愿</h2>
     </center>
     <section>
-      <p>现在，你需要帮助自己的另一个朋友，韩梅梅。她没有告诉你高考分数，不过你知道她的分数远远超出一本线。目前，她还没确定一批次A院校该填什么：</p>
+      <p>韩梅梅没有告诉你高考分数，不过你知道她的分数远远超出一本线。目前，她还没确定一批次A院校该填什么： </p>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="order" label="志愿号"></el-table-column>
         <el-table-column prop="college" label="院校"></el-table-column>
@@ -15,37 +15,37 @@
         如果没有被自己的第一选择（一批次A院校）录取，那么她一定会被{{ hanMeiMeiColleges[4].college }}或者{{ hanMeiMeiColleges[2].college }},{{ hanMeiMeiColleges[3].college }}录取。
         <span
           class="danger"
-        >在这种情况下，她的满意度是15。也就是说，在这种情况下你一定能获得15元。</span>
+        >在这种情况下，她的满意度是20。也就是说，在这种情况下你一定能获得20元。</span>
       </p>
-      <p>经过资料查询，她认为如果被{{ hanMeiMeiColleges[1].college }}录取，她的满意度为20，自己的分数超过{{ hanMeiMeiColleges[1].college }}分数线的可能性为80%。</p>
-      <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].college }}分数线的可能性为40%。不过，她还不确定自己对{{ hanMeiMeiColleges[0].college }}的满意程度，需要你帮她做一些计划。</p>
+      <p>经过资料查询，她认为如果被{{ hanMeiMeiColleges[1].college }}录取，她的满意度为25，自己的分数超过{{ hanMeiMeiColleges[1].college }}分数线的可能性为50%。</p>
+      <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].college }}分数线的可能性为25%。不过，她还不确定自己对{{ hanMeiMeiColleges[0].college }}的满意程度，需要你帮她做一些计划。</p>
     </section>
-    <section>
+    <section v-if="!correctAnswer">
       <p>请回答以下问题来确认你对情景的理解：</p>
       <h4>1. 如果韩梅梅未被一批次A志愿录取，那么你将获得________</h4>
       <el-radio-group v-model="q1_answer">
-        <el-radio-button label="A">A. 15元</el-radio-button>
+        <el-radio-button label="A">A. 5元</el-radio-button>
         <el-radio-button label="B">B. 20元</el-radio-button>
         <el-radio-button label="C">C. 无法确定</el-radio-button>
       </el-radio-group>
       <h4>2. 如果韩梅梅被{{ hanMeiMeiColleges[1].full_name }}录取，那么你将获得_______</h4>
       <el-radio-group v-model="q2_answer">
-        <el-radio-button label="A">A. 15元</el-radio-button>
-        <el-radio-button label="B">B. 20元</el-radio-button>
+        <el-radio-button label="A">A. 20元</el-radio-button>
+        <el-radio-button label="B">B. 25元</el-radio-button>
         <el-radio-button label="C">C. 无法确定</el-radio-button>
       </el-radio-group>
     </section>
-    <section>
-      <h4>请你告诉她，在下列六种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
+    <section v-if="correctAnswer">
+      <h4>请你告诉她，在下列七种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
       <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
         <h4>
           {{ index + 1 }}.
           对{{ hanMeiMeiColleges[0].full_name }}的满意度是{{ satisfaction }}，上线概率25%。
-          对{{ hanMeiMeiColleges[1].full_name }}的满意度是20，上线概率是50%。
+          对{{ hanMeiMeiColleges[1].full_name }}的满意度是25，上线概率是50%。
         </h4>
         <el-select v-model="selectedColleges[index]" placeholder="请选择">
           <el-option
-            v-for="(college, i) in hanMeiMeiCollegeOptions[index]"
+            v-for="(college, i) in hanMeiMeiCollegeOptions"
             :key="college.full_name"
             :label="String.fromCharCode('A'.charCodeAt(0) + i) + '. ' +  college.full_name"
             :value="college.full_name"
@@ -79,7 +79,8 @@ export default {
       selectedColleges: Array(6).fill(null),
       colleges: [],
       allColleges: [],
-      satisfactionOptions: []
+      satisfactionOptions: [],
+      correctAnswer: false,
     };
   },
   computed: {
@@ -212,17 +213,14 @@ export default {
       }
 
       var collegeOptions = [];
+      var number0 = utils.getRandomInt(0, 2);
+      var number1 = 1 - number0;
+      collegeOptions.push([
+        this.hanMeiMeiColleges[number0],
+        this.hanMeiMeiColleges[number1]
+      ]);
 
-      for (var i = 0; i < 6; i++) {
-        var number0 = utils.getRandomInt(0, 2);
-        var number1 = 1 - number0;
-        collegeOptions.push([
-          this.hanMeiMeiColleges[number0],
-          this.hanMeiMeiColleges[number1]
-        ]);
-      }
-
-      this.satisfactionOptions = [22, 25, 27, 30, 40, 60];
+      this.satisfactionOptions = [30, 35, 40, 45, 50, 55, 60];
 
       this.$store.commit("storeHanMeiMeiCollegeOptions", collegeOptions);
 
@@ -231,33 +229,37 @@ export default {
         {
           order: "一批次B院校",
           college: this.hanMeiMeiColleges[2].full_name,
-          satisfaction: "15"
+          satisfaction: "20"
         },
         {
           order: "一批次C院校",
           college: this.hanMeiMeiColleges[3].full_name,
-          satisfaction: "15"
+          satisfaction: "20"
         },
         {
           order: "一批次D院校",
           college: this.hanMeiMeiColleges[4].full_name,
-          satisfaction: "15"
+          satisfaction: "20"
         }
       ];
     },
     testDone() {
-      if (this.q1_answer != "A") {
-        let message = "题目1回答错误。请仔细阅读样例。";
-        this.$alert(message, "请注意！", {
-          confirmButtonText: "知道了",
-          type: "error"
-        });
-      } else if (this.q2_answer != "B") {
-        let message = "题目2回答错误。请仔细阅读样例。";
-        this.$alert(message, "请注意！", {
-          confirmButtonText: "知道了",
-          type: "error"
-        });
+      if (!this.correctAnswer) {
+        if (this.q1_answer != "A") {
+          let message = "题目1回答错误。请仔细阅读样例。";
+          this.$alert(message, "请注意！", {
+            confirmButtonText: "知道了",
+            type: "error"
+          });
+        } else if (this.q2_answer != "B") {
+          let message = "题目2回答错误。请仔细阅读样例。";
+          this.$alert(message, "请注意！", {
+            confirmButtonText: "知道了",
+            type: "error"
+          });
+        } else {
+          this.correctAnswer = true;
+        }
       } else if (!this.checkCollege) {
         this.$message({
           message: "请填写所有题目",

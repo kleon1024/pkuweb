@@ -159,27 +159,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <h4>
-          8.
-          请在下面的每一道小题中，您将面临两个选项。请选出对您自己来说更好的那个选项：
-        </h4>
-        <el-row
-          v-for="(item, index) in basicInfoForm.risk_list"
-          :key="`risk-take-${index}`"
-          :gutter="1"
-        >
-          <el-form-item
-            :label="'第' + (index + 1) + '题：'"
-            :prop="'risk_list.' + index + '.value'"
-            :rules="{ required: true, message: '请选择一项', trigger: 'blur' }"
-            required
-          >
-            <el-radio-group v-model="item.value">
-              <el-radio label="A" style="margin-right: 15px">50%的概率获得2元，50%的概率获得30元</el-radio>
-              <el-radio label="B" style="margin-right: 15px">100%的概率获得{{ index * 2 + 4 }}元</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-row>
         <div align="center" style="margin-top: 20px">
           <el-button type="primary" :loading="loading" @click.stop="submitBasicInfo">提交并进入下一步</el-button>
         </div>
@@ -201,10 +180,6 @@ export default {
     PrioritySelect
   },
   data() {
-    var risk_list = Array();
-    for (var i = 0; i < 8; i++) {
-      risk_list.push({ value: "" });
-    }
     return {
       allColleges: [],
       loading: false,
@@ -221,7 +196,6 @@ export default {
         other_mama_job: "",
         family_location: "",
         birthdate: "",
-        risk_list: risk_list,
         college_factors: [],
         college_types: [],
         college_locations: [],

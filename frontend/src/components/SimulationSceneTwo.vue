@@ -1,13 +1,9 @@
 <template>
   <div>
     <center>
-      <h2>模拟情景</h2>
+      <h2>情景：帮助李华报志愿</h2>
     </center>
     <section>
-      <p>
-        在本页中，你需要在虚拟场景中在帮助自己的朋友李华，韩梅梅填报志愿。
-        <strong>为鼓励认真作答，我们会从李华和韩梅梅的志愿填报问题中随机抽取一道题，根据该题中你的回答给予额外报酬。具体来说，你获得报酬的额度和朋友的满意度相同。</strong>
-      </p>
       <p>
         <span class="danger">李华的分数和你的分数相同。</span> 下表列出了他正在考虑的学校以及满意度：
       </p>
@@ -132,11 +128,11 @@ export default {
       } else {
         var a = "";
         if (this.q1_answer != "B") {
-          a = 1;
+          a = "1";
         } else {
-          a = 2;
+          a = "2";
         }
-        let message = "题目" + a.toString + "回答错误。请仔细阅读样例。";
+        let message = "题目" + a + "回答错误。请仔细阅读样例。";
         this.$alert(message, "请注意！", {
           confirmButtonText: "知道了",
           type: "error"
