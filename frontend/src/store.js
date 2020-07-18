@@ -225,16 +225,6 @@ export default new Vuex.Store({
         }, college);
       });
       state.intendedColleges = collegesWithZhiyuanOrder;
-      const recommendedColleges = state.loginUser.college_recommendations.recommended_colleges;
-      const otherRecommendedColleges = recommendedColleges.filter(college => {
-        return !collegesWithZhiyuanOrder.some(ic => {
-          return (
-            ic.college_code === college.college_code &&
-            ic.campus_code === college.campus_code
-          );
-        });
-      });
-      state.intendedAndRecommendedColleges = collegesWithZhiyuanOrder.concat(otherRecommendedColleges);
     },
     storeLessThanThree(state, checked) {
       state.lessThanThree = checked;
@@ -285,6 +275,18 @@ export default new Vuex.Store({
     storeSim5Answer(state, answer) { state.sim5Answer = answer; },
     storeSim12Answer(state, answer) { state.sim12Answer = answer; },
     storeRiskForm(state, risk) { state.riskFrom = risk; },
+    storeRecommendedColleges(state) {
+      const recommendedColleges = state.loginUser.college_recommendations.recommended_colleges;
+      const otherRecommendedColleges = recommendedColleges.filter(college => {
+        return !state.intendedColleges.some(ic => {
+          return (
+            ic.college_code === college.college_code &&
+            ic.campus_code === college.campus_code
+          );
+        });
+      });
+      state.intendedAndRecommendedColleges = state.intendedColleges.concat(otherRecommendedColleges);
+    }
   },
   actions: {
     login({ commit }, data) {
