@@ -114,7 +114,7 @@ export default {
   },
   methods: {
     init() {
-      this.satisfactionOptions = [22, 25, 27, 30, 40, 60];
+      this.satisfactionOptions = [30, 35, 40, 45, 50, 55, 60];
       this.tableData = [
         { order: "一批次A院校", college: "?", satisfaction: "?" },
         {
