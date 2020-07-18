@@ -37,6 +37,7 @@
 <script>
 import { mapState } from "vuex";
 import FillableZhiyuanForm from "@/components/FillableZhiyuanForm";
+import request from "@/plugins/request";
 
 export default {
   name: "IntendedCollegesForm",

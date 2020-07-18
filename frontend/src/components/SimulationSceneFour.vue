@@ -90,7 +90,8 @@ export default {
       "otherZhiyuanSatisfactionAssessAnswers",
       "xiaoMingSatisfactions",
       "hanMeiMeiColleges",
-      "hanMeiMeiCollegeOptions"
+      "hanMeiMeiCollegeOptions",
+      "loginUser",
     ]),
     collegeRecommendations() {
       return this.loginUser.college_recommendations;
