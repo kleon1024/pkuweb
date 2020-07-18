@@ -49,12 +49,6 @@ export default {
     };
   },
   computed: {
-    collegeRecommendations() {
-      return this.loginUser.college_recommendations;
-    },
-    // recomendedColleges() {
-    //   return this.collegeRecommendations.recommended_colleges;
-    // },
     numberOfSelectedColleges() {
       return this.selectedColleges.length;
     },

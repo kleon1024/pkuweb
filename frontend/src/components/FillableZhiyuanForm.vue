@@ -152,13 +152,19 @@ export default {
       }
     },
     collegeRecommendations() {
-      return this.loginUser.college_recommendations;
+      if (this.loginUser != null) {
+        return this.loginUser.college_recommendations;
+      }
     },
     recommendedColleges() {
-      return this.collegeRecommendations.recommended_colleges;
+      if (this.collegeRecommendations != null) {
+        return this.collegeRecommendations.recommended_colleges;
+      }
     },
     otherColleges() {
-      return this.collegeRecommendations.other_colleges;
+      if (this.collegeRecommendations != null) {
+        return this.collegeRecommendations.other_colleges;
+      }
     },
     selectableRecommendedColleges() {
       // if (this.intendedAndRecommendedColleges) {
