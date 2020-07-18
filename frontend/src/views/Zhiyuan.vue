@@ -194,10 +194,10 @@ export default {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
     format(percentage) {
-      if (this.majorStep == 7) {
+      if (this.majorStep == 10) {
         return "100%";
       }
-      if (this.majorStep >= 8) {
+      if (this.majorStep >= 11) {
         return "";
       }
       return this.majorStep + "-" + this.minorStep;
