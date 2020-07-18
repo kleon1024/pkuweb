@@ -42,7 +42,7 @@
         </h4>
         <el-select v-model="selectedColleges[index]" placeholder="请选择">
           <el-option
-            v-for="(college, i) in hanMeiMeiCollegeOptions"
+            v-for="(college, i) in hanMeiMeiCollegeOptions[0]"
             :key="college.full_name"
             :label="String.fromCharCode('A'.charCodeAt(0) + i) + '. ' +  college.full_name"
             :value="college.full_name"
