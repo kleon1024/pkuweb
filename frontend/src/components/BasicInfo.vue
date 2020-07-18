@@ -92,7 +92,7 @@
         <el-form-item v-if="otherMamaJob" prop="other_mama_job" label-width="0" required>
           <el-input placeholder="其他职业说明" v-model="basicInfoForm.other_mama_job" />
         </el-form-item>
-        <h4>8.请选择家庭所在所在县/市（区）：</h4>
+        <h4>8.请选择家庭所在县/市（区）：</h4>
         <el-form-item prop="family_location" label-width="0" required>
           <el-select
             v-model="basicInfoForm.family_location"
