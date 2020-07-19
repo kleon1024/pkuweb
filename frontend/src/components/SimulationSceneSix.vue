@@ -52,11 +52,11 @@
             :rules="{ required: true, message: '请选择一项', trigger: 'blur' }"
             required
           >
-            <el-radio-group v-if="riskForm.random == 0" v-model="item.value">
+            <el-radio-group v-if="randomOrder == 0" v-model="item.value">
               <el-radio label="A" style="margin-right: 5px">25%的概率获得{{ 30 + index * 5 }}元，75%的概率获得20元</el-radio>
               <el-radio label="B" style="margin-right: 5px">50%的概率获得25元，50%的概率获得5元</el-radio>
             </el-radio-group>
-            <el-radio-group v-if="riskForm.random == 1" v-model="item.value">
+            <el-radio-group v-if="randomOrder == 1" v-model="item.value">
               <el-radio label="A" style="margin-right: 5px">50%的概率获得25元，50%的概率获得5元</el-radio>
               <el-radio label="B" style="margin-right: 5px">25%的概率获得{{ 30 + index * 5 }}元，75%的概率获得20元</el-radio>
             </el-radio-group>
@@ -97,12 +97,12 @@ export default {
       riskForm: {
         risk_list: risk_list,
         risk_list2: risk_list2,
-        random: utils.getRandomInt(0, 2),
       }
     };
   },
   computed: {
     ...mapState([
+      "randomOrder"
     ]),
   },
   mounted() {

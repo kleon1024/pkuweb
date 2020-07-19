@@ -62,6 +62,7 @@ export default new Vuex.Store({
     sim12Answer: null,
     riskForm: null,
     branch: utils.getRandomInt(0, 2),
+    randomOrder: utils.getRandomInt(0, 2),
   },
   mutations: {
     setUser(state, data) {
@@ -130,6 +131,7 @@ export default new Vuex.Store({
       state.sim12Answer = null;
       state.riskForm = null;
       state.branch = utils.getRandomInt(0, 2);
+      state.randomOrder = utils.getRandomInt(0, 2);
       if (process.env.NODE_ENV === "production") {
         cookies.remove("SIMIN-NX-SESSION", { // when removing session, needes exact options
           domain: "pkuzhiyuan.com",
@@ -180,6 +182,7 @@ export default new Vuex.Store({
       state.sim12Answer = zhiyuan.sim12Answer;
       state.riskForm = zhiyuan.riskForm;
       state.branch = zhiyuan.branch;
+      state.randomOrder = zhiyuan.randomOrder;
     },
     saveStep(state, step) {
       state.majorStep = step[0];
@@ -346,6 +349,7 @@ export default new Vuex.Store({
         "sim12Answer",
         "riskForm",
         "branch",
+        "randomOrder",
       ],
       // // Enable encription
       // storage: {

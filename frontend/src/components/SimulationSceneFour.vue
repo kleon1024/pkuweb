@@ -107,6 +107,7 @@ export default {
       "hanMeiMeiColleges",
       "hanMeiMeiCollegeOptions",
       "loginUser",
+      "randomOrder",
     ]),
     collegeRecommendations() {
       return this.loginUser.college_recommendations;
@@ -248,7 +249,7 @@ export default {
       }
 
       var collegeOptions = [];
-      var number0 = utils.getRandomInt(0, 2);
+      var number0 = this.randomOrder;
       var number1 = 1 - number0;
       collegeOptions.push([
         this.hanMeiMeiColleges[number0],
