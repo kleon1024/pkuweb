@@ -70,7 +70,7 @@ export default {
   },
   mounted() {},
   data() {
-    var filledColleges = Array(8).fill("");
+    var filledColleges = Array(this.choices).fill("");
     if (this.disabled) {
       filledColleges = this.colleges;
     }

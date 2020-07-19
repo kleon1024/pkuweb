@@ -32,7 +32,6 @@
       <h4>2. 假设你只能在二本志愿表中填写两所院校，C院校，D院校的位置空着，那么你会如何填写？</h4>
       <FillableZhiyuanForm
         v-model="selected2Colleges"
-        :intendeds="intendedColleges2"
         :choices="2"
         show-all-colleges
       />
@@ -41,7 +40,6 @@
       <h4>3. 假设你只能在二本志愿表中填写一所院校，B院校，C院校，D院校的位置空着，那么你会如何填写？</h4>
       <FillableZhiyuanForm
         v-model="selected1Colleges"
-        :intendeds="intendedColleges2"
         :choices="1"
         show-all-colleges
       />
@@ -69,7 +67,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["intendedColleges2"]),
+    // ...mapState(["intendedColleges2"]),
     submitAnswer() {
       return {
         q1_answer: this.q1_answer,
@@ -78,7 +76,9 @@ export default {
       };
     },
     checkNumber() {
-      return this.selected2Colleges.length == 2 && this.selected2Colleges.length == 1;
+      console.log(this.selected2Colleges);
+      console.log(this.selected1Colleges);
+      return this.selected2Colleges.length == 2 && this.selected1Colleges.length == 1;
     },
   },
   mounted() {},
