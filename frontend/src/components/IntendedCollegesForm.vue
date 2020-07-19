@@ -8,13 +8,6 @@
 
       <p  style="color: red; font-weight: bold;">请至少填写三个学校。只准备填报三个院校的同学不须填写 D 院校；如果您实际只填报的普通一批次院校不足三所，请在B,C院校两空中选择您知道的其它院校。</p>
       <FillableZhiyuanForm v-model="selectedColleges" show-all-colleges />
-      <el-alert
-        v-show="numberOfSelectedColleges <= 3"
-        type="error"
-        center
-        :title="zhiyuanFormHint"
-        :closable="false"
-      />
     </section>
     <section style="margin-top: 20px;">
       <el-divider />
@@ -56,13 +49,6 @@ export default {
     numberOfSelectedColleges() {
       return this.selectedColleges.length;
     },
-    zhiyuanFormHint() {
-      const dp1 =
-        this.numberOfSelectedColleges < 3
-          ? "请至少填写三个院校！"
-          : "";
-      return `${dp1}请严格按照您最终提交的志愿表中院校的顺序进行填写。志愿顺序的错位可能会影响问卷报酬的发放！`;
-    }
   },
   methods: {
     initRecommends() {
