@@ -5,7 +5,8 @@
         <span class="card-title">请填写您的身份信息</span>
       </el-row>
     </div>
-    <el-alert type="success" center :closable="false" style="margin-bottom: 15px" title="为了确保您能够获得此次调查的报酬，请务必填写完整、准确的身份信息。" />
+    <el-alert type="success" center :closable="false" style="margin-bottom: 15px" 
+              title="为了确保您能够获得此次调查的报酬，请务必填写完整、准确的身份信息。" />
     <el-form
       ref="loginForm"
       :model="loginForm"

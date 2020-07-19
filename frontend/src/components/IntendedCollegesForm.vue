@@ -15,7 +15,6 @@
         :title="zhiyuanFormHint"
         :closable="false"
       />
-      <el-checkbox v-model="checked" style="color: red; font-weight: bold;" >如果您实际只填报的普通一批次院校不足三所，请点击左边的方框打勾。</el-checkbox>
     </section>
     <section style="margin-top: 20px;">
       <el-divider />
@@ -47,7 +46,6 @@ export default {
   data() {
     return {
       selectedColleges: [],
-      checked: false,
     };
   },
   mounted() {
@@ -94,7 +92,6 @@ export default {
     submitIntendedCollegesForm() {
       if (this.numberOfSelectedColleges >= 3) {
         this.$store.commit("storeIntendedColleges", this.selectedColleges);
-        this.$store.commit("storeLessThanThree", this.checked);
         this.$emit("confirmed");
       } else {
         this.$alert("请至少填写三个院校！", "请注意", {

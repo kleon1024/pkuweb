@@ -274,15 +274,12 @@ export default {
         }
       );
     },
-    zhiyuanFinished() {
-      this.$message({
-        type: "success",
-        message: "您已成功提交志愿，如有问题请与我们联系"
-      });
-    },
     onZhiyuanSubmissionFormDone(zhiyuanForm) {
       this.$store.commit("savePaymentMethod", zhiyuanForm.paymentMethod);
-      this.saveCheckpoint(() => {});
+      this.saveCheckpoint(() => {
+        this.$router.app.$emit('logout')
+      });
+      
     }
   }
 };

@@ -14,8 +14,8 @@
           <el-select
             v-model="selectedCollegeIndices[scope.row - 1]"
             filterable
-            :clearable="scope.row > 3"
-            :disabled="disabled || scope.row >= 2 && selectedCollegeIndices[scope.row - 2] == null"
+            clearable
+            :disabled="disabled"
             style="width: 100%;"
             :placeholder="placeholder[scope.row-1]"
           >

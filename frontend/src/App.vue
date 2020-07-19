@@ -54,7 +54,7 @@
             title="注意：本调查和高考志愿填报无关。同学们务必通过宁夏教育考试院公布的高考志愿填报入口来填报志愿。"
           />
         </div>
-        <router-view />
+        <router-view @logout="logout" />
       </el-main>
     </el-container>
   </div>
@@ -104,7 +104,7 @@ export default {
       return this.loginUser.name != null;
     },
     finishAll() {
-      return this.majorStep == 7 && this.minorStep == 1;
+      return this.majorStep == 10 && this.minorStep == 1;
     },
     content() {
       var r = "";

@@ -7,7 +7,9 @@
         <br/> 科目：{{ class_select }} 
         <br/> 班级：{{ loginUser.class_number }} 
         <br/>
-        <br/> 请在这里截屏作为完成问卷的凭证。
+    </div>
+    <div v-if="!isShow">
+        请在这里截屏作为完成问卷的凭证。
     </div>
     <div v-if="!isShow">
       <h5>为方便我们把报酬给您，请在下面的方框中写下您的支付宝/微信账号。（若您想通过其它支付方式获得报酬，请在框内详细说明）</h5>
@@ -17,7 +19,7 @@
           class="action-button"
           type="primary"
           @click.stop="formDone"
-        >确认</el-button>
+        >完成</el-button>
       </div>
     </div>
   </div>
