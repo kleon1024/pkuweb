@@ -226,7 +226,7 @@ export default {
           this.loginUser.college_recommendations.recommended_colleges.length <=
             3
         ) {
-          if (major == 4 && minor == 2) {
+          if (major == 6 && minor == 1) {
             this.$store.commit("saveStep", [8, 1]);
           } else {
             this.$store.commit("saveStep", [major, minor]);
