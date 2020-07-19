@@ -44,8 +44,18 @@
       <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
         <h4>
           {{ index + 1 }}.
+          <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[0].full_name">
           对{{ hanMeiMeiColleges[0].full_name }}的满意度是<span class="danger">{{ satisfaction }} </span>，上线概率<span class="danger">25%</span>。
+          </span>
+          <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[1].full_name">
           对{{ hanMeiMeiColleges[1].full_name }}的满意度是<span class="danger">25</span>，上线概率是<span class="danger">50%</span>。
+          </span>
+          <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[1].full_name">
+          对{{ hanMeiMeiColleges[1].full_name }}的满意度是<span class="danger">25</span>，上线概率是<span class="danger">50%</span>。
+          </span>
+          <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[0].full_name">
+          对{{ hanMeiMeiColleges[0].full_name }}的满意度是<span class="danger">{{ satisfaction }} </span>，上线概率<span class="danger">25%</span>。
+          </span>        
         </h4>
         <el-radio-group v-model="selectedColleges[index]" placeholder="请选择">
           <el-radio

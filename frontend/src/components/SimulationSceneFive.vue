@@ -13,8 +13,8 @@
         <el-table-column prop="college" label="院校"></el-table-column>
         <el-table-column prop="satisfaction" label="满意度"></el-table-column>
       </el-table>
-      <p>经过资料查询，她认为如果被 {{ hanMeiMeiColleges[1].full_name }}录取，她的满意度为<span class="danger">25</span>，自己的分数超过 {{ hanMeiMeiColleges[1].full_name }}分数线的可能性为<span class="danger">50%</span>。</p>
-      <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].full_name }}分数线的可能性为<span class="danger">25%</span>。不过，她还不确定自己对{{ hanMeiMeiColleges[0].full_name }}的满意程度，需要你帮她做一些计划。</p>
+      <p>经过资料查询，她认为如果被 {{ hanMeiMeiColleges[1].full_name }}录取，她的满意度为<span class="danger">25</span>，自己的分数超过 {{ hanMeiMeiColleges[1].full_name }}分数线的可能性为<span class="danger">50%。</p>
+      <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].full_name }}分数线的可能性为<span class="danger">25%。不过，她还不确定自己对{{ hanMeiMeiColleges[0].full_name }}的满意程度，需要你帮她做一些计划。</p>
     </section>
     <section v-if="!correctAnswer">
       <p>请回答以下问题来确认你对情景的理解：</p>
@@ -37,8 +37,18 @@
       <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
         <h4>
           {{ index + 1 }}.
+          <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[0].full_name">
           对{{ hanMeiMeiColleges[0].full_name }}的满意度是<span class="danger">{{ satisfaction }} </span>，上线概率<span class="danger">25%</span>。
+          </span>
+          <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[1].full_name">
           对{{ hanMeiMeiColleges[1].full_name }}的满意度是<span class="danger">25</span>，上线概率是<span class="danger">50%</span>。
+          </span>
+          <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[1].full_name">
+          对{{ hanMeiMeiColleges[1].full_name }}的满意度是<span class="danger">25</span>，上线概率是<span class="danger">50%</span>。
+          </span>
+          <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[0].full_name">
+          对{{ hanMeiMeiColleges[0].full_name }}的满意度是<span class="danger">{{ satisfaction }} </span>，上线概率<span class="danger">25%</span>。
+          </span>
         </h4>
         <el-radio-group v-model="selectedColleges[index]" placeholder="请选择">
           <el-radio
