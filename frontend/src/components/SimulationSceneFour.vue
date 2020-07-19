@@ -161,13 +161,13 @@ export default {
         var useChong = false;
         var useWen = false;
         for (var college in this.chongs) {
-          if (!(college.full_name in ["宁夏大学", "宁夏医科大学", "兰州大学"])) {
+          if (!(college.full_name == "宁夏大学" || college.full_name == "宁夏医科大学" || college.full_name == "兰州大学")) {
             useChong = true;
             break;
           }
         }
         for (var college in this.wens) {
-          if (!(college.full_name in ["宁夏大学", "宁夏医科大学", "兰州大学"])) {
+          if (!(college.full_name == "宁夏大学" || college.full_name == "宁夏医科大学" || college.full_name == "兰州大学")) {
             useWen = true;
             break;
           }
@@ -200,15 +200,20 @@ export default {
           }
 
           if (
-            college.full_name in
-            ["厦门大学", "中山大学", "南京大学", "中央财经大学", "上海财经大学"]
+            college.full_name == "厦门大学" ||
+            college.full_name == "中山大学" ||
+            college.full_name == "南京大学" ||
+            college.full_name == "中央财经大学" ||
+            college.full_name == "上海财经大学"
           ) {
             group1.push(college);
           }
 
           if (
-            college.full_name in
-            ["西北政法大学", "西安交通大学", "山东大学", "四川大学"]
+            college.full_name == "西北政法大学" || 
+            college.full_name == "西安交通大学" || 
+            college.full_name == "山东大学" ||
+            college.full_name == "四川大学"
           ) {
             group2.push(college);
           }
