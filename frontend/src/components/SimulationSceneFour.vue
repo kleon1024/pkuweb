@@ -8,7 +8,11 @@
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="order" label="志愿号"></el-table-column>
         <el-table-column prop="college" label="院校"></el-table-column>
-        <el-table-column prop="satisfaction" label="满意度"></el-table-column>
+        <el-table-column prop="satisfaction" label="满意度">
+          <template slot-scope="scope">
+            <span class="danger"> {{scope.row.satisfaction}} </span>
+          </template>
+        </el-table-column>
       </el-table>
       <p>
         她已经从招生办了解到，自己的分数远远超过{{ hanMeiMeiColleges[4].college }}往年的分数线。
@@ -17,8 +21,8 @@
           class="danger"
         >在这种情况下，她的满意度是20。也就是说，在这种情况下你一定能获得20元。</span>
       </p>
-      <p>经过资料查询，她认为如果被{{ hanMeiMeiColleges[1].college }}录取，她的满意度为25，自己的分数超过{{ hanMeiMeiColleges[1].college }}分数线的可能性为50%。</p>
-      <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].college }}分数线的可能性为25%。不过，她还不确定自己对{{ hanMeiMeiColleges[0].college }}的满意程度，需要你帮她做一些计划。</p>
+      <p>经过资料查询，她认为如果被{{ hanMeiMeiColleges[1].college }}录取，她的满意度为<span class="danger">25</span>，自己的分数超过{{ hanMeiMeiColleges[1].college }}分数线的可能性为<span class="danger">50%</span>。</p>
+      <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].college }}分数线的可能性为<span class="danger">25%</span>。不过，她还不确定自己对{{ hanMeiMeiColleges[0].college }}的满意程度，需要你帮她做一些计划。</p>
     </section>
     <section v-if="!correctAnswer">
       <p>请回答以下问题来确认你对情景的理解：</p>
@@ -40,17 +44,18 @@
       <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
         <h4>
           {{ index + 1 }}.
-          对{{ hanMeiMeiColleges[0].full_name }}的满意度是{{ satisfaction }}，上线概率25%。
-          对{{ hanMeiMeiColleges[1].full_name }}的满意度是25，上线概率是50%。
+          对{{ hanMeiMeiColleges[0].full_name }}的满意度是<span class="danger">{{ satisfaction }} </span>，上线概率<span class="danger">25%</span>。
+          对{{ hanMeiMeiColleges[1].full_name }}的满意度是<span class="danger">25</span>，上线概率是<span class="danger">50%</span>。
         </h4>
-        <el-select v-model="selectedColleges[index]" placeholder="请选择">
-          <el-option
+        <el-radio-group v-model="selectedColleges[index]" placeholder="请选择">
+          <el-radio
             v-for="(college, i) in hanMeiMeiCollegeOptions[0]"
             :key="college.full_name"
             :label="String.fromCharCode('A'.charCodeAt(0) + i) + '. ' +  college.full_name"
-            :value="college.full_name"
-          ></el-option>
-        </el-select>
+          >
+          {{ String.fromCharCode('A'.charCodeAt(0) + i) + '. ' +  college.full_name }}
+          </el-radio>
+        </el-radio-group>
       </el-row>
     </section>
     <div align="center" style="margin-top: 50px;">
