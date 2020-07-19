@@ -54,7 +54,7 @@
           <el-radio
             v-for="(college, i) in hanMeiMeiCollegeOptions[0]"
             :key="college.full_name"
-            :label="String.fromCharCode('A'.charCodeAt(0) + i) + '. ' +  college.full_name"
+            :label="college.full_name"
           >
           {{ String.fromCharCode('A'.charCodeAt(0) + i) + '. ' +  college.full_name }}
           </el-radio>
@@ -116,7 +116,7 @@ export default {
     },
     submitAnswer() {
       return {
-        selectedColleges: this.selectedColleges.map(c => c.full_name),
+        selectedColleges: this.selectedColleges,
       };
     }
   },
