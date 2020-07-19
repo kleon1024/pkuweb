@@ -11,7 +11,11 @@
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="order" label="志愿号"></el-table-column>
         <el-table-column prop="college" label="院校"></el-table-column>
-        <el-table-column prop="satisfaction" label="满意度"></el-table-column>
+        <el-table-column prop="satisfaction" label="满意度">
+          <template slot-scope="scope">
+            <span class="danger"> {{scope.row.satisfaction}} </span>
+          </template>
+        </el-table-column>
       </el-table>
       <p>经过资料查询，她认为如果被 {{ hanMeiMeiColleges[1].full_name }}录取，她的满意度为<span class="danger">25</span>，自己的分数超过 {{ hanMeiMeiColleges[1].full_name }}分数线的可能性为<span class="danger">50%。</p>
       <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].full_name }}分数线的可能性为<span class="danger">25%。不过，她还不确定自己对{{ hanMeiMeiColleges[0].full_name }}的满意程度，需要你帮她做一些计划。</p>

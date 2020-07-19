@@ -30,7 +30,7 @@
         />
       </div>
     </div>
-    <el-progress :percentage="(majorStep % 10 + 1)*10" :format="format"></el-progress>
+    <el-progress :percentage="(majorStep % 11)*10" :format="format"></el-progress>
     <section class="guide-content">
       <BasicInfo v-if="majorStep === 1" @confirmed="saveStep(majorStep + 1, 1)" />
       <IntendedCollegesForm v-if="majorStep === 2" @confirmed="saveStep(majorStep + 1, 1)" />
