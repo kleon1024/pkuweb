@@ -53,12 +53,12 @@
             required
           >
             <el-radio-group v-if="randomOrder == 0" v-model="item.value">
-              <el-radio label="A" style="margin-right: 5px">25%的概率获得{{ 30 + index * 5 }}元，75%的概率获得20元</el-radio>
+              <el-radio label="A" style="margin-right: 5px">25%的概率获得{{ 30 + index * 5 }}元，75%的概率获得5元</el-radio>
               <el-radio label="B" style="margin-right: 5px">50%的概率获得25元，50%的概率获得5元</el-radio>
             </el-radio-group>
             <el-radio-group v-if="randomOrder == 1" v-model="item.value">
               <el-radio label="A" style="margin-right: 5px">50%的概率获得25元，50%的概率获得5元</el-radio>
-              <el-radio label="B" style="margin-right: 5px">25%的概率获得{{ 30 + index * 5 }}元，75%的概率获得20元</el-radio>
+              <el-radio label="B" style="margin-right: 5px">25%的概率获得{{ 30 + index * 5 }}元，75%的概率获得5元</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-row>
