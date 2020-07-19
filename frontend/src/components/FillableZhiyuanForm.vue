@@ -145,11 +145,6 @@ export default {
   computed: {
     ...mapState(["intendedAndRecommendedColleges"]),
     placeholder() {
-      // if (this.colleges.length == this.choices) {
-      //   return this.colleges.map(item => item.full_name);
-      // } else {
-      //   return Array(this.choices).fill("选择或搜索院校");
-      // }
       var results = this.colleges.map(item => item.full_name);
       if (results.length == 0) {
         return Array(this.choices).fill("选择或搜索院校");
