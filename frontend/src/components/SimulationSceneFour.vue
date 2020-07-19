@@ -138,9 +138,9 @@ export default {
         var hanMeiMeiColleges = [];
         console.log(hanMeiMeiColleges);
 
-        var type = 0;
+        var type = 1;
         var chongs = [];
-        var baos = [];
+        var wens = [];
 
         console.log("-------------------------")
         console.log(this.recommendedColleges)
@@ -153,20 +153,34 @@ export default {
           if (college.strategy == "冲") {
             chongs.push(college);
           }
-          if (college.strategy == "保") {
-            baos.push(college);
-          }
-          if (college.strategy in ["冲", "稳"]) {
-            if (college.full_name in ["宁夏大学", "宁夏医科大学", "兰州大学"]) {
-              type = 1;
-              break;
-            }
+          if (college.strategy == "稳") {
+            wens.push(college);
           }
         }
 
+        var useChong = false;
+        var useWen = false;
+        for (var college in this.chongs) {
+          if (!(college.full_name in ["宁夏大学", "宁夏医科大学", "兰州大学"])) {
+            useChong = true;
+            break;
+          }
+        }
+        for (var college in this.wens) {
+          if (!(college.full_name in ["宁夏大学", "宁夏医科大学", "兰州大学"])) {
+            useWen = true;
+            break;
+          }
+        }
+        if (useChong && useWen) {
+          type = 0;
+        } else {
+          type = 1;
+        }
+        
         console.log(type);
         console.log(chongs);
-        console.log(baos);
+        console.log(wens);
 
         var ningda;
         var ningyi;
@@ -208,7 +222,7 @@ export default {
 
         if (type == 0) {
           hanMeiMeiColleges.push(chongs[utils.getRandomInt(0, chongs.length)]);
-          hanMeiMeiColleges.push(baos[utils.getRandomInt(0, baos.length)]);
+          hanMeiMeiColleges.push(wens[utils.getRandomInt(0, wens.length)]);
           hanMeiMeiColleges.push(landa);
           hanMeiMeiColleges.push(ningyi);
           hanMeiMeiColleges.push(ningda);
