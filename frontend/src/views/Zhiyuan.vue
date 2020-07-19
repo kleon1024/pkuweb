@@ -184,11 +184,14 @@ export default {
     ]),
     basicInfo() {
       return this.loginUser.basic_info;
+    },
+    content() {
+      return "问卷填写已完成。若您还有其它的问题，请通过微信pku_zhiyuan1联系我们，感谢您的支持与配合！";
     }
   },
+  mounted() {
 
-  mounted() {},
-
+  },
   methods: {
     sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
@@ -277,9 +280,25 @@ export default {
     onZhiyuanSubmissionFormDone(zhiyuanForm) {
       this.$store.commit("savePaymentMethod", zhiyuanForm.paymentMethod);
       this.saveCheckpoint(() => {
-        this.$router.app.$emit('logout')
+        this.logout();
       });
-      
+    },
+    logout() {
+        this.buttonString = "确定要退出么？";
+        this.$confirm(this.content, this.buttonString, {
+          confirmButtonText: "确认",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            this.$store.commit("clearUser");
+            this.$message({
+              type: "success",
+              message: "成功登出"
+            });
+            this.$router.push("/letter");
+          })
+          .catch(() => {});
     }
   }
 };
