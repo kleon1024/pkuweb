@@ -3,20 +3,11 @@
     <center>
       <h2>风险偏好测试游戏</h2>
     </center>
-      <p>
-      在下面的每一道小题中，你将面临两个选项，请选择你更偏好的那个选项。
-      </p>
-      <p
-        style="color:red; font-weight: bold;"
-      >每一道小题都有相同的可能性被抽中，在该小题中你更偏好的那个选项将作为完成本问卷的额外报酬，因此我们建议你认真完成所有的题目。</p>
-      <el-form
-        ref="riskForm"
-        :model="riskForm"
-        :rules="rules"
-        label-position="left"
-        label-width="90px"
-        status-icon
-      >
+    <p>在下面的每一道小题中，你将面临两个选项，请选择你更偏好的那个选项。</p>
+    <p
+      style="color:red; font-weight: bold;"
+    >每一道小题都有相同的可能性被抽中，在该小题中你更偏好的那个选项将作为完成本问卷的额外报酬，因此我们建议你认真完成所有的题目。</p>
+    <el-form ref="riskForm" :model="riskForm" label-position="left" label-width="90px" status-icon>
       <section style="margin-top: 20px">
         <el-row
           v-for="(item, index) in riskForm.risk_list"
@@ -30,17 +21,23 @@
             required
           >
             <el-radio-group v-if="randomOrder == 0" v-model="item.value">
-              <el-radio label="A" style="margin-right: 5px">25%的概率获得{{ 30 + index * 5 }}元，75%的概率获得20元</el-radio>
+              <el-radio
+                label="A"
+                style="margin-right: 5px"
+              >25%的概率获得{{ 30 + index * 5 }}元，75%的概率获得20元</el-radio>
               <el-radio label="B" style="margin-right: 5px">50%的概率获得25元，50%的概率获得20元</el-radio>
             </el-radio-group>
             <el-radio-group v-if="randomOrder == 1" v-model="item.value">
               <el-radio label="A" style="margin-right: 5px">50%的概率获得25元，50%的概率获得20元</el-radio>
-              <el-radio label="B" style="margin-right: 5px">25%的概率获得{{ 30 + index * 5 }}元，75%的概率获得20元</el-radio>
+              <el-radio
+                label="B"
+                style="margin-right: 5px"
+              >25%的概率获得{{ 30 + index * 5 }}元，75%的概率获得20元</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-row>
-        </section>
-        <section style="margin-top: 20px">
+      </section>
+      <section style="margin-top: 20px">
         <el-row
           v-for="(item, index) in riskForm.risk_list2"
           :key="`risk-take1-${index}`"
@@ -62,8 +59,8 @@
             </el-radio-group>
           </el-form-item>
         </el-row>
-        </section>
-      </el-form>
+      </section>
+    </el-form>
     <div align="center" style="margin-top: 50px;">
       <el-button type="primary" @click.stop="testDone">下一步</el-button>
     </div>
@@ -87,32 +84,47 @@ export default {
     for (var i = 0; i < 7; i++) {
       risk_list.push({
         value: ""
-      })
+      });
       risk_list2.push({
         value: ""
-      })
+      });
     }
 
     return {
       riskForm: {
         risk_list: risk_list,
-        risk_list2: risk_list2,
+        risk_list2: risk_list2
       }
     };
   },
   computed: {
-    ...mapState([
-      "randomOrder"
-    ]),
+    ...mapState(["randomOrder"]),
+    checkAnswer() {
+      for (var a in this.riskForm.risk_list) {
+        if (a == "") {
+          return false;
+        }
+      }
+      for (var a in this.riskForm.risk_list2) {
+        if (a == "") {
+          return false;
+        }
+      }
+      return true;
+    }
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     testDone() {
-      this.$refs["riskForm"].validate(valid => {
+      if (!this.checkAnswer) {
+        this.$message({
+          message: "请填写所有题目",
+          type: "error"
+        });
+      } else {
         this.$store.commit("storeRiskForm", this.riskForm);
         this.$emit("confirmed");
-      })
+      }
     }
   }
 };
