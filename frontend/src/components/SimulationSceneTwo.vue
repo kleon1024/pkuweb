@@ -5,7 +5,7 @@
     </center>
     <section>
       <p>
-        <span class="danger">李华的分数和你的分数相同。</span> 下表列出了他正在考虑的学校以及满意度：
+        <span class="danger">李华的分数和您的分数相同。</span> 下表列出了他正在考虑的学校以及满意度：
       </p>
       <el-row style="margin-top: 30px;" :gutter="24">
         <el-col
@@ -25,7 +25,7 @@
 
     <section style="margin-top: 50px;" v-if="satisfactions[0]">
       <p>
-        李华现在需要你帮助他填报志愿。
+        李华现在需要您帮助他填报志愿。
         <span class="danger"> 在此题中，奖励额度与满意度相同。</span>
       </p>
       <p>
@@ -42,14 +42,14 @@
         1. 如果李华被
         <span
           style="color:red; font-weight: bold;"
-        >{{ satisfactions[1].college.full_name }}</span>录取，那么你将获得______元奖励
+        >{{ satisfactions[1].college.full_name }}</span>录取，那么您将获得______元奖励
       </h4>
       <el-radio-group v-model="q1_answer">
         <el-radio-button label="A">A. {{ satisfactions[1].value - 10 }}</el-radio-button>
         <el-radio-button label="B">B. {{ satisfactions[1].value }}</el-radio-button>
         <el-radio-button label="C">C. {{ satisfactions[1].value + 10 }}</el-radio-button>
       </el-radio-group>
-      <h4>2. 如果李华没有被任何一本志愿录取，那么你将获得______元奖励</h4>
+      <h4>2. 如果李华没有被任何一本志愿录取，那么您将获得______元奖励</h4>
       <el-radio-group v-model="q2_answer">
         <el-radio-button label="A">A. 0</el-radio-button>
         <el-radio-button label="B">B. 5</el-radio-button>

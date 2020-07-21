@@ -6,11 +6,11 @@
       </el-row>
       <div class="personal-info">
         <div class="personal-tags" align="right">
-          <span v-if="basicInfo">
-            <el-tag>考生: {{ basicInfo.name || "尚未填写" }}</el-tag>
-            <el-tag>排名: {{ basicInfo.ranking || "尚未填写" }}</el-tag>
-            <el-tag>总分: {{ basicInfo.total_score || "尚未填写" }}</el-tag>
-            <el-tag>选科: {{ !basicInfo.class_selection ? "尚未填写" : (basicInfo.class_selection == 1 ? "理科" : "文科") }}</el-tag>
+          <span v-if="loginUser">
+            <el-tag>考生: {{ loginUser.name || "尚未填写" }}</el-tag>
+            <el-tag>排名: {{ loginUser.ranking || "尚未填写" }}</el-tag>
+            <el-tag>总分: {{ loginUser.total_score || "尚未填写" }}</el-tag>
+            <el-tag>选科: {{ !loginUser.class_selection ? "尚未填写" : (loginUser.class_selection == 1 ? "理科" : "文科") }}</el-tag>
           </span>
         </div>
         <el-alert

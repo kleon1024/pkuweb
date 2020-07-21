@@ -10,7 +10,7 @@
     </section>
     <p>请回答以下问题:</p>
     <section style="margin-top: 50px;">
-      <h4>1. 如果你的分数低于 {{ intendedColleges[0].full_name }} 的录取分数线，但高于{{ intendedColleges[1].full_name }}和{{ intendedColleges[2].full_name }}的录取分数线，那么你______</h4>
+      <h4>1. 如果您的分数低于 {{ intendedColleges[0].full_name }} 的录取分数线，但高于{{ intendedColleges[1].full_name }}和{{ intendedColleges[2].full_name }}的录取分数线，那么您______</h4>
       <el-radio-group v-model="q1_answer">
         <el-row style="margin-top: 20px;">
           <el-radio label="A">A. 一定会被{{ intendedColleges[0].full_name }}录取</el-radio>
@@ -29,7 +29,7 @@
       </el-radio-group>
     </section>
     <section style="margin-top: 50px;">
-      <h4>2. 假设你只能在一本志愿表中填写两所院校，C院校，D院校的位置空着，那么你会如何填写？</h4>
+      <h4>2. 假设您只能在一本志愿表中填写两所院校，C院校，D院校的位置空着，那么您会如何填写？</h4>
       <FillableZhiyuanForm
         v-model="selected2Colleges"
         :intendeds="intendedColleges"
@@ -38,7 +38,7 @@
       />
     </section>
     <section style="margin-top: 50px;">
-      <h4>3. 假设你只能在一本志愿表中填写一所院校，B院校，C院校，D院校的位置空着，那么你会如何填写？</h4>
+      <h4>3. 假设您只能在一本志愿表中填写一所院校，B院校，C院校，D院校的位置空着，那么您会如何填写？</h4>
       <FillableZhiyuanForm
         v-model="selected1Colleges"
         :intendeds="intendedColleges"

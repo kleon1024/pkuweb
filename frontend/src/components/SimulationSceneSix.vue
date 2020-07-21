@@ -3,10 +3,10 @@
     <center>
       <h2>风险偏好测试游戏</h2>
     </center>
-    <p>在下面的每一道小题中，你将面临两个选项，请选择你更偏好的那个选项。</p>
+    <p>在下面的每一道小题中，您将面临两个选项，请选择您更偏好的那个选项。</p>
     <p
       style="color:red; font-weight: bold;"
-    >每一道小题都有相同的可能性被抽中，在该小题中你更偏好的那个选项将作为完成本问卷的额外报酬，因此我们建议你认真完成所有的题目。</p>
+    >每一道小题都有相同的可能性被抽中，在该小题中您更偏好的那个选项将作为完成本问卷的额外报酬，因此我们建议您认真完成所有的题目。</p>
     <el-form ref="riskForm" :model="riskForm" label-position="left" label-width="90px" status-icon>
       <section style="margin-top: 20px">
         <el-row
@@ -116,15 +116,19 @@ export default {
   mounted() {},
   methods: {
     testDone() {
-      if (!this.checkAnswer) {
-        this.$message({
-          message: "请填写所有题目",
-          type: "error"
-        });
-      } else {
-        this.$store.commit("storeRiskForm", this.riskForm);
-        this.$emit("confirmed");
-      }
+      this.$refs["riskForm"].validate(valid => {
+        if (valid) {
+          if (!this.checkAnswer) {
+            this.$message({
+              message: "请填写所有题目",
+              type: "error"
+            });
+          } else {
+            this.$store.commit("storeRiskForm", this.riskForm);
+            this.$emit("confirmed");
+          }
+        }
+      });
     }
   }
 };

@@ -6,7 +6,7 @@
       就读的满意程度：{{ satisfaction }} %
     </h4>
     <h4 v-if="noCollege">
-      如果你没有被任何一本志愿录取，那么你的满意程度是：{{ satisfaction }} %
+      如果您没有被任何一本志愿录取，那么您的满意程度是：{{ satisfaction }} %
     </h4>
     <el-slider v-model="satisfaction" :marks="marks" @change="onChange" />
     <div class="hint-text" style="margin-top: 20px; color: red;">(请至少移动一次滑块来调整您的满意程度)</div>

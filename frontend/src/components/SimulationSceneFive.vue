@@ -17,18 +17,18 @@
           </template>
         </el-table-column>
       </el-table>
-      <p>经过资料查询，她认为如果被 {{ hanMeiMeiColleges[1].full_name }}录取，她的满意度为<span class="danger">25</span>，自己的分数超过 {{ hanMeiMeiColleges[1].full_name }}分数线的可能性为<span class="danger">50%。</p>
-      <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].full_name }}分数线的可能性为<span class="danger">25%。不过，她还不确定自己对{{ hanMeiMeiColleges[0].full_name }}的满意程度，需要你帮她做一些计划。</p>
+      <p>经过资料查询，她认为如果被 {{ hanMeiMeiColleges[1].full_name }}录取，她的满意度为<span class="danger">25</span>，自己的分数超过 {{ hanMeiMeiColleges[1].full_name }}分数线的可能性为<span class="danger">50%</span>。</p>
+      <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].full_name }}分数线的可能性为<span class="danger">25%</span>。不过，她还不确定自己对{{ hanMeiMeiColleges[0].full_name }}的满意程度，需要您帮她做一些计划。</p>
     </section>
     <section v-if="!correctAnswer">
-      <p>请回答以下问题来确认你对情景的理解：</p>
-      <h4>1. 如果韩梅梅未被一批次A志愿录取，那么你将获得________</h4>
+      <p>请回答以下问题来确认您对情景的理解：</p>
+      <h4>1. 如果韩梅梅未被一批次A志愿录取，那么您将获得________</h4>
       <el-radio-group v-model="q1_answer">
         <el-radio-button label="A">A. 5元</el-radio-button>
         <el-radio-button label="B">B. 20元</el-radio-button>
         <el-radio-button label="C">C. 无法确定</el-radio-button>
       </el-radio-group>
-      <h4>2. 如果韩梅梅被{{ hanMeiMeiColleges[1].full_name }}录取，那么你将获得_______</h4>
+      <h4>2. 如果韩梅梅被{{ hanMeiMeiColleges[1].full_name }}录取，那么您将获得_______</h4>
       <el-radio-group v-model="q2_answer">
         <el-radio-button label="A">A. 20元</el-radio-button>
         <el-radio-button label="B">B. 25元</el-radio-button>
@@ -37,7 +37,7 @@
     </section>
 
     <section v-if="correctAnswer">
-      <h4>请你告诉她，在下列七种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
+      <h4>请您告诉她，在下列七种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
       <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
         <h4>
           {{ index + 1 }}.

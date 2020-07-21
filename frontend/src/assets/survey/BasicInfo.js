@@ -235,7 +235,7 @@ export default {
       },
       {
         key: "F",
-        description: "西北主要城市（西安，兰州，银川，乌鲁木齐，西宁",
+        description: "西北主要城市（西安，兰州，银川，乌鲁木齐，西宁）",
         options: [
           {
             city_code: "6101",
@@ -331,7 +331,7 @@ export default {
       },
       {
         key: "C",
-        description: "法学，教育学"
+        description: "法学"
       },
       {
         key: "D",

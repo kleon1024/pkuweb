@@ -4,13 +4,16 @@
       <h2>情景：帮助韩梅梅报志愿</h2>
     </center>
     <section>
-      <p>韩梅梅没有告诉你高考分数，不过你知道她的分数远远超出一本线。目前，她还没确定一批次A院校该填什么： </p>
+      <p>
+        <span class="danger">在本情景中，你所获得的额外报酬和韩梅梅对录取院校的满意度相同。比如说，如果她对录取院校的满意度为10，那么你将额外获得10元。</span>
+      </p>
+      <p>韩梅梅没有告诉您高考分数，不过您知道她的分数远远超出一本线。目前，她还没确定一批次A院校该填什么：</p>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="order" label="志愿号"></el-table-column>
         <el-table-column prop="college" label="院校"></el-table-column>
         <el-table-column prop="satisfaction" label="满意度">
           <template slot-scope="scope">
-            <span class="danger"> {{scope.row.satisfaction}} </span>
+            <span class="danger">{{scope.row.satisfaction}}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -19,20 +22,30 @@
         如果没有被自己的第一选择（一批次A院校）录取，那么她一定会被{{ hanMeiMeiColleges[4].college }}或者{{ hanMeiMeiColleges[2].college }},{{ hanMeiMeiColleges[3].college }}录取。
         <span
           class="danger"
-        >在这种情况下，她的满意度是20。也就是说，在这种情况下你一定能获得20元。</span>
+        >在这种情况下，她的满意度是20。也就是说，在这种情况下您一定能获得20元。</span>
       </p>
-      <p>经过资料查询，她认为如果被{{ hanMeiMeiColleges[1].college }}录取，她的满意度为<span class="danger">25</span>，自己的分数超过{{ hanMeiMeiColleges[1].college }}分数线的可能性为<span class="danger">50%</span>。</p>
-      <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].college }}分数线的可能性为<span class="danger">25%</span>。不过，她还不确定自己对{{ hanMeiMeiColleges[0].college }}的满意程度，需要你帮她做一些计划。</p>
+      <p>
+        经过资料查询，她认为如果被{{ hanMeiMeiColleges[1].college }}录取，她的满意度为
+        <span class="danger">25</span>
+        ，自己的分数超过{{ hanMeiMeiColleges[1].college }}分数线的可能性为
+        <span class="danger">50%</span>。
+      </p>
+      <p>
+        她估计自己的分数超过{{ hanMeiMeiColleges[0].college }}分数线的可能性为
+        <span class="danger">25%</span>
+        。不过，她还不确定自己对{{ hanMeiMeiColleges[0].college }}的满意程度，需要您帮她做一些计划。
+      </p>
+      <p> <span class="danger"> 韩梅梅认为她的风险偏好和你的相同，因此请根据你自己对风险的偏好为韩梅梅挑选院校。 </span> </p>
     </section>
     <section v-if="!correctAnswer">
-      <p>请回答以下问题来确认你对情景的理解：</p>
-      <h4>1. 如果韩梅梅未被一批次A志愿录取，那么你将获得________</h4>
+      <p>请回答以下问题来确认您对情景的理解：</p>
+      <h4>1. 如果韩梅梅未被一批次A志愿录取，那么您将获得________</h4>
       <el-radio-group v-model="q1_answer">
         <el-radio-button label="A">A. 5元</el-radio-button>
         <el-radio-button label="B">B. 20元</el-radio-button>
         <el-radio-button label="C">C. 无法确定</el-radio-button>
       </el-radio-group>
-      <h4>2. 如果韩梅梅被{{ hanMeiMeiColleges[1].full_name }}录取，那么你将获得_______</h4>
+      <h4>2. 如果韩梅梅被{{ hanMeiMeiColleges[1].full_name }}录取，那么您将获得_______</h4>
       <el-radio-group v-model="q2_answer">
         <el-radio-button label="A">A. 20元</el-radio-button>
         <el-radio-button label="B">B. 25元</el-radio-button>
@@ -40,31 +53,39 @@
       </el-radio-group>
     </section>
     <section v-if="correctAnswer">
-      <h4>请你告诉她，在下列七种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
+      <h4>请您告诉她，在下列七种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
       <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
         <h4>
           {{ index + 1 }}.
-          <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[0].full_name">
-          对{{ hanMeiMeiColleges[0].full_name }}的满意度是<span class="danger">{{ satisfaction }} </span>，上线概率<span class="danger">25%</span>。
+          <span
+            v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[0].full_name"
+          >
+            对{{ hanMeiMeiColleges[0].full_name }}的满意度是
+            <span class="danger">{{ satisfaction }}</span>，上线概率
+            <span class="danger">25%</span>。
           </span>
           <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[1].full_name">
-          对{{ hanMeiMeiColleges[1].full_name }}的满意度是<span class="danger">25</span>，上线概率是<span class="danger">50%</span>。
+            对{{ hanMeiMeiColleges[1].full_name }}的满意度是
+            <span class="danger">25</span>，上线概率是
+            <span class="danger">50%</span>。
           </span>
           <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[1].full_name">
-          对{{ hanMeiMeiColleges[1].full_name }}的满意度是<span class="danger">25</span>，上线概率是<span class="danger">50%</span>。
+            对{{ hanMeiMeiColleges[1].full_name }}的满意度是
+            <span class="danger">25</span>，上线概率是
+            <span class="danger">50%</span>。
           </span>
           <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[0].full_name">
-          对{{ hanMeiMeiColleges[0].full_name }}的满意度是<span class="danger">{{ satisfaction }} </span>，上线概率<span class="danger">25%</span>。
-          </span>        
+            对{{ hanMeiMeiColleges[0].full_name }}的满意度是
+            <span class="danger">{{ satisfaction }}</span>，上线概率
+            <span class="danger">25%</span>。
+          </span>
         </h4>
         <el-radio-group v-model="selectedColleges[index]" placeholder="请选择">
           <el-radio
             v-for="(college, i) in hanMeiMeiCollegeOptions[0]"
             :key="college.full_name"
             :label="college.full_name"
-          >
-          {{ String.fromCharCode('A'.charCodeAt(0) + i) + '. ' +  college.full_name }}
-          </el-radio>
+          >{{ String.fromCharCode('A'.charCodeAt(0) + i) + '. ' + college.full_name }}</el-radio>
         </el-radio-group>
       </el-row>
     </section>
@@ -95,7 +116,7 @@ export default {
       colleges: [],
       allColleges: [],
       satisfactionOptions: [],
-      correctAnswer: false,
+      correctAnswer: false
     };
   },
   computed: {
@@ -107,7 +128,7 @@ export default {
       "hanMeiMeiColleges",
       "hanMeiMeiCollegeOptions",
       "loginUser",
-      "randomOrder",
+      "randomOrder"
     ]),
     collegeRecommendations() {
       return this.loginUser.college_recommendations;
@@ -125,7 +146,7 @@ export default {
     },
     submitAnswer() {
       return {
-        selectedColleges: this.selectedColleges,
+        selectedColleges: this.selectedColleges
       };
     }
   },
@@ -143,14 +164,14 @@ export default {
         var chongs = [];
         var wens = [];
 
-        console.log("-------------------------")
-        console.log(this.recommendedColleges)
+        console.log("-------------------------");
+        console.log(this.recommendedColleges);
         for (var key in this.recommendedColleges) {
           var college = this.recommendedColleges[key];
 
-          console.log("college")
+          console.log("college");
           console.log(college);
-          console.log(college.strategy)
+          console.log(college.strategy);
           if (college.strategy == "冲") {
             chongs.push(college);
           }
@@ -162,13 +183,25 @@ export default {
         var useChong = false;
         var useWen = false;
         for (var college in this.chongs) {
-          if (!(college.full_name == "宁夏大学" || college.full_name == "宁夏医科大学" || college.full_name == "兰州大学")) {
+          if (
+            !(
+              college.full_name == "宁夏大学" ||
+              college.full_name == "宁夏医科大学" ||
+              college.full_name == "兰州大学"
+            )
+          ) {
             useChong = true;
             break;
           }
         }
         for (var college in this.wens) {
-          if (!(college.full_name == "宁夏大学" || college.full_name == "宁夏医科大学" || college.full_name == "兰州大学")) {
+          if (
+            !(
+              college.full_name == "宁夏大学" ||
+              college.full_name == "宁夏医科大学" ||
+              college.full_name == "兰州大学"
+            )
+          ) {
             useWen = true;
             break;
           }
@@ -178,7 +211,7 @@ export default {
         } else {
           type = 1;
         }
-        
+
         console.log(type);
         console.log(chongs);
         console.log(wens);
@@ -211,8 +244,8 @@ export default {
           }
 
           if (
-            college.full_name == "西北政法大学" || 
-            college.full_name == "西安交通大学" || 
+            college.full_name == "西北政法大学" ||
+            college.full_name == "西安交通大学" ||
             college.full_name == "山东大学" ||
             college.full_name == "四川大学"
           ) {

@@ -9,7 +9,7 @@
         :model="basicInfoForm"
         :rules="rules"
         label-position="left"
-        label-width="90px"
+        label-width="120px"
         status-icon
       >
         <h3>基本信息</h3>
@@ -110,7 +110,12 @@
         </el-form-item>
         <h4>9. 请选择您的出生年月：</h4>
         <el-form-item prop="birthdate" label-width="0" required>
-          <el-date-picker v-model="basicInfoForm.birthdate" type="month" default-value="2000-01" style="width: 100%;" />
+          <el-date-picker
+            v-model="basicInfoForm.birthdate"
+            type="month"
+            default-value="2000-01"
+            style="width: 100%;"
+          />
         </el-form-item>
         <h3>志愿信息</h3>
         <div
@@ -130,7 +135,23 @@
           />
         </div>
 
-        <h4>7. 假设在录取过程结束后，您得知自己已被志愿中的某大学录取。请问您是否一定会入读该一本大学(第一空); 如果填写的是“否”，请问您打算在接下来一年里(第二空)</h4>
+        <h4>7. 请评估下列信息来源对你了解录取规则，选择志愿院校有多大帮助</h4>
+        <el-row v-for="(option, index) in mediaSourceOptions" :key="option">
+          <el-form-item
+            :label="option"
+            :prop="'media_source_list.' + index + '.value'"
+            :rules="{ required: true, message: '请选择一项', trigger: 'blur' }"
+            required
+          >
+            <el-radio-group v-model="basicInfoForm.media_source_list[index].value">
+              <el-radio label="A">完全没有帮助</el-radio>
+              <el-radio label="B">有一点帮助</el-radio>
+              <el-radio label="C">有很大帮助</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-row>
+
+        <h4>8. 假设在录取过程结束后，您得知自己已被志愿中的某大学录取。请问您是否一定会入读该大学(第一空); 如果填写的是“否”，请问您打算在接下来一年里(第二空)</h4>
         <el-row :gutter="20">
           <el-col :xs="24" :sm="8">
             <el-form-item label="第一空">
@@ -180,6 +201,13 @@ export default {
     PrioritySelect
   },
   data() {
+    var list = [];
+    for (var i = 0; i < 7; i++) {
+      list.push({
+        value: ""
+      })
+    }
+
     return {
       allColleges: [],
       loading: false,
@@ -201,9 +229,13 @@ export default {
         college_locations: [],
         college_majors: [],
         will_attend: true,
-        reason_not_attending: "A"
+        reason_not_attending: "A",
+        media_source_list: list,
       },
       rules: {
+        media_source_list: [
+          { required: true, message: "请选择一项", trigger: "blur" }
+        ],
         gender: [{ required: true, message: "请选择一项", trigger: "blur" }],
         papa_education: [
           { required: true, message: "请选择一项", trigger: "blur" }
@@ -293,6 +325,17 @@ export default {
       }
       return val;
     },
+    mediaSourceOptions() {
+      return [
+        "父母亲戚",
+        "学校老师",
+        "同学好友",
+        "门户网站",
+        "微信公众号",
+        "招生手册",
+        "报纸/电视节目"
+      ];
+    },
     educationOptions() {
       return [
         "A. 小学或以下",
@@ -309,11 +352,11 @@ export default {
     },
     economicsOptions() {
       return [
-        "A. 比大多数同学家庭状况好",
+        "A. 比平均水平好很多",
         "B. 比平均水平稍好",
         "C. 平均水平",
         "D. 比平均水平稍差",
-        "E. 比大多数同学家庭状况差"
+        "E. 比平均水平好很多"
       ];
     },
     jobOptions() {
@@ -405,8 +448,7 @@ export default {
       this.basicInfoForm.reason_not_attending = newVal ? "A" : "C";
     }
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     getValidatorByQuestion(question) {
       const numberOfSelections = question.numberOfSelections;
@@ -429,7 +471,6 @@ export default {
             message: "有信息未填写或有误。",
             type: "error"
           });
-
         }
       });
     }

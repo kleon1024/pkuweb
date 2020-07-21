@@ -5,7 +5,7 @@
     </center>
     <section>
       <p>
-        <span class="danger">李华的分数和你的分数相同。</span> 下表列出了他正在考虑的学校以及满意度：
+        <span class="danger">李华的分数和您的分数相同。</span> 下表列出了他正在考虑的学校以及满意度：
       </p>
       <el-row style="margin-top: 20px;" :gutter="24">
         <el-col
@@ -24,11 +24,11 @@
     </section>
 
     <section style="margin-top: 50px;" v-if="satisfactions[0]">
-      <h4>如果你可以帮助李华选择上述学校的中的四所作为一批次志愿，你会如何选择？</h4>
+      <h4>如果您可以帮助李华选择上述学校的中的四所作为一批次志愿，您会如何选择？</h4>
       <FillableZhiyuanForm v-model="selected4Colleges" :choices="4" />
-      <h4>如果李华只愿意选择两所学校作为一批次志愿，C,D院校的位置空着，你会如何选择？</h4>
+      <h4>如果李华只愿意选择两所学校作为一批次志愿，C,D院校的位置空着，您会如何选择？</h4>
       <FillableZhiyuanForm v-model="selected2Colleges" :choices="2" />
-      <h4>如果李华只愿意选择一所学校，B,C,D院校的位置都空着，你会如何选择？</h4>
+      <h4>如果李华只愿意选择一所学校，B,C,D院校的位置都空着，您会如何选择？</h4>
       <FillableZhiyuanForm v-model="selected1Colleges" :choices="1" />
     </section>
     <div align="center" style="margin-top: 50px;">
