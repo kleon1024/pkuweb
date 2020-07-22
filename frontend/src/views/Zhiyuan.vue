@@ -239,7 +239,7 @@ export default {
             this.$store.commit("saveStep", [5, 3]);
           } else if (major == 6 && minor == 1) {
             this.$store.commit("saveStep", [5, 1]);
-          } else if (major == 5 && minor == 2) {
+          } else if (major == 5 && minor == 3) {
             this.$store.commit("saveStep", [6, 1]);
           } else {
             this.$store.commit("saveStep", [major, minor]);
