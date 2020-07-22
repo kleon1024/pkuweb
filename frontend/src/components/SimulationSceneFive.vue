@@ -47,7 +47,7 @@
 
     <section v-if="correctAnswer">
       <h4>请您告诉她，在下列七种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
-      <el-form ref="form" :model="form" label-position="left" label-width="90px" status-icon>
+      <el-form ref="form" :model="form" label-position="left" label-width="0px" status-icon>
         <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
           <h4>
             {{ index + 1 }}.
