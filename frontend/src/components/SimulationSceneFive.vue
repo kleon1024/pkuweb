@@ -20,11 +20,11 @@
       <p>
         经过资料查询，她认为如果被 {{ hanMeiMeiColleges[1].full_name }}录取，她的满意度为
         <span class="danger">25</span>
-        ，自己的分数超过 {{ hanMeiMeiColleges[1].full_name }}分数线的可能性为
+        ，自己的分数达到 {{ hanMeiMeiColleges[1].full_name }}分数线的可能性为
         <span class="danger">50%</span>。
       </p>
       <p>
-        她估计自己的分数超过{{ hanMeiMeiColleges[0].full_name }}分数线的可能性为
+        她估计自己的分数达到{{ hanMeiMeiColleges[0].full_name }}分数线的可能性为
         <span class="danger">25%</span>
         。不过，她还不确定自己对{{ hanMeiMeiColleges[0].full_name }}的满意程度，需要您帮她做一些计划。
       </p>
