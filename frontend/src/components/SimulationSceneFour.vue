@@ -118,7 +118,7 @@ export default {
   },
   data() {
     var list = [];
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 7; i++) {
       list.push({
         value: ""
       });
@@ -154,18 +154,9 @@ export default {
     recommendedColleges() {
       return this.collegeRecommendations.recommended_colleges;
     },
-    checkCollege() {
-      console.log(this.selectedColleges);
-      for (var college in this.selectedColleges) {
-        if (college == null) {
-          return false;
-        }
-      }
-      return true;
-    },
     submitAnswer() {
       return {
-        selectedColleges: this.selectedColleges
+        selectedColleges: this.form.selectedColleges
       };
     }
   },

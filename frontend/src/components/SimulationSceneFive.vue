@@ -79,7 +79,7 @@
             :rules="{ required: true, message: '请选择一项', trigger: 'blur' }"
             required
           >
-            <el-radio-group v-model="selectedColleges[index].value" placeholder="请选择">
+            <el-radio-group v-model="form.selectedColleges[index].value" placeholder="请选择">
               <el-radio
                 v-for="(college, i) in hanMeiMeiCollegeOptions[0]"
                 :key="college.full_name"
@@ -107,7 +107,7 @@ export default {
   components: {},
   data() {
     var list = [];
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 7; i++) {
       list.push({
         value: ""
       });
@@ -142,17 +142,9 @@ export default {
     recommendedColleges() {
       return this.collegeRecommendations.recommended_colleges;
     },
-    checkCollege() {
-      for (var college in this.selectedColleges) {
-        if (college == null) {
-          return false;
-        }
-      }
-      return true;
-    },
     submitAnswer() {
       return {
-        selectedColleges: this.selectedColleges
+        selectedColleges: this.form.selectedColleges
       };
     }
   },
