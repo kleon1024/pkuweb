@@ -35,7 +35,9 @@
         <span class="danger">25%</span>
         。不过，她还不确定自己对{{ hanMeiMeiColleges[0].college }}的满意程度，需要您帮她做一些计划。
       </p>
-      <p> <span class="danger"> 韩梅梅认为她的风险偏好和你的相同，因此请根据你自己对风险的偏好为韩梅梅挑选院校。 </span> </p>
+      <p>
+        <span class="danger">韩梅梅认为她的风险偏好和你的相同，因此请根据你自己对风险的偏好为韩梅梅挑选院校。</span>
+      </p>
     </section>
     <section v-if="!correctAnswer">
       <p>请回答以下问题来确认您对情景的理解：</p>
@@ -54,40 +56,48 @@
     </section>
     <section v-if="correctAnswer">
       <h4>请您告诉她，在下列七种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
-      <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
-        <h4>
-          {{ index + 1 }}.
-          <span
-            v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[0].full_name"
+      <el-form ref="form" :model="form" label-position="left" label-width="90px" status-icon>
+        <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
+          <h4>
+            {{ index + 1 }}.
+            <span
+              v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[0].full_name"
+            >
+              对{{ hanMeiMeiColleges[0].full_name }}的满意度是
+              <span class="danger">{{ satisfaction }}</span>，上线概率
+              <span class="danger">25%</span>。
+            </span>
+            <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[1].full_name">
+              对{{ hanMeiMeiColleges[1].full_name }}的满意度是
+              <span class="danger">25</span>，上线概率是
+              <span class="danger">50%</span>。
+            </span>
+            <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[1].full_name">
+              对{{ hanMeiMeiColleges[1].full_name }}的满意度是
+              <span class="danger">25</span>，上线概率是
+              <span class="danger">50%</span>。
+            </span>
+            <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[0].full_name">
+              对{{ hanMeiMeiColleges[0].full_name }}的满意度是
+              <span class="danger">{{ satisfaction }}</span>，上线概率
+              <span class="danger">25%</span>。
+            </span>
+          </h4>
+          <el-form-item
+            :prop="'selectedColleges.' + index + '.value'"
+            :rules="{ required: true, message: '请选择一项', trigger: 'blur' }"
+            required
           >
-            对{{ hanMeiMeiColleges[0].full_name }}的满意度是
-            <span class="danger">{{ satisfaction }}</span>，上线概率
-            <span class="danger">25%</span>。
-          </span>
-          <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[1].full_name">
-            对{{ hanMeiMeiColleges[1].full_name }}的满意度是
-            <span class="danger">25</span>，上线概率是
-            <span class="danger">50%</span>。
-          </span>
-          <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[1].full_name">
-            对{{ hanMeiMeiColleges[1].full_name }}的满意度是
-            <span class="danger">25</span>，上线概率是
-            <span class="danger">50%</span>。
-          </span>
-          <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[0].full_name">
-            对{{ hanMeiMeiColleges[0].full_name }}的满意度是
-            <span class="danger">{{ satisfaction }}</span>，上线概率
-            <span class="danger">25%</span>。
-          </span>
-        </h4>
-        <el-radio-group v-model="selectedColleges[index]" placeholder="请选择">
-          <el-radio
-            v-for="(college, i) in hanMeiMeiCollegeOptions[0]"
-            :key="college.full_name"
-            :label="college.full_name"
-          >{{ String.fromCharCode('A'.charCodeAt(0) + i) + '. ' + college.full_name }}</el-radio>
-        </el-radio-group>
-      </el-row>
+            <el-radio-group v-model="form.selectedColleges[index].value" placeholder="请选择">
+              <el-radio
+                v-for="(college, i) in hanMeiMeiCollegeOptions[0]"
+                :key="college.full_name"
+                :label="college.full_name"
+              >{{ String.fromCharCode('A'.charCodeAt(0) + i) + '. ' + college.full_name }}</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-row>
+      </el-form>
     </section>
     <div align="center" style="margin-top: 50px;">
       <el-button type="primary" @click.stop="testDone">下一步</el-button>
@@ -107,12 +117,20 @@ export default {
     FillableZhiyuanForm
   },
   data() {
+    var list = [];
+    for (var i = 0; i < 6; i++) {
+      list.push({
+        value: ""
+      });
+    }
     return {
       tableData: [],
       q1_answer: "",
       q2_answer: "",
       satisfactions: [],
-      selectedColleges: Array(6).fill(null),
+      form: {
+        selectedColleges: list
+      },
       colleges: [],
       allColleges: [],
       satisfactionOptions: [],
@@ -137,6 +155,7 @@ export default {
       return this.collegeRecommendations.recommended_colleges;
     },
     checkCollege() {
+      console.log(this.selectedColleges);
       for (var college in this.selectedColleges) {
         if (college == null) {
           return false;
@@ -329,14 +348,13 @@ export default {
         } else {
           this.correctAnswer = true;
         }
-      } else if (!this.checkCollege) {
-        this.$message({
-          message: "请填写所有题目",
-          type: "error"
-        });
       } else {
-        this.$store.commit("storeSim4Answer", this.submitAnswer);
-        this.$emit("confirmed");
+        this.$refs["form"].validate(valid => {
+          if (valid) {
+            this.$store.commit("storeSim4Answer", this.submitAnswer);
+            this.$emit("confirmed");
+          }
+        });
       }
     },
     retrieveCollegeList(callback) {

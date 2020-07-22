@@ -13,12 +13,21 @@
         <el-table-column prop="college" label="院校"></el-table-column>
         <el-table-column prop="satisfaction" label="满意度">
           <template slot-scope="scope">
-            <span class="danger"> {{scope.row.satisfaction}} </span>
+            <span class="danger">{{scope.row.satisfaction}}</span>
           </template>
         </el-table-column>
       </el-table>
-      <p>经过资料查询，她认为如果被 {{ hanMeiMeiColleges[1].full_name }}录取，她的满意度为<span class="danger">25</span>，自己的分数超过 {{ hanMeiMeiColleges[1].full_name }}分数线的可能性为<span class="danger">50%</span>。</p>
-      <p>她估计自己的分数超过{{ hanMeiMeiColleges[0].full_name }}分数线的可能性为<span class="danger">25%</span>。不过，她还不确定自己对{{ hanMeiMeiColleges[0].full_name }}的满意程度，需要您帮她做一些计划。</p>
+      <p>
+        经过资料查询，她认为如果被 {{ hanMeiMeiColleges[1].full_name }}录取，她的满意度为
+        <span class="danger">25</span>
+        ，自己的分数超过 {{ hanMeiMeiColleges[1].full_name }}分数线的可能性为
+        <span class="danger">50%</span>。
+      </p>
+      <p>
+        她估计自己的分数超过{{ hanMeiMeiColleges[0].full_name }}分数线的可能性为
+        <span class="danger">25%</span>
+        。不过，她还不确定自己对{{ hanMeiMeiColleges[0].full_name }}的满意程度，需要您帮她做一些计划。
+      </p>
     </section>
     <section v-if="!correctAnswer">
       <p>请回答以下问题来确认您对情景的理解：</p>
@@ -38,32 +47,48 @@
 
     <section v-if="correctAnswer">
       <h4>请您告诉她，在下列七种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
-      <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
-        <h4>
-          {{ index + 1 }}.
-          <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[0].full_name">
-          对{{ hanMeiMeiColleges[0].full_name }}的满意度是<span class="danger">{{ satisfaction }} </span>，上线概率<span class="danger">25%</span>。
-          </span>
-          <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[1].full_name">
-          对{{ hanMeiMeiColleges[1].full_name }}的满意度是<span class="danger">25</span>，上线概率是<span class="danger">50%</span>。
-          </span>
-          <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[1].full_name">
-          对{{ hanMeiMeiColleges[1].full_name }}的满意度是<span class="danger">25</span>，上线概率是<span class="danger">50%</span>。
-          </span>
-          <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[0].full_name">
-          对{{ hanMeiMeiColleges[0].full_name }}的满意度是<span class="danger">{{ satisfaction }} </span>，上线概率<span class="danger">25%</span>。
-          </span>
-        </h4>
-        <el-radio-group v-model="selectedColleges[index]" placeholder="请选择">
-          <el-radio
-            v-for="(college, i) in hanMeiMeiCollegeOptions[0]"
-            :key="college.full_name"
-            :label="college.full_name"
+      <el-form ref="form" :model="form" label-position="left" label-width="90px" status-icon>
+        <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
+          <h4>
+            {{ index + 1 }}.
+            <span
+              v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[0].full_name"
+            >
+              对{{ hanMeiMeiColleges[0].full_name }}的满意度是
+              <span class="danger">{{ satisfaction }}</span>，上线概率
+              <span class="danger">25%</span>。
+            </span>
+            <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[1].full_name">
+              对{{ hanMeiMeiColleges[1].full_name }}的满意度是
+              <span class="danger">25</span>，上线概率是
+              <span class="danger">50%</span>。
+            </span>
+            <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[1].full_name">
+              对{{ hanMeiMeiColleges[1].full_name }}的满意度是
+              <span class="danger">25</span>，上线概率是
+              <span class="danger">50%</span>。
+            </span>
+            <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[0].full_name">
+              对{{ hanMeiMeiColleges[0].full_name }}的满意度是
+              <span class="danger">{{ satisfaction }}</span>，上线概率
+              <span class="danger">25%</span>。
+            </span>
+          </h4>
+          <el-form-item
+            :prop="'selectedColleges.' + index + '.value'"
+            :rules="{ required: true, message: '请选择一项', trigger: 'blur' }"
+            required
           >
-          {{ String.fromCharCode('A'.charCodeAt(0) + i) + '. ' +  college.full_name }}
-          </el-radio>
-        </el-radio-group>
-      </el-row>
+            <el-radio-group v-model="selectedColleges[index].value" placeholder="请选择">
+              <el-radio
+                v-for="(college, i) in hanMeiMeiCollegeOptions[0]"
+                :key="college.full_name"
+                :label="college.full_name"
+              >{{ String.fromCharCode('A'.charCodeAt(0) + i) + '. ' + college.full_name }}</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-row>
+      </el-form>
     </section>
 
     <div align="center" style="margin-top: 50px;">
@@ -81,18 +106,25 @@ export default {
   name: "SimulationSceneFive",
   components: {},
   data() {
+    var list = [];
+    for (var i = 0; i < 6; i++) {
+      list.push({
+        value: ""
+      });
+    }
     return {
       tableData: [],
       q1_answer: "",
       q2_answer: "",
       satisfactions: [],
-      selectedColleges: Array(6).fill(null),
-      selectedColleges: [],
+      form: {
+        selectedColleges: list
+      },
       colleges: [],
       allColleges: [],
       collegeOptions: [],
       satisfactionOptions: [],
-      correctAnswer: false,
+      correctAnswer: false
     };
   },
   computed: {
@@ -120,7 +152,7 @@ export default {
     },
     submitAnswer() {
       return {
-        selectedColleges: this.selectedColleges,
+        selectedColleges: this.selectedColleges
       };
     }
   },
@@ -166,14 +198,13 @@ export default {
         } else {
           this.correctAnswer = true;
         }
-      } else if (!this.checkCollege) {
-        this.$message({
-          message: "请填写所有题目",
-          type: "error"
-        });
       } else {
-        this.$store.commit("storeSim5Answer", this.submitAnswer);
-        this.$emit("confirmed");
+        this.$refs["form"].validate(valid => {
+          if (valid) {
+            this.$store.commit("storeSim5Answer", this.submitAnswer);
+            this.$emit("confirmed");
+          }
+        });
       }
     }
   }
