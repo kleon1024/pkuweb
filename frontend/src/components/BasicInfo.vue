@@ -123,7 +123,7 @@
           :key="`priority-question-${index}`"
         >
           <h4>
-            {{ index + 3 }}.
+            {{ index + 10 }}.
             {{ prioritySelectionQuestions[index].description }}（{{ prioritySelectionQuestions[index].hint }}）
           </h4>
           <PrioritySelect
@@ -135,7 +135,7 @@
           />
         </div>
 
-        <h4>7. 请评估下列信息来源对你了解录取规则，选择志愿院校有多大帮助</h4>
+        <h4>13. 请评估下列信息来源对你了解录取规则，选择志愿院校有多大帮助</h4>
         <el-row v-for="(option, index) in mediaSourceOptions" :key="option">
           <el-form-item
             :label="option"
@@ -151,7 +151,7 @@
           </el-form-item>
         </el-row>
 
-        <h4>8. 假设在录取过程结束后，您得知自己已被志愿中的某大学录取。请问您是否一定会入读该大学(第一空); 如果填写的是“否”，请问您打算在接下来一年里(第二空)</h4>
+        <h4>14. 假设在录取过程结束后，您得知自己已被志愿中的某大学录取。请问您是否一定会入读该大学(第一空); 如果填写的是“否”，请问您打算在接下来一年里(第二空)</h4>
         <el-row :gutter="20">
           <el-col :xs="24" :sm="8">
             <el-form-item label="第一空">
