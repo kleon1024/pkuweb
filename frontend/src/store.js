@@ -351,12 +351,12 @@ export default new Vuex.Store({
         "branch",
         "randomOrder",
       ],
-      // // Enable encription
-      // storage: {
-      //   getItem: (key) => ls.get(key),
-      //   setItem: (key, value) => ls.set(key, value),
-      //   removeItem: (key) => ls.remove(key),
-      // },
+      // Enable encription
+      storage: {
+        getItem: (key) => ls.get(key),
+        setItem: (key, value) => ls.set(key, value),
+        removeItem: (key) => ls.remove(key),
+      },
     })
   ]
 });
