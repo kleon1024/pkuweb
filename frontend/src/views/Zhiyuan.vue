@@ -214,9 +214,9 @@ export default {
       this.saveCheckpoint(() => {
         if (
           (parseInt(this.loginUser.class_selection) == 1 &&
-            this.loginUser.ranking > 11574) ||
+            this.loginUser.total_score < 434) ||
           (parseInt(this.loginUser.class_selection) == 2 &&
-            this.loginUser.ranking > 2759)
+            this.loginUser.total_score < 523)
         ) {
           if (major == 2) {
             this.$store.commit("saveStep", [11, 1]);
