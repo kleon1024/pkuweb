@@ -287,7 +287,7 @@ export default new Vuex.Store({
     storeSim4Answer(state, answer) { state.sim4Answer = answer; },
     storeSim5Answer(state, answer) { state.sim5Answer = answer; },
     storeSim12Answer(state, answer) { state.sim12Answer = answer; },
-    storeRiskForm(state, risk) { state.riskFrom = risk; },
+    storeRiskForm(state, risk) { state.riskForm = risk; },
   },
   actions: {
     login({ commit }, data) {
