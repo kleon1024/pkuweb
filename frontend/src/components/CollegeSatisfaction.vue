@@ -59,6 +59,16 @@ export default {
           "志愿)";
       });
       return result;
+    },
+    submitAnswer() {
+      var answers = this.intendedColleges.map((c, i) => {
+              return {
+                student_filled_satisfaction_score: this.satisfactionAnswers[i],
+                college: c.full_name
+              };
+            });
+      answers.push(this.satisfactionAnswers[4]);
+      return answers;
     }
   },
   methods: {
@@ -85,12 +95,7 @@ export default {
         } else {
           this.$store.commit(
             "storeZhiyuanSatisfactionAssessAnswers",
-            this.intendedColleges.map((c, i) => {
-              return {
-                student_filled_satisfaction_score: this.satisfactionAnswers[i],
-                college: c
-              };
-            })
+            this.submitAnswer
           );
           this.$emit("confirmed");
         }
