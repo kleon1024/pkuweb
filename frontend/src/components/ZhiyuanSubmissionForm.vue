@@ -8,7 +8,7 @@
         <br/> 班级：{{ loginUser.class_number }} 
         <br/>
     </div>
-    <div v-if="!isShow">
+    <div>
       <h5>为方便我们把报酬给您，请在下面的方框中写下您的支付宝/微信账号。（若您想通过其它支付方式获得报酬，请在框内详细说明）</h5>
       <el-input v-model="paymentMethod" type="text" placeholder="支付宝账号或其他支付方式" />
       <div align="right" style="margin-top: 15px">
