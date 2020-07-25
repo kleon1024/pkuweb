@@ -43,9 +43,10 @@ export default {
   },
   data() {
     return {
-      admissionScoresDialog: false,
-      selectedColleges: [],
-      paymentMethod: "",
+      paymentForm :{
+        pay: "",
+        paymentMethod: "",
+      }
     };
   },
   methods: {
