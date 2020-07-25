@@ -1,22 +1,39 @@
 <template>
   <div>
     <div>
-        <br/>
-        <br/> 姓名：{{ loginUser.name }} 
-        <br/> 学校：{{ highschool }} 
-        <br/> 科目：{{ class_select }} 
-        <br/> 班级：{{ loginUser.class_number }} 
-        <br/>
+      <br />
+      <br />
+      姓名：{{ loginUser.name }}
+      <br />
+      学校：{{ highschool }}
+      <br />
+      科目：{{ class_select }}
+      <br />
+      班级：{{ loginUser.class_number }}
+      <br />
     </div>
     <div>
-      <h5>为方便我们把报酬给您，请在下面的方框中写下您的支付宝/微信账号。（若您想通过其它支付方式获得报酬，请在框内详细说明）</h5>
-      <el-input v-model="paymentMethod" type="text" placeholder="支付宝账号或其他支付方式" />
+      <el-form
+        ref="paymentForm"
+        :model="paymentForm"
+        :rules="rules"
+        label-position="left"
+        label-width="0"
+        status-icon
+      >
+        <h5>为方便我们把报酬给您，请在下面的方框中写下您的支付宝/微信账号。（若您想通过其它支付方式获得报酬，请在框内详细说明）</h5>
+        <el-form-item prop="pay" required>
+          <el-radio-group v-model="paymentForm.pay">
+            <el-radio-button label="alipay">支付宝</el-radio-button>
+            <el-radio-button label="wechat">微信</el-radio-button>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item prop="paymentMethod" required>
+          <el-input v-model="paymentForm.paymentMethod" type="text" placeholder="支付宝账号或其他支付方式" />
+        </el-form-item>
+      </el-form>
       <div align="right" style="margin-top: 15px">
-        <el-button
-          class="action-button"
-          type="primary"
-          @click.stop="formDone"
-        >完成</el-button>
+        <el-button class="action-button" type="primary" @click.stop="formDone">完成</el-button>
       </div>
     </div>
   </div>
@@ -39,23 +56,24 @@ export default {
     FillableZhiyuanForm,
     ReadOnlyZhiyuanForm,
     CollegeAdmissionScoresTable,
-    CollegeStrategySuggestions
+    CollegeStrategySuggestions,
   },
   data() {
     return {
-      paymentForm :{
+      paymentForm: {
         pay: "",
         paymentMethod: "",
-      }
+      },
     };
   },
   methods: {
     formDone() {
-      this.$emit("confirmed", {
-        // zhiyuanColleges: this.zhiyuanColleges,
-        paymentMethod: this.paymentMethod,
+      this.$refs["paymentForm"].validate((valid) => {
+        if (valid) {
+          this.$emit("confirmed", this.paymentForm);
+        }
       });
-    }
+    },
   },
   computed: {
     ...mapState([
@@ -63,6 +81,12 @@ export default {
       "loginUser",
       "intendedAndRecommendedColleges",
     ]),
+    rules() {
+      return {
+        pay: [{ required: true, message: "请选择一项", trigger: "blur" }],
+        paymentMethod: [{ required: true, message: "请填写", trigger: "blur" }],
+      };
+    },
     isShow() {
       return this.loginUser.highschool == "A1";
     },
@@ -87,13 +111,17 @@ export default {
           return highschools[i].name;
         }
       }
-      return ""
+      return "";
     },
     class_select() {
-      var result = ""
-      switch(this.loginUser.class_selection) {
-        case 1: result = "理科"; break;
-        case 2: result = "文科"; break;
+      var result = "";
+      switch (this.loginUser.class_selection) {
+        case 1:
+          result = "理科";
+          break;
+        case 2:
+          result = "文科";
+          break;
       }
       return result;
     },
