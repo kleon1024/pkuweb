@@ -278,7 +278,7 @@ export default {
       );
     },
     onZhiyuanSubmissionFormDone(zhiyuanForm) {
-      this.$store.commit("savePaymentMethod", zhiyuanForm.paymentMethod);
+      this.$store.commit("savePaymentMethod", zhiyuanForm);
       this.saveCheckpoint(() => {
         this.logout();
       });
