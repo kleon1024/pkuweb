@@ -4,6 +4,14 @@ export default [
     code: "A1"
   },
   {
+    name: "银川一中",
+    code: "A5"
+  },
+  {
+    name: "银川二中",
+    code: "A4"
+  },
+  {
     name: "吴忠市回民中学",
     code: "A24"
   },
@@ -78,14 +86,6 @@ export default [
   {
     name: "吴忠中学",
     code: "A6"
-  },
-  {
-    name: "银川一中",
-    code: "A5"
-  },
-  {
-    name: "银川二中",
-    code: "A4"
   },
   {
     name: "固原一中",
