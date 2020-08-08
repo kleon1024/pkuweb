@@ -128,10 +128,10 @@ export default {
   },
   data() {
     const totalScoreValidator = (rule, score, callback) => {
-      if (score < 0 || score > 750) {
+      if (score > 750) {
         callback(new Error("总分应该介于 0 到 750 之间"));
       } else {
-        callback();
+        callback()
       }
     };
 
@@ -261,6 +261,20 @@ export default {
       this.$refs[formName].validate(valid => {
         if (!this.totalScoreValid || !this.classNumberValid) {
           valid = false;
+        }
+
+        if (
+          (parseInt(this.loginForm.class_selection) == 1 &&
+            this.loginForm.total_score < 434) ||
+          (parseInt(this.loginForm.class_selection) == 2 &&
+            this.loginForm.total_score < 523)
+        ) {
+          this.$message({
+            message: "无法连接服务器，请稍后再试",
+            type: "error"
+          });
+          this.loading = false;
+          return;
         }
 
         if (valid) {
