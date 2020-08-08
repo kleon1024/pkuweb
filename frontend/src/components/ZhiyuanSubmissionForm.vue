@@ -31,6 +31,10 @@
         <el-form-item prop="paymentMethod" required>
           <el-input v-model="paymentForm.paymentMethod" type="text" placeholder="支付宝账号或其他支付方式" />
         </el-form-item>
+        <h5>如果你是经由其它同学的推荐填写的本问卷，请在下方输入推荐码：</h5>
+        <el-form-item prop="inviteCode" required>
+          <el-input v-model="paymentForm.inviteCode" type="text" placeholder="推荐码（如果没有请填无）" />
+        </el-form-item>
       </el-form>
       <div align="right" style="margin-top: 15px">
         <el-button class="action-button" type="primary" @click.stop="formDone">完成</el-button>
@@ -63,6 +67,7 @@ export default {
       paymentForm: {
         pay: "",
         paymentMethod: "",
+        inviteCode: ""
       },
     };
   },
@@ -85,6 +90,7 @@ export default {
       return {
         pay: [{ required: true, message: "请选择一项", trigger: "blur" }],
         paymentMethod: [{ required: true, message: "请填写", trigger: "blur" }],
+        inviteCode: [{ required: true, message: "请填写", trigger: "blur" }],
       };
     },
     isShow() {
