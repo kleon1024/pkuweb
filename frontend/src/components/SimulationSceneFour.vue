@@ -8,10 +8,22 @@
         <span class="danger">在本情景中，你所获得的额外报酬和韩梅梅对录取院校的满意度相同。比如说，如果她对录取院校的满意度为10，那么你将额外获得10元。</span>
       </p>
       <p>韩梅梅没有告诉您高考分数，不过您知道她的分数远远超出一本线。目前，她还没确定一批次A院校该填什么：</p>
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="order" label="志愿号"></el-table-column>
-        <el-table-column prop="college" label="院校"></el-table-column>
-        <el-table-column prop="satisfaction" label="满意度">
+      <el-table
+        :data="tableData"
+        style="width: 100%"
+      >
+        <el-table-column
+          prop="order"
+          label="志愿号"
+        ></el-table-column>
+        <el-table-column
+          prop="college"
+          label="院校"
+        ></el-table-column>
+        <el-table-column
+          prop="satisfaction"
+          label="满意度"
+        >
           <template slot-scope="scope">
             <span class="danger">{{scope.row.satisfaction}}</span>
           </template>
@@ -20,9 +32,7 @@
       <p>
         她已经从招生办了解到，自己的分数远远超过{{ hanMeiMeiColleges[4].college }}往年的分数线。
         如果没有被自己的第一选择（一批次A院校）录取，那么她一定会被{{ hanMeiMeiColleges[4].college }}或者{{ hanMeiMeiColleges[2].college }},{{ hanMeiMeiColleges[3].college }}录取。
-        <span
-          class="danger"
-        >在这种情况下，她的满意度是20。也就是说，在这种情况下您一定能获得20元。</span>
+        <span class="danger">在这种情况下，她的满意度是20。也就是说，在这种情况下您一定能获得20元。</span>
       </p>
       <p>
         经过资料查询，她认为如果被{{ hanMeiMeiColleges[1].college }}录取，她的满意度为
@@ -55,40 +65,36 @@
       </el-radio-group>
     </section>
     <section v-if="correctAnswer">
-      <h4>请您告诉她，在下列七种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
-      <el-form ref="form" :model="form" label-position="left" label-width="0px" status-icon>
-        <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
-          <h4>
+      <h4>请您告诉她，在下列七种情况下，她应该选择哪一所大学作为一批次A院校。在下面的每道小题中，每题都有两个选项，随着题号的增加，你至多只能有一次机会从选项A切换到选项B。 </h4>
+      <el-form
+        ref="form"
+        :model="form"
+        label-position="left"
+        label-width="0px"
+        status-icon
+      >
+        <el-row
+          v-for="(satisfaction, index) in satisfactionOptions"
+          :key="index.toString()"
+        >
+          <h4 style="font-weight: bold">
             {{ index + 1 }}.
-            <span
-              v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[0].full_name"
-            >
-              对{{ hanMeiMeiColleges[0].full_name }}的满意度是
-              <span class="danger">{{ satisfaction }}</span>，上线概率
-              <span class="danger">25%</span>。
-            </span>
-            <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[1].full_name">
-              对{{ hanMeiMeiColleges[1].full_name }}的满意度是
-              <span class="danger">25</span>，上线概率是
-              <span class="danger">50%</span>。
-            </span>
-            <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[1].full_name">
-              对{{ hanMeiMeiColleges[1].full_name }}的满意度是
-              <span class="danger">25</span>，上线概率是
-              <span class="danger">50%</span>。
-            </span>
-            <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[0].full_name">
-              对{{ hanMeiMeiColleges[0].full_name }}的满意度是
-              <span class="danger">{{ satisfaction }}</span>，上线概率
-              <span class="danger">25%</span>。
-            </span>
+            对{{ hanMeiMeiColleges[1].full_name }}的满意度是
+            25，上线概率是
+            50%。
+            对{{ hanMeiMeiColleges[0].full_name }}的满意度是
+            <span class="danger">{{ satisfaction }}</span>，上线概率
+            25%。
           </h4>
           <el-form-item
             :prop="'selectedColleges.' + index + '.value'"
             :rules="{ required: true, message: '请选择一项', trigger: 'blur' }"
             required
           >
-            <el-radio-group v-model="form.selectedColleges[index].value" placeholder="请选择">
+            <el-radio-group
+              v-model="form.selectedColleges[index].value"
+              placeholder="请选择"
+            >
               <el-radio
                 v-for="(college, i) in hanMeiMeiCollegeOptions[0]"
                 :key="college.full_name"
@@ -99,8 +105,14 @@
         </el-row>
       </el-form>
     </section>
-    <div align="center" style="margin-top: 50px;">
-      <el-button type="primary" @click.stop="testDone">下一步</el-button>
+    <div
+      align="center"
+      style="margin-top: 50px;"
+    >
+      <el-button
+        type="primary"
+        @click.stop="testDone"
+      >下一步</el-button>
     </div>
   </div>
 </template>
@@ -114,13 +126,13 @@ import request from "@/plugins/request";
 export default {
   name: "SimulationSceneFour",
   components: {
-    FillableZhiyuanForm
+    FillableZhiyuanForm,
   },
   data() {
     var list = [];
     for (var i = 0; i < 7; i++) {
       list.push({
-        value: ""
+        value: "",
       });
     }
     return {
@@ -129,12 +141,12 @@ export default {
       q2_answer: "",
       satisfactions: [],
       form: {
-        selectedColleges: list
+        selectedColleges: list,
       },
       colleges: [],
       allColleges: [],
       satisfactionOptions: [],
-      correctAnswer: false
+      correctAnswer: false,
     };
   },
   computed: {
@@ -146,7 +158,7 @@ export default {
       "hanMeiMeiColleges",
       "hanMeiMeiCollegeOptions",
       "loginUser",
-      "randomOrder"
+      "randomOrder",
     ]),
     collegeRecommendations() {
       return this.loginUser.college_recommendations;
@@ -156,9 +168,28 @@ export default {
     },
     submitAnswer() {
       return {
-        selectedColleges: this.form.selectedColleges
+        selectedColleges: this.form.selectedColleges,
       };
-    }
+    },
+    checkAnswer() {
+      let changed = false;
+      let lastVal = "";
+      for (var a in this.form.selectedColleges) {
+        if (lastVal === "") {
+          lastVal = a.value;
+          continue;
+        } else {
+          if (a.value !== lastVal) {
+            if (changed) {
+              return false;
+            } else {
+              a.value = lastVal;
+            }
+          }
+        }
+      }
+      return true;
+    },
   },
   mounted() {
     this.retrieveCollegeList(this.init);
@@ -292,11 +323,11 @@ export default {
       }
 
       var collegeOptions = [];
-      var number0 = this.randomOrder;
+      var number0 = 1;
       var number1 = 1 - number0;
       collegeOptions.push([
         this.hanMeiMeiColleges[number0],
-        this.hanMeiMeiColleges[number1]
+        this.hanMeiMeiColleges[number1],
       ]);
 
       this.satisfactionOptions = [30, 35, 40, 45, 50, 55, 60];
@@ -308,18 +339,18 @@ export default {
         {
           order: "一批次B院校",
           college: this.hanMeiMeiColleges[2].full_name,
-          satisfaction: "20"
+          satisfaction: "20",
         },
         {
           order: "一批次C院校",
           college: this.hanMeiMeiColleges[3].full_name,
-          satisfaction: "20"
+          satisfaction: "20",
         },
         {
           order: "一批次D院校",
           college: this.hanMeiMeiColleges[4].full_name,
-          satisfaction: "20"
-        }
+          satisfaction: "20",
+        },
       ];
     },
     testDone() {
@@ -328,22 +359,29 @@ export default {
           let message = "题目1回答错误。请仔细阅读样例。";
           this.$alert(message, "请注意！", {
             confirmButtonText: "知道了",
-            type: "error"
+            type: "error",
           });
         } else if (this.q2_answer != "B") {
           let message = "题目2回答错误。请仔细阅读样例。";
           this.$alert(message, "请注意！", {
             confirmButtonText: "知道了",
-            type: "error"
+            type: "error",
           });
         } else {
           this.correctAnswer = true;
         }
       } else {
-        this.$refs["form"].validate(valid => {
+        this.$refs["form"].validate((valid) => {
           if (valid) {
-            this.$store.commit("storeSim4Answer", this.submitAnswer);
-            this.$emit("confirmed");
+            if (!this.checkAnswer) {
+              this.$message({
+                message: "请填写所有题目并确保只有一次选项切换",
+                type: "error",
+              });
+            } else {
+              this.$store.commit("storeSim4Answer", this.submitAnswer);
+              this.$emit("confirmed");
+            }
           }
         });
       }
@@ -353,7 +391,7 @@ export default {
         lock: true,
         text: "从服务器获取数据中，请耐心等待...",
         spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
+        background: "rgba(0, 0, 0, 0.7)",
       });
       request.post(`${this.API_URL}/college-admins`, {}, (err, res) => {
         console.log(res);
@@ -364,7 +402,7 @@ export default {
               confirmButtonText: "去检查",
               callback: () => {
                 busy.close();
-              }
+              },
             });
           } else {
             const returnedColleges = Array.from(res.data);
@@ -379,13 +417,13 @@ export default {
         } else {
           this.$message({
             message: "无法连接服务器，请稍后再试",
-            type: "error"
+            type: "error",
           });
           busy.close();
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

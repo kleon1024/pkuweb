@@ -8,10 +8,22 @@
         在了解了更多情况后，
         <span class="danger">韩梅梅对B,C,D中院校的满意度降低了</span>
       </p>
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="order" label="志愿号"></el-table-column>
-        <el-table-column prop="college" label="院校"></el-table-column>
-        <el-table-column prop="satisfaction" label="满意度">
+      <el-table
+        :data="tableData"
+        style="width: 100%"
+      >
+        <el-table-column
+          prop="order"
+          label="志愿号"
+        ></el-table-column>
+        <el-table-column
+          prop="college"
+          label="院校"
+        ></el-table-column>
+        <el-table-column
+          prop="satisfaction"
+          label="满意度"
+        >
           <template slot-scope="scope">
             <span class="danger">{{scope.row.satisfaction}}</span>
           </template>
@@ -46,40 +58,36 @@
     </section>
 
     <section v-if="correctAnswer">
-      <h4>请您告诉她，在下列七种情况下，她应该选择哪一所大学作为一批次A院校 ：</h4>
-      <el-form ref="form" :model="form" label-position="left" label-width="0px" status-icon>
-        <el-row v-for="(satisfaction, index) in satisfactionOptions" :key="index.toString()">
+      <h4>请您告诉她，在下列七种情况下，她应该选择哪一所大学作为一批次A院校 。在下面的每道小题中，每题都有两个选项，随着题号的增加，你至多只能有一次机会从选项A切换到选项B。 </h4>
+      <el-form
+        ref="form"
+        :model="form"
+        label-position="left"
+        label-width="0px"
+        status-icon
+      >
+        <el-row
+          v-for="(satisfaction, index) in satisfactionOptions"
+          :key="index.toString()"
+        >
           <h4>
             {{ index + 1 }}.
-            <span
-              v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[0].full_name"
-            >
-              对{{ hanMeiMeiColleges[0].full_name }}的满意度是
-              <span class="danger">{{ satisfaction }}</span>，上线概率
-              <span class="danger">25%</span>。
-            </span>
-            <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[1].full_name">
-              对{{ hanMeiMeiColleges[1].full_name }}的满意度是
-              <span class="danger">25</span>，上线概率是
-              <span class="danger">50%</span>。
-            </span>
-            <span v-if="hanMeiMeiCollegeOptions[0][0].full_name == hanMeiMeiColleges[1].full_name">
-              对{{ hanMeiMeiColleges[1].full_name }}的满意度是
-              <span class="danger">25</span>，上线概率是
-              <span class="danger">50%</span>。
-            </span>
-            <span v-if="hanMeiMeiCollegeOptions[0][1].full_name == hanMeiMeiColleges[0].full_name">
-              对{{ hanMeiMeiColleges[0].full_name }}的满意度是
-              <span class="danger">{{ satisfaction }}</span>，上线概率
-              <span class="danger">25%</span>。
-            </span>
+            对{{ hanMeiMeiColleges[1].full_name }}的满意度是
+            25，上线概率是
+            50%。
+            对{{ hanMeiMeiColleges[0].full_name }}的满意度是
+            <span class="danger">{{ satisfaction }}</span>，上线概率
+            25%。
           </h4>
           <el-form-item
             :prop="'selectedColleges.' + index + '.value'"
             :rules="{ required: true, message: '请选择一项', trigger: 'blur' }"
             required
           >
-            <el-radio-group v-model="form.selectedColleges[index].value" placeholder="请选择">
+            <el-radio-group
+              v-model="form.selectedColleges[index].value"
+              placeholder="请选择"
+            >
               <el-radio
                 v-for="(college, i) in hanMeiMeiCollegeOptions[0]"
                 :key="college.full_name"
@@ -91,8 +99,14 @@
       </el-form>
     </section>
 
-    <div align="center" style="margin-top: 50px;">
-      <el-button type="primary" @click.stop="testDone">下一步</el-button>
+    <div
+      align="center"
+      style="margin-top: 50px;"
+    >
+      <el-button
+        type="primary"
+        @click.stop="testDone"
+      >下一步</el-button>
     </div>
   </div>
 </template>
@@ -109,7 +123,7 @@ export default {
     var list = [];
     for (var i = 0; i < 7; i++) {
       list.push({
-        value: ""
+        value: "",
       });
     }
     return {
@@ -118,13 +132,13 @@ export default {
       q2_answer: "",
       satisfactions: [],
       form: {
-        selectedColleges: list
+        selectedColleges: list,
       },
       colleges: [],
       allColleges: [],
       collegeOptions: [],
       satisfactionOptions: [],
-      correctAnswer: false
+      correctAnswer: false,
     };
   },
   computed: {
@@ -134,7 +148,7 @@ export default {
       "otherZhiyuanSatisfactionAssessAnswers",
       "xiaoMingSatisfactions",
       "hanMeiMeiColleges",
-      "hanMeiMeiCollegeOptions"
+      "hanMeiMeiCollegeOptions",
     ]),
     collegeRecommendations() {
       return this.loginUser.college_recommendations;
@@ -144,9 +158,28 @@ export default {
     },
     submitAnswer() {
       return {
-        selectedColleges: this.form.selectedColleges
+        selectedColleges: this.form.selectedColleges,
       };
-    }
+    },
+    checkAnswer() {
+      let changed = false;
+      let lastVal = "";
+      for (var a in this.form.selectedColleges) {
+        if (lastVal === "") {
+          lastVal = a.value;
+          continue;
+        } else {
+          if (a.value !== lastVal) {
+            if (changed) {
+              return false;
+            } else {
+              a.value = lastVal;
+            }
+          }
+        }
+      }
+      return true;
+    },
   },
   mounted() {
     this.init();
@@ -159,18 +192,18 @@ export default {
         {
           order: "一批次B院校",
           college: this.hanMeiMeiColleges[2].full_name,
-          satisfaction: "5"
+          satisfaction: "5",
         },
         {
           order: "一批次C院校",
           college: this.hanMeiMeiColleges[3].full_name,
-          satisfaction: "5"
+          satisfaction: "5",
         },
         {
           order: "一批次D院校",
           college: this.hanMeiMeiColleges[4].full_name,
-          satisfaction: "5"
-        }
+          satisfaction: "5",
+        },
       ];
     },
     testDone() {
@@ -179,27 +212,34 @@ export default {
           let message = "题目1回答错误。请仔细阅读样例。";
           this.$alert(message, "请注意！", {
             confirmButtonText: "知道了",
-            type: "error"
+            type: "error",
           });
         } else if (this.q2_answer != "B") {
           let message = "题目2回答错误。请仔细阅读样例。";
           this.$alert(message, "请注意！", {
             confirmButtonText: "知道了",
-            type: "error"
+            type: "error",
           });
         } else {
           this.correctAnswer = true;
         }
       } else {
-        this.$refs["form"].validate(valid => {
+        this.$refs["form"].validate((valid) => {
           if (valid) {
-            this.$store.commit("storeSim5Answer", this.submitAnswer);
-            this.$emit("confirmed");
+            if (!this.checkAnswer) {
+              this.$message({
+                message: "请填写所有题目并确保只有一次选项切换",
+                type: "error",
+              });
+            } else {
+              this.$store.commit("storeSim5Answer", this.submitAnswer);
+              this.$emit("confirmed");
+            }
           }
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
