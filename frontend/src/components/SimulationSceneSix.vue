@@ -27,12 +27,12 @@
             <el-radio-group v-model="item.value">
               <el-radio
                 label="A"
-                style="margin-right: 5px; font-weight: bold;"
-              ><h4>50%的概率获得 25元，50%的概率获得20元</h4></el-radio>
+                style="margin-right: 5px; font-weight: bold; font-size: 120%;"
+              >50%的概率获得 25元，50%的概率获得20元</el-radio>
               <el-radio
                 label="B"
-                style="margin-right: 5px; font-weight: bold;"
-              ><h4>25%的概率获得 <span class="danger"> {{ 30 + index * 5 }} </span> 元，75%的概率获得20元</h4></el-radio>
+                style="margin-right: 5px; font-weight: bold; font-size: 120%;"
+              >25%的概率获得 <span class="danger"> {{ 30 + index * 5 }} </span> 元，75%的概率获得20元</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-row>
@@ -100,6 +100,7 @@ export default {
               return false;
             } else {
               a = lastVal;
+              changed = true;
             }
           }
         }

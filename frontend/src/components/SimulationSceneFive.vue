@@ -174,6 +174,7 @@ export default {
               return false;
             } else {
               a.value = lastVal;
+              changed = true;
             }
           }
         }
