@@ -174,7 +174,9 @@ export default {
     checkAnswer() {
       let changed = false;
       let lastVal = "";
-      for (var a in this.form.selectedColleges) {
+      console.log(this.form.selectedColleges)
+      for (var index in this.form.selectedColleges) {
+        var a = this.form.selectedColleges[index];
         if (lastVal === "") {
           lastVal = a.value;
           continue;
@@ -183,7 +185,7 @@ export default {
             if (changed) {
               return false;
             } else {
-              a.value = lastVal;
+              lastVal = a.value;
               changed = true;
             }
           }
@@ -395,7 +397,6 @@ export default {
         background: "rgba(0, 0, 0, 0.7)",
       });
       request.post(`${this.API_URL}/college-admins`, {}, (err, res) => {
-        console.log(res);
         if (res) {
           if (res.data.failed) {
             this.$alert(res.data.message, "获取数据失败", {
@@ -411,7 +412,6 @@ export default {
               c1.full_name.localeCompare(c2.full_name, "zh-CN")
             ); // 按照大学名称字母排序;
             this.allColleges = returnedColleges;
-            console.log(this.allColleges);
             callback();
             busy.close();
           }

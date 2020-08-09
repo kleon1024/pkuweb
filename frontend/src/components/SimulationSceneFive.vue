@@ -70,7 +70,7 @@
           v-for="(satisfaction, index) in satisfactionOptions"
           :key="index.toString()"
         >
-          <h4>
+          <h4 style="font-weight: bold">
             {{ index + 1 }}.
             对{{ hanMeiMeiColleges[1].full_name }}的满意度是
             25，上线概率是
