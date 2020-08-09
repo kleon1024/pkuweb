@@ -164,7 +164,8 @@ export default {
     checkAnswer() {
       let changed = false;
       let lastVal = "";
-      for (var a in this.form.selectedColleges) {
+      for (var index in this.form.selectedColleges) {
+        var a = this.form.selectedColleges[index];
         if (lastVal === "") {
           lastVal = a.value;
           continue;
@@ -173,7 +174,7 @@ export default {
             if (changed) {
               return false;
             } else {
-              a.value = lastVal;
+              lastVal = a.value;
               changed = true;
             }
           }

@@ -83,23 +83,19 @@ export default {
   computed: {
     ...mapState(["randomOrder"]),
     checkAnswer() {
-      for (var a in this.riskForm.risk_list) {
-        if (a == "") {
-          return false;
-        }
-      }
-      let changed = false;
-      let lastVal = "";
-      for (var a in this.riskForm.risk_list) {
+      var changed = false;
+      var lastVal = "";
+      for (var index in this.riskForm.risk_list) {
+        var a = this.riskForm.risk_list[index]
         if (lastVal === "") {
-          lastVal = a;
+          lastVal = a.value;
           continue;
         } else {
-          if (a !== lastVal) {
+          if (a.value !== lastVal) {
             if (changed) {
               return false;
             } else {
-              a = lastVal;
+              lastVal = a.value;
               changed = true;
             }
           }
