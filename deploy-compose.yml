@@ -56,7 +56,7 @@ services:
     restart: always
     image: dockerkleon/pkuweb:data_backend
     environment:
-      - API_ENV=roduction
+      - API_ENV=production
 
   mongo-express:
     networks:

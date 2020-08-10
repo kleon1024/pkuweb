@@ -77,16 +77,8 @@
           v-for="(satisfaction, index) in satisfactionOptions"
           :key="index.toString()"
         >
-          <h4 style="font-weight: bold">
-            {{ index + 1 }}.
-            对{{ hanMeiMeiColleges[1].full_name }}的满意度是
-            25，上线概率是
-            50%。
-            对{{ hanMeiMeiColleges[0].full_name }}的满意度是
-            <span class="danger">{{ satisfaction }}</span>，上线概率
-            25%。
-          </h4>
           <el-form-item
+            :label="'1(' + (index + 1) + ')：'"
             :prop="'selectedColleges.' + index + '.value'"
             :rules="{ required: true, message: '请选择一项', trigger: 'blur' }"
             required
@@ -96,10 +88,15 @@
               placeholder="请选择"
             >
               <el-radio
-                v-for="(college, i) in hanMeiMeiCollegeOptions[0]"
-                :key="college.full_name"
-                :label="college.full_name"
-              >{{ String.fromCharCode('A'.charCodeAt(0) + i) + '. ' + college.full_name }}</el-radio>
+                key="A"
+                label="A"
+                style="margin-right: 5px; font-weight: bold; font-size: 120%;"
+              >对{{ hanMeiMeiColleges[1].full_name }}的满意度是25，上线概率是50%。 </el-radio>
+              <el-radio
+                key="B"
+                label="B"
+                style="margin-right: 5px; font-weight: bold; font-size: 120%;"
+              > 对{{ hanMeiMeiColleges[0].full_name }}的满意度是<span class="danger">{{ satisfaction }}</span>，上线概率25%。</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-row>
@@ -174,7 +171,7 @@ export default {
     checkAnswer() {
       let changed = false;
       let lastVal = "";
-      console.log(this.form.selectedColleges)
+      console.log(this.form.selectedColleges);
       for (var index in this.form.selectedColleges) {
         var a = this.form.selectedColleges[index];
         if (lastVal === "") {
@@ -376,15 +373,8 @@ export default {
       } else {
         this.$refs["form"].validate((valid) => {
           if (valid) {
-            if (!this.checkAnswer) {
-              this.$message({
-                message: "请填写所有题目并确保只有一次选项切换",
-                type: "error",
-              });
-            } else {
-              this.$store.commit("storeSim4Answer", this.submitAnswer);
-              this.$emit("confirmed");
-            }
+            this.$store.commit("storeSim4Answer", this.submitAnswer);
+            this.$emit("confirmed");
           }
         });
       }

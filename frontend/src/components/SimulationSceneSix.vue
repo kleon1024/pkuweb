@@ -86,7 +86,7 @@ export default {
       var changed = false;
       var lastVal = "";
       for (var index in this.riskForm.risk_list) {
-        var a = this.riskForm.risk_list[index]
+        var a = this.riskForm.risk_list[index];
         if (lastVal === "") {
           lastVal = a.value;
           continue;
@@ -109,15 +109,8 @@ export default {
     testDone() {
       this.$refs["riskForm"].validate((valid) => {
         if (valid) {
-          if (!this.checkAnswer) {
-            this.$message({
-              message: "请填写所有题目并确保只有一次选项切换",
-              type: "error",
-            });
-          } else {
-            this.$store.commit("storeRiskForm", this.riskForm);
-            this.$emit("confirmed");
-          }
+          this.$store.commit("storeRiskForm", this.riskForm);
+          this.$emit("confirmed");
         }
       });
     },
