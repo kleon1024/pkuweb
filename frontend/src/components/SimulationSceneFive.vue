@@ -63,7 +63,7 @@
         ref="form"
         :model="form"
         label-position="left"
-        label-width="0px"
+        label-width="90px"
         status-icon
       >
         <el-row
@@ -83,12 +83,12 @@
               <el-radio
                 key="A"
                 label="A"
-                style="margin-right: 10px; font-weight: bold; font-size: 120%;"
+                style="margin-right: 5px; font-weight: bold; font-size: 120%;"
               > A.对{{ hanMeiMeiColleges[1].full_name }}的满意度是25，上线概率是50%。 </el-radio>
               <el-radio
                 key="B"
                 label="B"
-                style="margin-right: 10px; font-weight: bold; font-size: 120%;"
+                style="margin-right: 5px; font-weight: bold; font-size: 120%;"
               > B.对{{ hanMeiMeiColleges[0].full_name }}的满意度是<span class="danger">{{ satisfaction }}</span>，上线概率25%。</el-radio>
             </el-radio-group>
           </el-form-item>
