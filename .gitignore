@@ -162,3 +162,6 @@ vignettes/*.pdf
 
 # pkgdown site
 docs/
+
+
+mongodb/
