@@ -53,6 +53,12 @@
             :closable="false"
             title="注意：本调查和高考志愿填报无关。同学们务必通过宁夏教育考试院公布的高考志愿填报入口来填报志愿。"
           />
+          <el-alert
+            type="info"
+            center
+            :closable="false"
+            title="我们的调查活动将于近期结束，请有意向参与但还未完成问卷的同学尽快填写！"
+          />
         </div>
         <router-view @logout="logout" />
       </el-main>
