@@ -43,12 +43,24 @@
       <el-main style="padding: 20px 5px;">
         <div>
           <el-alert
+            type="success"
+            center
+            title="建议您使用 Chrome, Firefox 或者 Safari 浏览器访问本网站，以获取最佳的志愿调查体验"
+          />
+          <el-alert
             type="info"
             center
             :closable="false"
-            title="本次问卷调查已经截止，感谢各位同学的关注和支持！"
+            title="注意：本调查和高考志愿填报无关。同学们务必通过宁夏教育考试院公布的高考志愿填报入口来填报志愿。"
+          />
+          <el-alert
+            type="error"
+            center
+            :closable="false"
+            title="我们的调查活动将于今天24时结束，请有意向但还未完成填写的同学抓紧时间"
           />
         </div>
+        <router-view @logout="logout" />
       </el-main>
     </el-container>
   </div>
