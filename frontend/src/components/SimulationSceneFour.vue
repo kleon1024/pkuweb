@@ -32,7 +32,8 @@
       <p>
         她已经从招生办了解到，自己的分数远远超过{{ hanMeiMeiColleges[4].college }}往年的分数线。
         如果没有被自己的第一选择（一批次A院校）录取，那么她一定会被{{ hanMeiMeiColleges[4].college }}或者{{ hanMeiMeiColleges[2].college }},{{ hanMeiMeiColleges[3].college }}录取。
-        <span class="danger">在这种情况下，她的满意度是20。也就是说，在这种情况下您一定能获得20元。</span>
+        在这种情况下，她的满意度是20，您一定能获得20元。
+        如果她达到一批次院校分数线，但放弃入学资格，她的满意度是0，您将不会获得任何奖励。
       </p>
       <p>
         经过资料查询，她认为如果被{{ hanMeiMeiColleges[1].college }}录取，她的满意度为
