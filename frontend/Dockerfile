@@ -1,5 +1,5 @@
 # build stage
-FROM node:13-alpine3.10 as build-stage
+FROM node:stable-alpine as build-stage
 WORKDIR /app
 COPY package*.json ./
 
@@ -8,7 +8,7 @@ COPY . .
 RUN npm run build
 
 # production stage
-FROM node:13-alpine3.10 as production-stage
+FROM node:stable-alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 COPY --from=build-stage /app/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
