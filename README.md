@@ -35,5 +35,15 @@ If you encounter a "git pull" error:
 git pull && git push origin master
 ```
 
+# How to deploy
 
+Install environment:
 
+```
+bash env.sh
+```
+
+Then deploy:
+```
+bash deploy.sh
+```
