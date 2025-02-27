@@ -29,7 +29,10 @@ services:
     networks:
       - nginx-proxy
     restart: always
-    image: dockerkleon/pkuweb:frontend
+    #image: dockerkleon/pkuweb:frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     environment:
       - VIRTUAL_HOST=www.pkuzhiyuan.com
       - LETSENCRYPT_HOST=www.pkuzhiyuan.com
@@ -43,7 +46,10 @@ services:
       - nginx-proxy
       - backend
     restart: always
-    image: dockerkleon/pkuweb:backend
+    #image: dockerkleon/pkuweb:backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     environment:
       - VIRTUAL_HOST=api.pkuzhiyuan.com
       - LETSENCRYPT_HOST=api.pkuzhiyuan.com
